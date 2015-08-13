@@ -3,11 +3,11 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var mongoose = require('mongoose');
-var UserModel = mongoose.model('User');
+var TeamModel = mongoose.model('Team');
 
 module.exports = function(app) {
 
-    var googleConfig = app.getValue('env').GOOGLEUSER;
+    var googleConfig = app.getValue('env').GOOGLETEAM;
 
     var googleCredentials = {
         clientID: googleConfig.clientID,
@@ -16,26 +16,24 @@ module.exports = function(app) {
     };
 
     var verifyCallback = function(accessToken, refreshToken, profile, done) {
-        UserModel.findOne({
+        console.log('profile:', profile)
+        TeamModel.findOne({
                 'googleId': profile.id
             }).exec()
-            .then(function(user) {
-                if (user) {
-                    return user;
+            .then(function(team) {
+                if (team) {
+                    return team;
                 } else {
-                    return UserModel.create({
-                        firstName: profile.name.givenName,
-                        lastName: profile.name.familyName,
-                        email: profile.emails[0].value,
+                    // console.log(profile)
+                    return TeamModel.create({
                         googleId: profile.id,
-                        photo: profile._json.picture
                     });
                 }
-            }).then(function(userToLogin) {
-                console.log(userToLogin)
-                done(null, userToLogin);
+            }).then(function(createdTeam) {
+                // console.log(createdTeam)
+                done(null, createdTeam);
             }, function(err) {
-                console.error('Error creating user from Google authentication', err);
+                console.error('Error creating team from Google authentication', err);
                 done(err);
             });
 
@@ -43,14 +41,15 @@ module.exports = function(app) {
 
     passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
 
-    app.get('/auth/google/user', passport.authenticate('google', {
+    app.get('/auth/google/team', passport.authenticate('google', {
         scope: [
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email'
+            // 'https://mail.google.com',
+            'https://www.googleapis.com/auth/gmail.modify',
+            'https://www.googleapis.com/auth/userinfo.profile'
         ]
     }));
 
-    app.get('/auth/google/user/callback',
+    app.get('/auth/google/team/callback',
         passport.authenticate('google', {
             failureRedirect: '/login'
         }),

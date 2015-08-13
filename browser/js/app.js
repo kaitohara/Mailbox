@@ -6,7 +6,10 @@ app.config(function($urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
-    $urlRouterProvider.when('/auth/google', function() {
+    $urlRouterProvider.when('/auth/google/user', function() {
+        window.location.reload();
+    });
+    $urlRouterProvider.when('/auth/google/team', function() {
         window.location.reload();
     });
 });
