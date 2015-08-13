@@ -25,19 +25,13 @@ var schema = new mongoose.Schema({
     available: {
         type: Boolean
     },
-    assignments: {
+    myInbox: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Converstaion'
+        ref: 'Thread'
     },
     salt: {
         type: String
-    },
-    twitter: {
-        id: String,
-        username: String,
-        token: String,
-        tokenSecret: String
-    },
+    }
     google: {
         id: String,
         name: String,
