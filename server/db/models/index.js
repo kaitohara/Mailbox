@@ -6,5 +6,4 @@ require('./handle');
 require('./team');
 require('./inbound'); // ?
 require('./outbound'); // ?
-require('./handle');
 require('./conversation');
