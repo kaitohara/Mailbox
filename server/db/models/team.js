@@ -5,9 +5,12 @@ var schema = new mongoose.Schema({
     name: {
         type: String
     },
-    messages: {
+    threads: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Conversation'
+        ref: 'Thread'
+    },
+    emailAddresses: {
+        type: [String]
     }
 });
 

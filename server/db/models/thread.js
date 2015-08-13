@@ -2,13 +2,11 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    emailObj: {
-        type: Object
+    messages: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Email'
     },
-    archived: {
-        type: Boolean
-    },
-    draft: {
+    associatedEmail: {
         type: String
     },
     assignedTo: {
@@ -18,8 +16,14 @@ var schema = new mongoose.Schema({
     assignedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    googleThreadId: {
+        type: String
+    },
+    archived: {
+        type: Boolean
     }
 });
 
 
-mongoose.model('Inbound', schema);
+mongoose.model('Thread', schema);
