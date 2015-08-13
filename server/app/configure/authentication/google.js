@@ -16,24 +16,24 @@ module.exports = function(app) {
     };
 
     var verifyCallback = function(accessToken, refreshToken, profile, done) {
-        console.log('verifying')
         UserModel.findOne({
                 'google.id': profile.id
             }).exec()
             .then(function(user) {
-                console.log('trying to log in')
                 if (user) {
                     return user;
                 } else {
-                    console.log(profile)
                     return UserModel.create({
-                        google: {
-                            id: profile.id
-                        }
+                        firstName: profile.name.givenName,
+                        lastName: profile.name.familyName,
+                        email: profile.emails[0].value,
+                        googleId: profile.id,
+                        photo: profile._json.picture
                     });
                 }
 
             }).then(function(userToLogin) {
+                console.log(userToLogin)
                 done(null, userToLogin);
             }, function(err) {
                 console.error('Error creating user from Google authentication', err);
