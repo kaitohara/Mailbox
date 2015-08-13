@@ -9,6 +9,9 @@ app.config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.when('/auth/google/user', function() {
         window.location.reload();
     });
+    $urlRouterProvider.when('/auth/google/team', function() {
+        window.location.reload();
+    });
 });
 
 // This app.run is for controlling access to specific states.
