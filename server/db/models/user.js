@@ -3,11 +3,31 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+    username: {
+        type: String
+    },
     email: {
         type: String
     },
     password: {
         type: String
+    },
+    photo: {
+        type: String
+    },
+    admin: {
+        type: Boolean
+    },
+    teams: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Team'
+    },
+    available: {
+        type: Boolean
+    },
+    assignments: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Converstaion'
     },
     salt: {
         type: String
@@ -17,9 +37,6 @@ var schema = new mongoose.Schema({
         username: String,
         token: String,
         tokenSecret: String
-    },
-    facebook: {
-        id: String
     },
     google: {
         id: String
