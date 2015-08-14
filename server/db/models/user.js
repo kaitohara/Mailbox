@@ -37,6 +37,9 @@ var schema = new mongoose.Schema({
     },
     salt: {
         type: String
+    },
+    accessToken: {
+        type: String
     }
 });
 
