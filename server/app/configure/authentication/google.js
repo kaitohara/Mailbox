@@ -35,7 +35,8 @@ module.exports = function(app) {
                     return user;
                 } else {
                     console.log("didn't find user! gonna make one for ya")
-                    console.log(accessToken, refreshToken)
+                    console.log('this is the access token: ', accessToken)
+                    console.log('this is the refresh token: ', refreshToken)
                     return UserModel.create({
                         firstName: profile.name.givenName,
                         lastName: profile.name.familyName,
@@ -46,7 +47,7 @@ module.exports = function(app) {
                     });
                 }
             }).then(function(userToLogin) {
-                console.log(userToLogin)
+                console.log('now this user is created and will be logged in: ', userToLogin)
                 done(null, userToLogin);
             }, function(err) {
                 console.error('Error creating user from Google authentication', err);
@@ -67,17 +68,21 @@ module.exports = function(app) {
         ]
     }));
 
+// why do we have this route?
     app.get('/connect/google', function(req, res){
-        console.log(req.query)
+        console.log('in /connect/google route req.query: ', req.query)
         //find a team based on user input to form and add the token
         res.end(JSON.stringify(req.query, null, 2))
     })
 
+// route that gets hit from the add team callback
     app.get('/callback', function(req, res){
-        console.log('hit this')
+        console.log('hit the add team callback req: ', req)
+        console.log('hit the add team callback res: ', res)
         res.redirect('/')
     })
 
+// route that gets hit from the user login callback
     app.get('/auth/google/user/callback',
         passport.authenticate('google', {
             failureRedirect: '/login'

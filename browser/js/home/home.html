@@ -1,4 +1,6 @@
 <section id="home">
     <a href="/connect/google">Add a Team</a>
-    <button ui-sref="https://www.googleapis.com/gmail/v1/users/me/threads">Get Emails</button>
+    <button ng-click='getUsersGmailThreads()'>Get Emails</button>
 </section>
+
+The threads: {{threads}}
