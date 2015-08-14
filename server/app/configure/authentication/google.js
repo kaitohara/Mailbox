@@ -2,8 +2,8 @@
 
 'use strict';
 
-var passportUser = require('passport');
-var passportTeam = require('passport');
+var passport = require('passport');
+
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
@@ -16,23 +16,15 @@ var grant = new Grant(require('./config.json'));
 module.exports = function(app) {
 
     app.use(grant)
-    var googleConfigUser = app.getValue('env').GOOGLEUSER;
-    var googleConfigTeam = app.getValue('env').GOOGLETEAM;
+    var googleConfig = app.getValue('env').GOOGLE;
 
-    var googleCredentialsUser = {
-        clientID: googleConfigUser.clientID,
-        clientSecret: googleConfigUser.clientSecret,
-        callbackURL: googleConfigUser.callbackURL
+    var googleCredentials = {
+        clientID: googleConfig.clientID,
+        clientSecret: googleConfig.clientSecret,
+        callbackURL: googleConfig.callbackURL
     };
 
-    var googleCredentialsTeam = {
-        clientID: googleConfigUser.clientID,
-        clientSecret: googleConfigUser.clientSecret,
-        callbackURL: googleConfigUser.callbackURL
-    };
-
-    var verifyCallbackUser = function(accessToken, refreshToken, profile, done) {
-        console.log(profile)
+    var verifyCallback = function(accessToken, refreshToken, profile, done) {
         UserModel.findOne({
                 'googleId': profile.id
             }).exec()
@@ -41,7 +33,7 @@ module.exports = function(app) {
                     console.log("found User", user)
                     return user;
                 } else {
-                    console.log("didn't find user!")
+                    console.log("didn't find user! gonna make one for ya")
                     return UserModel.create({
                         firstName: profile.name.givenName,
                         lastName: profile.name.familyName,
@@ -59,61 +51,17 @@ module.exports = function(app) {
             });
     };
 
-    var verifyCallbackTeam = function(accessToken, refreshToken, profile, done) {
-        console.log('profile:', profile)
-        TeamModel.findOne({
-                'googleId': profile.id
-            }).exec()
-            .then(function(team) {
-                if (team) {
-                    return team;
-                } else {
-                    // console.log(profile)
-                    return TeamModel.create({
-                        googleId: profile.id,
-                    });
-                }
-            }).then(function(createdTeam) {
-                // console.log(createdTeam)
-                // request.get('https://www.googleapis.com/gmail/v1/users/'+profile.id+'/messages?maxResults=10&key='+APIKEY, function(error, response, body){
-                //     console.log(body)
-                // })
-                done(null, createdTeam);
-            }, function(err) {
-                console.error('Error creating team from Google authentication', err);
-                done(err);
-            });
-
-    };
-
     function middlefunc(req, res, next){
-        passportUser.use(new GoogleStrategy(googleCredentialsUser, verifyCallbackUser));
+        passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
         next();
     }
 
-    function middlefunc2(req, res, next){
-        passportTeam.use(new GoogleStrategy(googleCredentialsTeam, verifyCallbackTeam));
-        next();
-    }
-
-
-
-
-    app.get('/auth/google/user', middlefunc, passportUser.authenticate('google', {
+    app.get('/auth/google/user', middlefunc, passport.authenticate('google', {
         scope: [
             'https://www.googleapis.com/auth/userinfo.profile',
             'https://www.googleapis.com/auth/userinfo.email'
         ]
     }));
-
-    // app.get('/auth/google/team', middlefunc2, passportTeam.authenticate('google', {
-    //     scope: [
-    //         // 'https://mail.google.com',
-    //         'https://www.googleapis.com/auth/gmail.modify',
-    //         'https://www.googleapis.com/auth/userinfo.profile'
-    //     ],
-    //     accessType: 'offline'
-    // }));
 
     app.get('/connect/google', function(req, res){
         console.log(req.query)
@@ -126,17 +74,7 @@ module.exports = function(app) {
     })
 
     app.get('/auth/google/user/callback',
-        passportUser.authenticate('google', {
-            failureRedirect: '/login'
-        }),
-        function(req, res) {
-            res.redirect('/');
-        });
-
-
-
-    app.get('/auth/google/team/callback',
-        passportTeam.authenticate('google', {
+        passport.authenticate('google', {
             failureRedirect: '/login'
         }),
         function(req, res) {
