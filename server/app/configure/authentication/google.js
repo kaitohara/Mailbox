@@ -65,6 +65,7 @@ module.exports = function(app) {
 
     app.get('/connect/google', function(req, res){
         console.log(req.query)
+        //find a team based on user input to form and add the token
         res.end(JSON.stringify(req.query, null, 2))
     })
 
