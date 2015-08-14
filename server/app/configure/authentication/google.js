@@ -25,6 +25,7 @@ module.exports = function(app) {
     };
 
     var verifyCallback = function(accessToken, refreshToken, profile, done) {
+        console.log('accessToken is:' + accessToken, "refreshToken is:" + refreshToken)
         UserModel.findOne({
                 'googleId': profile.id
             }).exec()
@@ -34,12 +35,14 @@ module.exports = function(app) {
                     return user;
                 } else {
                     console.log("didn't find user! gonna make one for ya")
+                    console.log(accessToken, refreshToken)
                     return UserModel.create({
                         firstName: profile.name.givenName,
                         lastName: profile.name.familyName,
                         email: profile.emails[0].value,
                         googleId: profile.id,
-                        photo: profile._json.picture
+                        photo: profile._json.picture,
+                        accessToken: accessToken
                     });
                 }
             }).then(function(userToLogin) {
@@ -58,6 +61,7 @@ module.exports = function(app) {
 
     app.get('/auth/google/user', middlefunc, passport.authenticate('google', {
         scope: [
+            "https://mail.google.com",
             'https://www.googleapis.com/auth/userinfo.profile',
             'https://www.googleapis.com/auth/userinfo.email'
         ]
