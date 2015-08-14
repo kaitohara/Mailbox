@@ -1,0 +1,15 @@
+{
+	"server": {
+		"protocol": "http",
+		"host": "localhost:1337"
+	},
+	"google":{
+		"key": "757503849883-uh8tpifbmutaea3g1rq7bihgeret5oi4.apps.googleusercontent.com",
+		"secret": "pCNyJ4igM-5-lSbMYzJYJ7lx",
+		"callback": "http://localhost:1337/callback",
+		"scope" : [ 
+			"https://www.googleapis.com/auth/gmail.modify",
+            "https://www.googleapis.com/auth/userinfo.profile"
+        ]
+	}
+}

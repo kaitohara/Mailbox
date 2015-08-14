@@ -9,9 +9,13 @@ var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 var TeamModel = mongoose.model('Team');
 
+var Grant = require('grant-express');
+var grant = new Grant(require('./config.json'));
+
 
 module.exports = function(app) {
 
+    app.use(grant)
     var googleConfigUser = app.getValue('env').GOOGLEUSER;
     var googleConfigTeam = app.getValue('env').GOOGLETEAM;
 
@@ -102,13 +106,24 @@ module.exports = function(app) {
         ]
     }));
 
-    app.get('/auth/google/team', middlefunc2, passportTeam.authenticate('google', {
-        scope: [
-            // 'https://mail.google.com',
-            'https://www.googleapis.com/auth/gmail.modify',
-            'https://www.googleapis.com/auth/userinfo.profile'
-        ]
-    }));
+    // app.get('/auth/google/team', middlefunc2, passportTeam.authenticate('google', {
+    //     scope: [
+    //         // 'https://mail.google.com',
+    //         'https://www.googleapis.com/auth/gmail.modify',
+    //         'https://www.googleapis.com/auth/userinfo.profile'
+    //     ],
+    //     accessType: 'offline'
+    // }));
+
+    app.get('/connect/google', function(req, res){
+        console.log(req.query)
+        res.end(JSON.stringify(req.query, null, 2))
+    })
+
+    app.get('/callback', function(req, res){
+        console.log('hit this')
+        res.redirect('/')
+    })
 
     app.get('/auth/google/user/callback',
         passportUser.authenticate('google', {
@@ -117,6 +132,8 @@ module.exports = function(app) {
         function(req, res) {
             res.redirect('/');
         });
+
+
 
     app.get('/auth/google/team/callback',
         passportTeam.authenticate('google', {
