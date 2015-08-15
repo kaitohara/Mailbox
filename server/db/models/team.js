@@ -14,6 +14,9 @@ var schema = new mongoose.Schema({
     },
     emailAddresses: {
         type: [String]
+    },
+    accessToken: {
+        type: String
     }
 });
 
