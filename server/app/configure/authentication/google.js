@@ -25,7 +25,6 @@ module.exports = function(app) {
     };
 
     var verifyCallback = function(accessToken, refreshToken, profile, done) {
-        console.log('accessToken is:' + accessToken, "refreshToken is:" + refreshToken)
         UserModel.findOne({
                 'googleId': profile.id
             }).exec()
@@ -35,8 +34,8 @@ module.exports = function(app) {
                     return user;
                 } else {
                     console.log("didn't find user! gonna make one for ya")
-                    console.log('this is the access token: ', accessToken)
-                    console.log('this is the refresh token: ', refreshToken)
+                    console.log('in verifyCallback, this is the access token: ', accessToken)
+                    console.log('in verifyCallback, this is the refresh token: ', refreshToken) //undefined
                     return UserModel.create({
                         firstName: profile.name.givenName,
                         lastName: profile.name.familyName,
@@ -48,6 +47,7 @@ module.exports = function(app) {
                 }
             }).then(function(userToLogin) {
                 console.log('now this user is created and will be logged in: ', userToLogin)
+                //done logs in the user and makes req.user
                 done(null, userToLogin);
             }, function(err) {
                 console.error('Error creating user from Google authentication', err);
@@ -68,18 +68,23 @@ module.exports = function(app) {
         ]
     }));
 
-// why do we have this route?
-    app.get('/connect/google', function(req, res){
-        console.log('in /connect/google route req.query: ', req.query)
-        //find a team based on user input to form and add the token
-        res.end(JSON.stringify(req.query, null, 2))
-    })
+// why do we have this route? seems to work without it...
+    // app.get('/connect/google', function(req, res){
+    //     console.log('in /connect/google route req.query: ', req.query)
+    //     //find a team based on user input to form and add the token
+    //     res.end(JSON.stringify(req.query, null, 2))
+    // })
 
 // route that gets hit from the add team callback
     app.get('/callback', function(req, res){
-        console.log('hit the add team callback req: ', req)
-        console.log('hit the add team callback res: ', res)
-        res.redirect('/')
+        //console.log('hit the add team callback req: ', req)
+        console.log('hit the add team callback "/callback" res.req.query: ', res.req.query)
+        // res.req.query.access_token is the access token
+        // we probably want to create a team and give it the access token
+        TeamModel.create({accessToken: res.req.query.access_token})
+        .then(function(createdTeam){
+            res.redirect('/')
+        })
     })
 
 // route that gets hit from the user login callback
