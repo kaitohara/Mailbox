@@ -1,6 +1,14 @@
 'use strict';
 var mongoose = require('mongoose');
 
+var addressSchema = new mongoose.Schema({
+    address: String,
+    accessToken: String,
+    refreshToken: String
+})
+
+
+
 var schema = new mongoose.Schema({
     googleId: {
         type: String
@@ -12,13 +20,9 @@ var schema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Thread'
     },
-    emailAddresses: {
-        type: [String]
-    },
-    accessToken: {
-        type: String
-    }
+    email: [addressSchema]
 });
+
 
 
 mongoose.model('Team', schema);
