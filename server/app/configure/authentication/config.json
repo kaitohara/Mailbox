@@ -8,9 +8,9 @@
 		"secret": "pCNyJ4igM-5-lSbMYzJYJ7lx",
 		"callback": "http://localhost:1337/callback",
 		"scope" : [ 
-			"https://www.googleapis.com/auth/gmail.modify",
+			"https://mail.google.com",
             "https://www.googleapis.com/auth/userinfo.profile",
-            "https://mail.google.com"
+            "https://www.googleapis.com/auth/userinfo.email"
         ]
 	}
 }

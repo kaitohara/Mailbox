@@ -34,9 +34,9 @@ app.controller('homeCtrl', function ($scope, $http) {
     	return $http.post('http://localhost:1337/api/teams', team)
     	.then(function(createdTeam){
     		console.log('in addTeam ctrl func, createdTeam.data:', createdTeam.data)
-    		// make the get request to connect/google
+    		// make the get request to connect/google in here somehow?????
     		// so that grant will be used to get the account's information
-    		// biggest issue is that this get request does not do the same thing as a href
+    		// issue is that this get request does not do the same thing as a href
     		// in fact it does nothing from what I can tell
     		// $http.post('http://localhost:1337/api/teams/google', createdTeam.data)
     	})
