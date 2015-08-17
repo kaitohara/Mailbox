@@ -22,28 +22,34 @@ module.exports = function(app) {
 
     var verifyCallback = function(req, accessToken, refreshToken, profile, done) {
         if (req.user) {
-            console.log('profile:', profile)
+            console.log('profile:', profile, 'accessToken: ', accessToken, 'refreshToken: ', refreshToken)
                 // adding a team
             TeamModel
                 .findOne({
-                    email: profile.emails[0].value
+                    email: {
+                        $elemMatch: {
+                            address: profile.emails[0].value
+                        }
+                    }
                 })
                 .exec()
                 .then(function(team) {
-                    console.log('team:', team)
+                    console.log(team)
                     if (team) {
-                        team.accessToken = accessToken
+                        console.log('inside if statement', team.email)
+                        team.email.forEach(function(email) {
+                            if (email.address === profile.emails[0].value) {
+                                email.accessToken = accessToken
+                                email.refreshToken = refreshToken || 'hjhk'
+                            }
+                        })
                         return team.save(function(err, team) {
-                            console.log(team)
+                            console.log(err, team)
                             done(err, req.user)
                         })
                     } else {
-                        console.log('trying to create a team')
-                        TeamModel.create({
-                            accessToken: accessToken
-                        }, function(err, team) {
-                            done(err, req.user)
-                        })
+                        // throwing error will send to failure redirect
+                        done(new Error('team email didn\'t match'))
                     }
                 })
         } else {
@@ -82,6 +88,7 @@ module.exports = function(app) {
             'https://www.googleapis.com/auth/userinfo.email'
         ],
         prompt: 'select_account'
+            // loginHint: 'nyusnaps@gmail.com'
     }));
 
     // route that gets hit from the user login callback
