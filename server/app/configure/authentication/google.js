@@ -22,41 +22,67 @@ module.exports = function(app) {
     var googleCredentials = {
         clientID: googleConfig.clientID,
         clientSecret: googleConfig.clientSecret,
-        callbackURL: googleConfig.callbackURL
+        callbackURL: googleConfig.callbackURL,
+        passReqToCallback: true
     };
 
-    var verifyCallback = function(accessToken, refreshToken, profile, done) {
-        UserModel.findOne({
-                'googleId': profile.id
-            }).exec()
-            .then(function(user) {
-                if (user) {
-                    console.log("found User", user)
-                    return user;
-                } else {
-                    console.log("didn't find user! gonna make one for ya")
-                    console.log('in verifyCallback, this is the access token: ', accessToken)
-                    console.log('in verifyCallback, this is the refresh token: ', refreshToken) //undefined
-                    return UserModel.create({
-                        firstName: profile.name.givenName,
-                        lastName: profile.name.familyName,
-                        email: profile.emails[0].value,
-                        googleId: profile.id,
-                        photo: profile._json.picture,
-                        accessToken: accessToken
-                    });
-                }
-            }).then(function(userToLogin) {
-                console.log('now this user is created and will be logged in: ', userToLogin)
-                //done logs in the user and makes req.user
-                done(null, userToLogin);
-            }, function(err) {
-                console.error('Error creating user from Google authentication', err);
-                done(err);
-            });
+    var verifyCallback = function(req, accessToken, refreshToken, profile, done) {
+        if (req.user) {
+            console.log('profile:', profile)
+                // adding a team
+            TeamModel
+                .findOne({
+                    email: profile.emails[0].value
+                })
+                .exec()
+                .then(function(team) {
+                    console.log('team:', team)
+                    if (team) {
+                        team.accessToken = accessToken
+                        return team.save(function(err, team) {
+                            console.log(team)
+                            done(err, req.user)
+                        })
+                    } else {
+                        console.log('trying to create a team')
+                        TeamModel.create({
+                            accessToken: accessToken
+                        }, function(err, team) {
+                            done(err, req.user)
+                        })
+                    }
+                })
+        } else {
+            //signing up
+            UserModel
+                .findOne({
+                    googleId: profile.id
+                })
+                .exec()
+                .then(function(user) {
+                    if (user) {
+                        done(null, user)
+                    } else {
+                        UserModel.create({
+                            firstName: profile.name.givenName,
+                            lastName: profile.name.familyName,
+                            email: profile.emails[0].value,
+                            googleId: profile.id,
+                            photo: profile._json.picture,
+                            accessToken: accessToken
+                        }, done)
+                    }
+                })
+        }
+
+        // look up team by profile.email
+        // if you find a team, go down team branch
+        // if you don't look up in users table
+
+
     };
 
-    function middlefunc(req, res, next){
+    function middlefunc(req, res, next) {
         passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
         next();
     }
@@ -66,10 +92,11 @@ module.exports = function(app) {
             "https://mail.google.com",
             'https://www.googleapis.com/auth/userinfo.profile',
             'https://www.googleapis.com/auth/userinfo.email'
-        ]
+        ],
+        prompt: 'select_account'
     }));
 
-// why do we have this route? seems to work without it...
+    // why do we have this route? seems to work without it...
     // app.get('/connect/google', function(req, res){
     //     console.log('in /connect/google route req: ', req)
     //     onsole.log('in /connect/google route res: ', res)
@@ -87,20 +114,22 @@ module.exports = function(app) {
     //    res.send() ////WHAT DOES THIS DO?
   //  })
 
-// route that gets hit from the add team callback
-    app.get('/callback', function(req, res){
-        console.log('hit the add team callback "/callback" res.req: ', res)
-       // console.log('hit the add team callback "/callback" req: ', req)
-        // res.req.query.access_token is the access token
-        // add the access token to the team that was created by the post 
-        // that was just made to api/teams by home.js controller
-        //TeamModel.findOneAndUpdate({},{accessToken: res.req.query.access_token})
-        //.then(function(){
-            res.redirect('/')
-        //})
+
+    // route that gets hit from the add team callback
+    app.get('/callback', function(req, res) {
+        //console.log('hit the add team callback req: ', req)
+        console.log('hit the add team callback "/callback" res.req.query: ', res.req.query)
+            // res.req.query.access_token is the access token
+            // we probably want to create a team and give it the access token
+        TeamModel.create({
+                accessToken: res.req.query.access_token
+            })
+            .then(function(createdTeam) {
+                res.redirect('/')
+            })
     })
 
-// route that gets hit from the user login callback
+    // route that gets hit from the user login callback
     app.get('/auth/google/user/callback',
         passport.authenticate('google', {
             failureRedirect: '/login'
