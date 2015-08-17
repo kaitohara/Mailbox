@@ -1,6 +1,7 @@
 .idea
-node_modules
 npm-debug.log
 public
 .DS_Store
 coverage
+node_modules/*
+!node_modules/node-gmail-api/
