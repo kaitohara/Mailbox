@@ -2,8 +2,7 @@
 	<div>
 		Team name:<input ng-model='team.name'>
 		Team googleId:<input ng-model='team.googleId'>
-    	<a href='/connect/google' ng-click='addTeam(team)'>Add This Team</a>
-    	<!-- href='/connect/google'  -->
+    	<a href="/auth/google/user" ng-click='addTeam(team)'>Add This Team</a>
 	</div>
     <button ng-click='getUsersGmailThreads()'>Get Currently Logged In User's Emails</button>
 </section>
