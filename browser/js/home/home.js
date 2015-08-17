@@ -30,8 +30,16 @@ app.controller('homeCtrl', function ($scope, $http) {
     $scope.getThisTeamsGmailThreads = function (team) {
     	return $http.get('http://localhost:1337/api/google/getAllEmails/'+team._id)
     	.then(function(threads){
-    		$scope.threads = threads.data;
+    		$scope.activeTeam = team;
+    		$scope.threads = threads.data.threads;
     	})
     };
+
+    $scope.getThisEmailFromTheTread = function(threadId){
+    	return $http.get('http://localhost:1337/api/google/'+$scope.activeTeam._id+'/'+threadId)
+    	.then(function(fullEmail){
+    		$scope.email = fullEmail.data;
+    	})
+    }
 
 });
