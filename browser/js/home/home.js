@@ -28,11 +28,7 @@ app.controller('homeCtrl', function ($scope, $http) {
 
     };
 
-    $scope.addTeam = function(team){
-
-    }
-
-     $scope.getThisTeamsGmailThreads = function (teamAccessToken) {
+    $scope.getThisTeamsGmailThreads = function (teamAccessToken) {
     	return $http.get('http://localhost:1337/api/google/getAllEmails/'+teamAccessToken)
     	.then(function(threads){
     		$scope.threads = threads.data;

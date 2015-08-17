@@ -7,7 +7,7 @@ var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
-// var TeamModel = mongoose.model('Team');
+var TeamModel = mongoose.model('Team');
 
 module.exports = function(app) {
 
