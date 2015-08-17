@@ -3,10 +3,22 @@ app.config(function ($stateProvider) {
         url: '/',
         templateUrl: 'js/home/home.html',
         controller: 'homeCtrl'
+        // resolve: {
+        // 	teams: function($http){
+	       //  	return $http.get('http://localhost:1337/api/teams')
+        // 	}
+        // }
     });
 });
 
 app.controller('homeCtrl', function ($scope, $http) {
+
+	(function(){
+	  	return $http.get('http://localhost:1337/api/teams')
+	  	.then(function(allTeams){
+	  		$scope.teams = allTeams.data;
+	  	})
+ 	})()
 
     $scope.getUsersGmailThreads = function () {
     	return $http.post('http://localhost:1337/api/google/getAllEmails')
@@ -15,13 +27,16 @@ app.controller('homeCtrl', function ($scope, $http) {
     	})
 
     };
-    // we need to pass the teams access token to the back end so it can be used in the gmail api get request
+
+    $scope.addTeam = function(team){
+
+    }
+
      $scope.getThisTeamsGmailThreads = function (teamAccessToken) {
-    	return $http.post('http://localhost:1337/api/google/getAllEmails', {accessToken: teamAccessToken})
+    	return $http.get('http://localhost:1337/api/google/getAllEmails/'+teamAccessToken)
     	.then(function(threads){
     		$scope.threads = threads.data;
     	})
-
     };
 
 });

@@ -1,6 +1,12 @@
 <section id="home">
-    <a href="/connect/google">Add a Team</a>
-    <button ng-click='getUsersGmailThreads()'>Get Emails</button>
+	<div>
+		Team name:<input ng-model='team.name'>
+		Team googleId:<input ng-model='team.googleId'>
+    	<a href='/connect/google' ng-click='addTeam(team)'>Add This Team</a>
+    	<!-- href='/connect/google'  -->
+	</div>
+    <button ng-click='getUsersGmailThreads()'>Get Currently Logged In User's Emails</button>
 </section>
 
-The threads: {{threads}}
+<div>The threads: {{threads}}</div>
+The Teams: <div ng-click='getgetThisTeamsGmailThreads(team.accessToken)' ng-repeat='team in teams'>{{team}}</div>
