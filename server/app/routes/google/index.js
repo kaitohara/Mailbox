@@ -25,18 +25,15 @@ router.get('/getAllEmails/:id', function(req, res){
 })
 
 router.get('/:teamId/:threadId', function(req, res){
-	console.log('in the thread finding router')
 	TeamModel.findById(req.params.teamId)
 	.then(function(team){
 		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads/'+req.params.threadId, {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].accessToken} })
 	})
 	.then(function(thread){
-		thread = JSON.parse(thread);
+		thread = JSON.parse(thread)
 		thread.messages.forEach(function(message){
-			console.log('this is a payload $$$$$::::: ', message.payload.parts)
 			message.payload.parts.forEach(function(part){
-				part.body.data = base64.decode(part.body.data)
-				console.log('this is a part data!!!!!!!!!!: ', part.body)
+				part.body.data = base64.decode(part.body.data).replace("==","").replace("==","")
 				return part
 			})
 			return message
@@ -44,17 +41,25 @@ router.get('/:teamId/:threadId', function(req, res){
 		return thread
 	})
 	.then(function(thread){
-		// console.log('went to google api and got this thread: ', thread)
 		res.send(thread)
 	})
 })
 
+// router.post('/:teamId/:threadId', function(req, res){
+// 	TeamModel.findById(req.params.teamId)
+// 	.then(function(team){
+// 		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/teammailfsa%40gmail.com/threads/'+req.params.threadId, {headers: {'Authorization': 'Bearer '+team.accessToken} })
+// 	})
+// 	// .then(function(thread){
+// 	// 	thread.messages.forEach(function(message){
+// 	// 		message.payload.body.data = base64.decode(message.payload.body.data)
+// 	// 	})
+// 	// 	return thread
+// 	// })
+// 	.then(function(thread){
+// 		console.log('went to google api and got this thread: ', thread)
+// 		res.send(thread)
+// 	})
+// })
 
 //https://www.googleapis.com/gmail/v1/users//threads?maxResults=12&key={YOUR_API_KEY}
-
-
-
-
-
-
-

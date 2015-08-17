@@ -14,6 +14,7 @@ app.config(function ($stateProvider) {
 app.controller('homeCtrl', function ($scope, $http) {
 
 	(function(){
+        $scope.showEmailDetails = false
 	  	return $http.get('http://localhost:1337/api/teams')
 	  	.then(function(allTeams){
 	  		$scope.teams = allTeams.data;
@@ -41,5 +42,4 @@ app.controller('homeCtrl', function ($scope, $http) {
     		$scope.email = fullEmail.data;
     	})
     }
-
 });

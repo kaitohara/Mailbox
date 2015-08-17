@@ -84,6 +84,9 @@ module.exports = function(app) {
     app.get('/auth/google/user', middlefunc, passport.authenticate('google', {
         scope: [
             "https://mail.google.com",
+            'https://www.googleapis.com/auth/gmail.compose',
+            'https://www.googleapis.com/auth/gmail.modify',
+            'https://www.googleapis.com/auth/gmail.send',
             'https://www.googleapis.com/auth/userinfo.profile',
             'https://www.googleapis.com/auth/userinfo.email'
         ],
