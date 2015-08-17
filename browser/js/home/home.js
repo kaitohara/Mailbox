@@ -20,16 +20,15 @@ app.controller('homeCtrl', function ($scope, $http) {
 	  	})
  	})()
 
-    $scope.getUsersGmailThreads = function () {
-    	return $http.post('http://localhost:1337/api/google/getAllEmails')
-    	.then(function(threads){
-    		$scope.threads = threads.data;
-    	})
+    // $scope.getUsersGmailThreads = function () {
+    // 	return $http.get('http://localhost:1337/api/google/getAllEmails')
+    // 	.then(function(threads){
+    // 		$scope.threads = threads.data;
+    // 	})
+    // };
 
-    };
-
-    $scope.getThisTeamsGmailThreads = function (teamAccessToken) {
-    	return $http.get('http://localhost:1337/api/google/getAllEmails/'+teamAccessToken)
+    $scope.getThisTeamsGmailThreads = function (team) {
+    	return $http.get('http://localhost:1337/api/google/getAllEmails/'+team._id)
     	.then(function(threads){
     		$scope.threads = threads.data;
     	})

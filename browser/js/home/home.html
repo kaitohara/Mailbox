@@ -4,8 +4,8 @@
 		Team googleId:<input ng-model='team.googleId'>
     	<a href="/auth/google/user" ng-click='addTeam(team)'>Add This Team</a>
 	</div>
-    <button ng-click='getUsersGmailThreads()'>Get Currently Logged In User's Emails</button>
+    <!-- <button ng-click='getUsersGmailThreads()'>Get Currently Logged In User's Emails</button> -->
 </section>
 
 <div>The threads: {{threads}}</div>
-The Teams: <div ng-click='getgetThisTeamsGmailThreads(team.accessToken)' ng-repeat='team in teams'>{{team}}</div>
+The Teams: <div ng-click='getThisTeamsGmailThreads(team)' ng-repeat='team in teams'>{{team}}</div>
