@@ -7,6 +7,7 @@ app.factory('teamFactory', function ($http) {
 	  	getThisTeamsGmailThreads: function (team) {
     		return $http.get('http://localhost:1337/api/google/getAllEmails/'+team._id)
     		.then(function(threads){
+                console.log('the threads: ',threads.data)
     			return threads.data
     		})
     	},
