@@ -17,42 +17,75 @@ name in the environment files.
 
 */
 
+var chance = require('chance')(123);
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Team = Promise.promisifyAll(mongoose.model('Team'));
 
-var seedUsers = function () {
+var wipeDB = function() {
 
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        }
-    ];
+    var models = [User, Team];
+    var promiseArr = [];
+    models.forEach(function(model) {
+        promiseArr.push(model.find({}).remove().exec());
+    });
+
+    return Promise.all(promiseArr);
+
+};
+
+var seedUsers = function() {
+
+    var users = [{
+        email: 'testing@fsa.com',
+        password: 'password'
+    }, {
+        email: 'obama@gmail.com',
+        password: 'potus'
+    }, {
+        email: 'mailbox@gmail.com',
+        password: 'mailbox'
+    }];
 
     return User.createAsync(users);
 
 };
 
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
-        }
-    }).then(function () {
-        console.log(chalk.green('Seed successful!'));
+var seedTeams = function() {
+
+    var teams = [{
+        name: 'Fullstack'
+    }, {
+        name: 'Flatiron'
+    }, {
+        name: 'East Village'
+    }];
+
+    return Team.createAsync(teams);
+
+};
+
+connectToDb
+    .then(function() {
+        console.log(chalk.blue('Wiping database...!'));
+        wipeDB();
+    })
+    .then(function() {
+        console.log(chalk.blue('Seeding users......!'));
+        return seedUsers();
+    })
+    .then(function() {
+        console.log(chalk.blue('Seeding teams.........!'));
+        return seedTeams();
+    })
+    .then(function() {
+        console.log(chalk.green('SEED SUCCESSFUL! CONGRATS!!!!!!'));
         process.kill(0);
-    }).catch(function (err) {
+    })
+    .catch(function(err) {
         console.error(err);
         process.kill(1);
     });
-});
