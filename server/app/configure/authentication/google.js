@@ -9,8 +9,6 @@ var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 var TeamModel = mongoose.model('Team');
 
-var teamEmail;
-
 module.exports = function(app) {
 
     var googleConfig = app.getValue('env').GOOGLE;
@@ -21,8 +19,6 @@ module.exports = function(app) {
         callbackURL: googleConfig.callbackURL,
         passReqToCallback: true
     };
-
-    // var teamEmail;
 
     var verifyCallback = function(req, accessToken, refreshToken, profile, done) {
         if (req.user) {
@@ -47,8 +43,6 @@ module.exports = function(app) {
                                 email.refreshToken = refreshToken || 'hjhk'
                             }
                         })
-
-                        // teamEmail = team.email.address;
 
                         return team.save(function(err, team) {
                             console.log(err, team)
@@ -84,14 +78,12 @@ module.exports = function(app) {
     };
 
     function middlefunc(req, res, next) {
-        console.log('middleware email:', teamEmail)
         passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
         next();
     }
 
     app.param('email', function(req, res, next, email) {
-        console.log('param email:', email)
-        teamEmail = email;
+        req.teamEmail = email;
         next();
     })
 
@@ -103,16 +95,17 @@ module.exports = function(app) {
         prompt: 'select_account'
     }));
 
-    app.get('/auth/google/team/:email', middlefunc, passport.authenticate('google', {
-        scope: [
-            "https://mail.google.com",
-            'https://www.googleapis.com/auth/userinfo.email'
-        ],
-        // loginHint: teamEmail,
-        loginHint: teamEmail || 'kaitoh93@gmail.com',
-        approvalPrompt: 'force',
-        accessType: 'offline'
-    }))
+    app.get('/auth/google/team/:email', middlefunc, function(req, res, next) {
+        passport.authenticate('google', {
+            scope: [
+                "https://mail.google.com",
+                'https://www.googleapis.com/auth/userinfo.email'
+            ],
+            loginHint: req.teamEmail,
+            approvalPrompt: 'force',
+            accessType: 'offline'
+        })(req, res, next)
+    })
 
     // route that gets hit from the user login callback
     app.get('/auth/google/user/callback',
