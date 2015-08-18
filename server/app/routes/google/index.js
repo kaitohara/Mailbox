@@ -14,7 +14,7 @@ router.get('/getAllEmails/:id', function(req, res){
 	.then(function(team){
 		latestEmailIndex = team.email.length-1;
 		emailUrl = team.email[latestEmailIndex].address.replace('@', '%40')
-		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads?maxResults=10', {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].accessToken} })
+		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads?maxResults=10', {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].refreshToken} })
 	})
 	.then(function(threads){
 		res.send(threads)
@@ -24,7 +24,7 @@ router.get('/getAllEmails/:id', function(req, res){
 router.get('/:teamId/:threadId', function(req, res){
 	TeamModel.findById(req.params.teamId)
 	.then(function(team){
-		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads/'+req.params.threadId, {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].accessToken} })
+		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads/'+req.params.threadId, {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].refreshToken} })
 	})
 	.then(function(thread){
 		thread = JSON.parse(thread)
