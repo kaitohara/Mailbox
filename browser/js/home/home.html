@@ -4,17 +4,25 @@
 		Team googleId:<input ng-model='team.googleId'>
     	<a href="/auth/google/user" ng-click='addTeam(team)'>Add This Team</a>
 	</div>
-    <!-- <button ng-click='getUsersGmailThreads()'>Get Currently Logged In User's Emails</button> -->
 </section>
 
 <h5>The Teams:</h5>
-	<div ng-click='getThisTeamsGmailThreads(team)' ng-repeat='team in teams'>{{team}}
-</div>
+	<div ng-repeat='team in teams'>
+		<p ng-click='getThisTeamsGmailThreads(team)'>{{team}}</p>
+		<a ng-click='settingsModal(team)'>+++</a>
+	</div>
 <br>
+
 <h5 ng-show="threads"> The threads for this team: </h5>
-<div ng-show="threads" ng-click='getThisEmailFromTheTread(thread.id)' ng-repeat='thread in threads'>{{thread}}</div>
+<div 	ng-show="threads" 
+		ng-click='getThisEmailFromTheTread(thread.id)' 
+		ng-repeat='thread in threads'>{{thread}}</div>
+
 <br>
 
 <h5 ng-show="email">The email:</h5>
 <h5 ng-show="email">Subject: {{email.messages[0].payload.parts[0].body.data}}</h3>
 <h5 ng-show="email">Body: {{email.messages[0].payload.parts[1].body.data}}</h5>
+
+Here are all the users:
+{{users}}
