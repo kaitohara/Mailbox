@@ -1,4 +1,4 @@
-app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users) {
+app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users, teamFactory, $window) {
 
     $scope.team = team;
     $scope.users = users;
@@ -15,4 +15,12 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
+
+
+    $scope.createTeam = function() {
+        teamFactory.createTeam($scope.name, $scope.email).then(function() {
+            $window.location.href = "/auth/google/team/" + $scope.email;
+        })
+    }
+
 });

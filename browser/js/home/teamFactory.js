@@ -17,6 +17,13 @@ app.factory('teamFactory', function ($http) {
     			return fullEmail.data
     		})
     	},
+        createTeam: function(name, email) {
+            console.log('teamfactory', name, email)
+            return $http.post('/api/teams/createTeam', {
+                name: name,
+                email: email
+            });
+        }
     };
 
 });
