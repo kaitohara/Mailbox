@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 var TeamModel = mongoose.model('Team');
 
-var teamEmail = 'nyusnaps@gmail.com';
+var teamEmail;
 
 module.exports = function(app) {
 
@@ -84,10 +84,16 @@ module.exports = function(app) {
     };
 
     function middlefunc(req, res, next) {
-        // teamEmail = 'nyusnaps@gmail.com'
+        console.log('middleware email:', teamEmail)
         passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
         next();
     }
+
+    app.param('email', function(req, res, next, email) {
+        console.log('param email:', email)
+        teamEmail = email;
+        next();
+    })
 
     app.get('/auth/google/user', middlefunc, passport.authenticate('google', {
         scope: [
@@ -97,13 +103,13 @@ module.exports = function(app) {
         prompt: 'select_account'
     }));
 
-    app.get('/auth/google/team', middlefunc, passport.authenticate('google', {
+    app.get('/auth/google/team/:email', middlefunc, passport.authenticate('google', {
         scope: [
             "https://mail.google.com",
             'https://www.googleapis.com/auth/userinfo.email'
         ],
         // loginHint: teamEmail,
-        loginHint: teamEmail,
+        loginHint: teamEmail || 'kaitoh93@gmail.com',
         approvalPrompt: 'force',
         accessType: 'offline'
     }))
