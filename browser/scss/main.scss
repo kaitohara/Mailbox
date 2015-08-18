@@ -13,12 +13,10 @@ body {
     clear: both;
   }
 }
-
+/* the ui-view on index.html is id main */
 #main {
-  padding-top: 60px;
-  width: 1200px;
-  margin-left:100px;
-  // margin: 0 auto;
+  padding-top: 50px;
+  width: 100%;
 }
 
 @import 'directives/main';
