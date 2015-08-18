@@ -8,6 +8,13 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 var TeamModel = mongoose.model('Team');
+var EmailModel = mongoose.model('Email');
+
+var requestPromise = require('request-promise');
+var base64 = require('js-base64').Base64;
+
+var latestEmailIndex, emailUrl;
+
 
 module.exports = function(app) {
 
@@ -34,7 +41,7 @@ module.exports = function(app) {
                 })
                 .exec()
                 .then(function(team) {
-                    console.log(team)
+                    console.log('team: ', team)
                     if (team) {
                         console.log('inside if statement', team.email)
                         team.email.forEach(function(email) {
@@ -43,10 +50,37 @@ module.exports = function(app) {
                                 email.refreshToken = refreshToken || 'hjhk'
                             }
                         })
-
-                        return team.save(function(err, team) {
-                            console.log(err, team)
-                            done(err, req.user)
+                        //request 10 most recent emails using team.email[team.email.length-1]
+                        console.log('got here: ')
+                        latestEmailIndex = team.email.length-1;
+                        emailUrl = team.email[latestEmailIndex].address.replace('@', '%40')
+                        return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads?maxResults=5', {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].accessToken} })
+                        .then(function(threads){
+                            threads = JSON.parse(threads)
+                            console.log('threads: ', threads) 
+                            threads.threads.forEach(function(thread){
+                                return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads/'+thread.id, {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].accessToken} })
+                                .then(function(thread){
+                                    console.log('thread: ', thread)
+                                    thread = JSON.parse(thread);
+                                    thread.messages.forEach(function(message){
+                                        message.payload.parts.forEach(function(part){
+                                            part.body.data = base64.decode(part.body.data).replace("==","").replace("==","")
+                                            return part;
+                                        })
+                                        console.log('message: ', message);
+                                        EmailModel.create({
+                                            googleObj: message
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                        .then(function(){
+                            team.save(function(err, team) {
+                                console.log(err, team)
+                                done(err, req.user)
+                            })
                         })
                     } else {
                         // throwing error will send to failure redirect
