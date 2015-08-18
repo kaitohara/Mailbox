@@ -8,15 +8,16 @@
              looks good, so adding it and enhancing with notifications -->
         <!-- main notification links are placed inside of .sidebar-nav -->
         <!-- every .sidebar-nav may have a title -->
-        <h5 class="sidebar-nav-title">Teams<a class="action-link" href="#"><i class="glyphicon glyphicon-refresh"></i></a></h5>
+        <h5 class="sidebar-nav-title">Teams<a class="action-link" href="#"><i class="glyphicon glyphicon-plus" ui-sref='membersOnly'></i></a></h5>
         <ul class="sidebar-nav">
-            <li ng-repeat='team in teams'>
+            <li ng-repeat='team in teams' ng-controller='ModalCtrl'>
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
-                <a class="collapsed" ng-click="getThisTeamsGmailThreads(team)">
+                <a class="collapsed">
                     <span class="icon">
                         <i class="glyphicon glyphicon-align-right"></i>
                     </span>
-                    {{team.name}}
+                    <span ng-click="getThisTeamsGmailThreads(team)">{{team.name}}</span>
+                    <i class="glyphicon glyphicon-plus" ng-click='open(); setTeam(team)'></i>
                     <i class="toggle fa fa-angle-down"></i>
                 </a>
                 <ul id="sidebar-forms" class="collapse">
