@@ -9,6 +9,9 @@ app.config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.when('/auth/google/user', function() {
         window.location.reload();
     });
+    $urlRouterProvider.when('/auth/google/team/:email', function() {
+        window.location.reload();
+    });
     $urlRouterProvider.when('/connect/google', function() {
         window.location.reload();
     });

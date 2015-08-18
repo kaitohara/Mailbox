@@ -1,14 +1,17 @@
-<section id="settingsModal">
-
-	<div>
-		<p>Team name: {{selected.team.name}}</p>
-		Team Shared Inboxes:<p ng-repeat='address in selected.team.email'>{{address.address}}</p>
-	</div>	
-
-	ALL ZEE USERZ::::::::::
-	<p ng-repeat='user in users'>
-		{{user.firstName}} {{user.lastName}} 
-		<input type='checkbox' ng-click='addToSelectedTeam(user)'>
-	</p>
-
-</section>
+<div class="modal-header">
+    <h3 class="modal-title">Add Users to {{team.name}}</h3>
+</div>
+<div class="modal-body">
+    <ul>
+        <li ng-repeat="user in users">
+            <a ng-click="$event.preventDefault(); chooseUser(user)">
+            	{{ user.firstName}} {{user.lastName}}: {{user.email}}
+            </a>
+        </li>
+    </ul>
+    Selected: <b>{{ selectedUser.firstName}} {{ selectedUser.lastName}}</b>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

@@ -3,70 +3,36 @@ app.config(function ($stateProvider) {
         url: '/',
         templateUrl: 'js/home/home.html',
         controller: 'homeCtrl'
-        // resolve: {
-        // 	teams: function($http){
-	       //  	return $http.get('http://localhost:1337/api/teams')
-        // 	}
-        // }
     });
 });
 
-app.controller('homeCtrl', function ($scope, $http, $modal, $log) {
+app.controller('homeCtrl', function ($scope, $log, userFactory, teamFactory) {
 
-//populates $scope.teams
-	(function(){
-        $scope.showEmailDetails = false
-	  	return $http.get('http://localhost:1337/api/teams')
-	  	.then(function(allTeams){
-	  		$scope.teams = allTeams.data;
-	  	})
- 	})();
- //populates $scope.users
- 	(function(){
-	  	return $http.get('http://localhost:1337/api/users')
-	  	.then(function(allUsers){
-	  		$scope.users = allUsers.data;
-	  	})
- 	})();
-////////// MODAL ///////
-   $scope.animationsEnabled = true;
+//populates $scope.teams - somehow couldn't figure out he=w to do with resolve in state
+	teamFactory.getAllTeams().then(function(teams){
+		$scope.teams = teams.data;
+		$scope.showEmailDetails = false
+	});
+ //populates $scope.users - somehow couldn't figure out he=w to do with resolve in state
+ 	userFactory.getAllUsers().then(function(users){
+		$scope.users = users.data;
+	});
+    $scope.toggleShowEmail = function(){
+        $scope.showEmailDetails = !$scope.showEmailDetails
+    }
 
-   $scope.settingsModal = function(size) {
-   var modalInstance = $modal.open({
-       	animation: $scope.animationsEnabled,
-       	templateUrl: 'js/home/settingsModal.html',
-      	controller: 'ModalInstanceCtrl',
-       	// size: size,
-       	resolve: {
-           	teams: function() {
-               return $scope.teams;
-           	},
-           	users: function() {
-               return $scope.users;
-           	}
-       	}
-   	});
-    modalInstance.result.then(function(selectedTeam) {
-	    $scope.selected = selectedTeam;
-	}, function() {
-	    	$log.info('Modal dismissed at: ' + new Date());
-		});
-   	};
-   	$scope.toggleAnimation = function() {
-       $scope.animationsEnabled = !$scope.animationsEnabled;
-   	};
-////////// END MODAL ///////////
     $scope.getThisTeamsGmailThreads = function (team) {
-    	return $http.get('http://localhost:1337/api/google/getAllEmails/'+team._id)
+    	return teamFactory.getThisTeamsGmailThreads(team)
     	.then(function(threads){
     		$scope.activeTeam = team;
-    		$scope.threads = threads.data.threads;
+    		$scope.threads = threads.threads;
     	})
     };
     $scope.getThisEmailFromTheTread = function(threadId){
-    	return $http.get('http://localhost:1337/api/google/'+$scope.activeTeam._id+'/'+threadId)
+    	teamFactory.getThisEmailFromTheTread(threadId, $scope.activeTeam._id)
     	.then(function(fullEmail){
-    		$scope.email = fullEmail.data;
+			$scope.email = fullEmail;
     	})
     }
+
 });
