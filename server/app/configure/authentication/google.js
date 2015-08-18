@@ -21,8 +21,6 @@ module.exports = function(app) {
     };
 
     var verifyCallback = function(req, accessToken, refreshToken, profile, done) {
-        teamEmail = 'kaitoh93@gmail.com';
-
         if (req.user) {
             console.log('profile:', profile, 'accessToken: ', accessToken, 'refreshToken: ', refreshToken)
                 // adding a team
