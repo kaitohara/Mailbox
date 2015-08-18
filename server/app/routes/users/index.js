@@ -17,7 +17,6 @@ router.put('/:userId', function(req, res){
 	UserModel.findByIdAndUpdate(req.params.userId, {$addToSet:{teams: req.body._id}})
 	.exec()
 	.then(function(updatedUser){
-		console.log(updatedUser)
 		res.send(updatedUser)
 	}, function(err){
 		console.log(err)
