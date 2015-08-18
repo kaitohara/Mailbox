@@ -8,8 +8,35 @@
 </section>
 
 <h5>The Teams:</h5>
-	<div ng-click='getThisTeamsGmailThreads(team)' ng-repeat='team in teams'>{{team}}
-</div>
+	<div ng-repeat='team in teams'>{{team}}
+		<div ng-controller="ModalCtrl">
+		    <script type="text/ng-template" id="myModalContent.html">
+		        <div class="modal-header">
+		            <h3 class="modal-title">Add Users to {{team.name}}</h3>
+		        </div>
+		        <div class="modal-body">
+		            <ul>
+		                <li ng-repeat="user in users">
+		                    <a href="#" ng-click="$event.preventDefault(); chooseUser(user)">{{ user.firstName}} {{user.lastName}}: {{user.email}}</a>
+		                </li>
+		            </ul>
+		            Selected: <b>{{ selectedUser.firstName}} {{ selectedUser.lastName}}</b>
+		        </div>
+		        <div class="modal-footer">
+		            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+		            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+		        </div>
+		    </script>
+
+		    <button type="button" class="btn btn-default" ng-click="open(); setTeam(team)">Add users to: {{team.name}}</button>
+		    <button type="button" class="btn btn-default" ng-click="getThisTeamsGmailThreads(team)">Open {{team.name}}'s threads below</button>
+		    <div ng-show="selectedUser">Selection from a modal: {{ selectedUser.firstName }} -{{selectedUser.lastName }}</div>
+		<br></br>
+		</div>
+
+	</div>
+	
+
 <br>
 <h5 ng-show="threads"> The threads for this team: </h5>
 <div ng-show="threads" ng-click='getThisEmailFromTheTread(thread.id)' ng-repeat='thread in threads'>{{thread}}</div>
@@ -18,3 +45,8 @@
 <h5 ng-show="email">The email:</h5>
 <h5 ng-show="email">Subject: {{email.messages[0].payload.parts[0].body.data}}</h3>
 <h5 ng-show="email">Body: {{email.messages[0].payload.parts[1].body.data}}</h5>
+
+<button ng-show="email" ng-click="toggleShowEmail()">toggle messy header details</button>
+
+<div ng-show="showEmailDetails" ng-repeat='header in email.messages[0].payload.headers'>{{header}}
+</div>

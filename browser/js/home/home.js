@@ -13,20 +13,21 @@ app.config(function ($stateProvider) {
 
 app.controller('homeCtrl', function ($scope, $http) {
 
-	(function(){
-        $scope.showEmailDetails = false
+
+	(function(){   
 	  	return $http.get('http://localhost:1337/api/teams')
 	  	.then(function(allTeams){
 	  		$scope.teams = allTeams.data;
+            $scope.showEmailDetails = false
 	  	})
  	})()
 
-    // $scope.getUsersGmailThreads = function () {
-    // 	return $http.get('http://localhost:1337/api/google/getAllEmails')
-    // 	.then(function(threads){
-    // 		$scope.threads = threads.data;
-    // 	})
-    // };
+    $scope.getAllUsers = function () {
+    	return $http.get('http://localhost:1337/api/users')
+    	.then(function(users){
+    		$scope.users = users.data;
+    	})
+    };
 
     $scope.getThisTeamsGmailThreads = function (team) {
     	return $http.get('http://localhost:1337/api/google/getAllEmails/'+team._id)
@@ -42,4 +43,11 @@ app.controller('homeCtrl', function ($scope, $http) {
     		$scope.email = fullEmail.data;
     	})
     }
+
+    $scope.toggleShowEmail = function(){
+        $scope.showEmailDetails = !$scope.showEmailDetails
+    }
+
+    $scope.getAllUsers()
+
 });

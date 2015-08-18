@@ -6,17 +6,13 @@ var TeamModel = mongoose.model('Team');
 var UserModel = mongoose.model('User');
 
 router.get('/', function(req, res, next) {
-	console.log('in home states resolve function team getting router /api/teams')
 	TeamModel.find({}).then(function(teams) {
-			console.log('got these teams', teams)
 			res.send(teams)
 		})
 		.then(null, next)
 })
 
 router.post('/createTeam', function(req, res, next) {
-	console.log('creating team', req.body)
-	console.log('requser', req.user)
 	TeamModel.create({
 			name: req.body.name,
 			email: [{
@@ -25,7 +21,6 @@ router.post('/createTeam', function(req, res, next) {
 			}]
 		})
 		.then(function(team) {
-			console.log("req id ", req.user._id)
 			return UserModel.findOneAndUpdate({
 				_id: req.user._id
 			}, {
