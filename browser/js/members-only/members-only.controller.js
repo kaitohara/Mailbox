@@ -1,5 +1,5 @@
 app.controller('membersOnlyController', function($window, $scope, membersOnlyFactory) {
-	$scope.name = 'Team Mailbox';
+	$scope.name = 'Mailbox Team';
 	$scope.email = 'teammailfsa@gmail.com';
 
 	$scope.createTeam = function() {
