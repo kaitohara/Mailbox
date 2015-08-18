@@ -12,9 +12,3 @@ app.config(function($stateProvider) {
     });
 
 });
-
-app.factory('SecretStash', function($http) {
-
-
-
-});

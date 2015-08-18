@@ -4,7 +4,7 @@ app.controller('membersOnlyController', function($window, $scope, membersOnlyFac
 
 	$scope.createTeam = function() {
 		membersOnlyFactory.createTeam($scope.name, $scope.email).then(function() {
-			$window.location.href = "/auth/google/user";
+			$window.location.href = "/auth/google/team";
 		})
 	}
 })
