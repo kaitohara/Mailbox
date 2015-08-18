@@ -9,25 +9,78 @@ var base64 = require('js-base64').Base64;
 
 var Gmail = require('node-gmail-api');
 var emailUrl, latestEmailIndex;
+
+var googleConfig = require('../../../env').GOOGLE;
+
+var requestTeam
+
+var getThreads = function(team, threadId){
+	var latestEmailIndex = team.email.length-1;
+	var emailUrl = team.email[latestEmailIndex].address.replace('@', '%40')
+	var aToken = team.email[latestEmailIndex].accessToken;
+	var options = { headers: { 'Authorization': 'Bearer ' + aToken} }
+	var urlHead = 'https://www.googleapis.com/gmail/v1/users/'
+	var urlTail = threadId ? ('/threads/' + threadId) : '/threads?maxResults=10'
+	var fullUrl = urlHead + emailUrl + urlTail
+	return requestPromise.get(fullUrl, options)
+}
+
+var getFreshToken = function(team){
+	var latestEmailIndex = team.email.length-1;
+	var email = team.email[latestEmailIndex];
+	var rToken = email.refreshToken;
+	var url = 'https://www.googleapis.com/oauth2/v3/token'
+	var options = { 
+		form: {
+				grant_type: 'refresh_token',
+				client_id: googleConfig.clientID,
+				client_secret: googleConfig.clientSecret,
+				refresh_token: rToken
+			}
+		}
+
+	return requestPromise.post(url, options)
+		.then(function(googleResponse){
+			var parsedResult = JSON.parse(googleResponse)
+			return parsedResult.access_token
+		})
+		.then(function(aToken){
+			team.email[latestEmailIndex].accessToken = aToken;
+			return team.save()
+		})
+}
+
+var useNewToken = function(team, threadId) {
+	return getFreshToken(team).then(function(newTeam) {
+		return threadId ? getThreads(newTeam, threadId) : getThreads(newTeam)
+	})
+}
+
 router.get('/getAllEmails/:id', function(req, res){
 	TeamModel.findById(req.params.id)
 	.then(function(team){
-		latestEmailIndex = team.email.length-1;
-		emailUrl = team.email[latestEmailIndex].address.replace('@', '%40')
-		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads?maxResults=10', {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].refreshToken} })
+		requestTeam = team
+		return getThreads(team)
 	})
 	.then(function(threads){
-		res.send(threads)
+		return threads
+	}, function(err){
+		return useNewToken(requestTeam);
+	})
+	.then(function(threads) {
+		res.send(threads);
 	})
 })
 
 router.get('/:teamId/:threadId', function(req, res){
 	TeamModel.findById(req.params.teamId)
 	.then(function(team){
-		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/'+emailUrl+'/threads/'+req.params.threadId, {headers: {'Authorization': 'Bearer '+team.email[latestEmailIndex].refreshToken} })
+		requestTeam = team
+		return getThreads(team, req.params.threadId)
 	})
 	.then(function(thread){
 		thread = JSON.parse(thread)
+		if (!Array.isArray(thread.messages)) thread.messages = [thread.messages];
 		thread.messages.forEach(function(message){
 			message.payload.parts.forEach(function(part){
 				part.body.data = base64.decode(part.body.data).replace("==","").replace("==","")
@@ -36,27 +89,10 @@ router.get('/:teamId/:threadId', function(req, res){
 			return message
 		})
 		return thread
+	}, function(err){
+		return useNewToken(requestTeam, req.params.threadId);
 	})
 	.then(function(thread){
 		res.send(thread)
 	})
 })
-
-// router.post('/:teamId/:threadId', function(req, res){
-// 	TeamModel.findById(req.params.teamId)
-// 	.then(function(team){
-// 		return requestPromise.get('https://www.googleapis.com/gmail/v1/users/teammailfsa%40gmail.com/threads/'+req.params.threadId, {headers: {'Authorization': 'Bearer '+team.accessToken} })
-// 	})
-// 	// .then(function(thread){
-// 	// 	thread.messages.forEach(function(message){
-// 	// 		message.payload.body.data = base64.decode(message.payload.body.data)
-// 	// 	})
-// 	// 	return thread
-// 	// })
-// 	.then(function(thread){
-// 		console.log('went to google api and got this thread: ', thread)
-// 		res.send(thread)
-// 	})
-// })
-
-//https://www.googleapis.com/gmail/v1/users//threads?maxResults=12&key={YOUR_API_KEY}
