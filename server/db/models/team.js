@@ -7,8 +7,6 @@ var addressSchema = new mongoose.Schema({
     refreshToken: String
 })
 
-
-
 var schema = new mongoose.Schema({
     googleId: {
         type: String
