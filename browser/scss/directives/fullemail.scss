@@ -1,7 +1,6 @@
 #fullemail {
-	/*width: 100%;*/
-  width: 600px;
-  height: 100vh;
+  width: calc(100% - 504px);
+  height: calc(100vh - 50px);
   border: 1px solid black;
   display: inline-block;
   float: left;
