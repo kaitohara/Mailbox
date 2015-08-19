@@ -1,9 +1,9 @@
-app.controller('ModalInstanceCtrl', function($scope, $modalInstance, email, $window) {
+app.controller('replyModalInstanceCtrl', function($scope, $modalInstance, email, $window) {
 
     $scope.email = email;
     // $scope.selectedUser = null;
 
-    $scope.ok = function() {
+    $scope.sendReply = function() {
         $modalInstance.close($scope.emailReply);
     };
 

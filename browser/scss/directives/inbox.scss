@@ -1,7 +1,7 @@
 
 #inbox {
 	width: 300px;
-	height: 100vh;
+	height: calc(100vh - 50px);
 	border: 1px solid black;
 	overflow: scroll;
 	float: left;

@@ -1,4 +1,4 @@
-app.controller('ModalCtrl', function($scope, $modal, $log, userFactory) {
+app.controller('replyModalCtrl', function($scope, $modal, $log, $http) {
 
     $scope.animationsEnabled = true;
 
