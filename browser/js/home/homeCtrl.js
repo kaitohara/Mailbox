@@ -22,6 +22,12 @@ app.controller('homeCtrl', function ($scope, $log, userFactory, teamFactory, tea
             console.log('got this email', fullEmail)
 			$scope.email = fullEmail;
     	})
-    }
+    };
+
+    $scope.extractField = function(messageObj, fieldName) {
+        return messageObj.payload.headers.filter(function(header) {
+            return header.name === fieldName;
+        })[0];
+    };
 
 });
