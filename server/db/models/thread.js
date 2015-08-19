@@ -2,10 +2,10 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    messages: {
-        type: [mongoose.Schema.Types.ObjectId],
+    messages: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Email'
-    },
+    }],
     associatedEmail: {
         type: String
     },
@@ -22,6 +22,12 @@ var schema = new mongoose.Schema({
     },
     archived: {
         type: Boolean
+    },
+    snippet: {
+        type: String
+    },
+    historyId: {
+        type: Number
     }
 });
 

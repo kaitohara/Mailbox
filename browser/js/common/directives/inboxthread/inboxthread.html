@@ -1,8 +1,9 @@
 <section id='inboxThread'>
+	<!-- {{threads}} -->
 	<ul>
-		<li ng-click='getThisEmailFromTheTread(thread.id)' class='thread' ng-repeat='thread in threads'>
+		<li ng-click='getThisEmailFromTheThread(thread._id)' class='thread' ng-repeat='thread in threads'>
 			<div>
-			{{thread.id}}{{thread.snippet}}</div>
+			{{thread._id}}{{thread.snippet}}</div>
 		</li>
 	</ul>
 </section>

@@ -14,10 +14,10 @@ var schema = new mongoose.Schema({
     name: {
         type: String
     },
-    threads: {
-        type: [mongoose.Schema.Types.ObjectId],
+    threads: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Thread'
-    },
+    }],
     email: [addressSchema]
 });
 
