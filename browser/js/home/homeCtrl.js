@@ -18,6 +18,7 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
             })
     };
 
+    
     $scope.getThisEmailFromTheThread = function(threadId) {
         teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
             .then(function(fullEmail) {
@@ -25,5 +26,11 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
                 $scope.email = fullEmail;
             })
     }
+
+    $scope.extractField = function(messageObj, fieldName) {
+        return messageObj.googleObj.payload.headers.filter(function(header) {
+            return header.name === fieldName;
+        })[0];
+    };
 
 });

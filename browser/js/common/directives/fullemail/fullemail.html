@@ -1,8 +1,21 @@
 <section id='fullemail'>
+<ul>
+	<!-- {{email.messages}} -->
+	<li ng-repeat="message in email.messages">
+		<!-- {{message}} -->
+		<p>Subject: {{extractField(message, "Subject").value}}</p>
+		<p>From: {{extractField(message, "From").value}}</p>
+		<p>To: {{extractField(message, "To").value}}</p>
+		<p>Date: {{extractField(message, "Date").value}}</p>
+		
+		<!-- Subject: {{message.payload.parts[0].body.data}} -->
+		Body: {{message.googleObj.payload.parts[0].body.data}}
 
-<h5 ng-show="email">The email:</h5>
+	</li>
+</ul>
+<!-- <h5 ng-show="email">The email:</h5>
 <h5 ng-show="email">Subject: {{email.messages[0].payload.parts[0].body.data}}</h5>
-<h5 ng-show="email">Body: {{email.messages[0].payload.parts[1].body.data}}</h5>
+<h5 ng-show="email">Body: {{email.messages[0].payload.parts[1].body.data}}</h5> -->
 <button ng-show="email" ng-click="toggleShowEmail()">
     toggle messy header details</button>
 <div ng-show="showEmailDetails" ng-repeat='header in email.messages[0].payload.headers'>

@@ -77,6 +77,7 @@ module.exports = function(app) {
                                         .exec()
                                         .then(function() {
                                             thread.messages.forEach(function(message) {
+                                                //WE DON'T ACTUALLY DECODE HERE
                                                 saveDecodedEmail(message)
                                             .then(function(newEmail) {
                                                 //store email refs in Thread messages array
@@ -168,7 +169,8 @@ module.exports = function(app) {
 };
 
 function saveDecodedEmail(message) {
-    message = TokenManager.decode(message)
+    // NOT DECODING BEFORE BACKEND FOR NOW
+    // message = TokenManager.decode(message)
     //Save each message as 'email' to our DB
     var newEmail = new EmailModel({
         googleObj: message
