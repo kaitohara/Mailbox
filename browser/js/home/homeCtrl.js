@@ -28,7 +28,7 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
     }
 
     $scope.extractField = function(messageObj, fieldName) {
-        return messageObj.payload.headers.filter(function(header) {
+        return messageObj.googleObj.payload.headers.filter(function(header) {
             return header.name === fieldName;
         })[0];
     };
