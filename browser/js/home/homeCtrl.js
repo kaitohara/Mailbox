@@ -2,11 +2,6 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
 
     $scope.teams = teams;
     $scope.users = users;
-    $scope.showEmailDetails = false
-
-    $scope.toggleShowEmail = function() {
-        $scope.showEmailDetails = !$scope.showEmailDetails
-    }
 
     $scope.getThisTeamsGmailThreads = function(team) {
         console.log('hit this')
@@ -18,7 +13,6 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
             })
     };
 
-    
     $scope.getThisEmailFromTheThread = function(threadId) {
         teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
             .then(function(fullEmail) {
