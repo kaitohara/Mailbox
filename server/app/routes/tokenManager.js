@@ -1,4 +1,5 @@
 var requestPromise = require('request-promise');
+var base64 = require('js-base64').Base64;
 
 function TokenManager() {};
 
@@ -46,6 +47,14 @@ TokenManager.prototype.useNewToken = function(team, threadId) {
 	return this.getFreshToken(team).then(function(newTeam) {
 		return threadId ? this.getThreads(newTeam, threadId) : this.getThreads(newTeam)
 	})
+}
+
+TokenManager.prototype.decode = function(message) {
+	message.payload.parts.forEach(function(part) {
+		part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
+		return part
+	})
+	return message;
 }
 
 module.exports = new TokenManager();

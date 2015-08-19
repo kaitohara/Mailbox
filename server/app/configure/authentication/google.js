@@ -44,49 +44,33 @@ module.exports = function(app) {
                 .exec()
                 .then(function(team) {
                     if (team) {
+                        // update tokens in correct e-mail sub-document in e-mails array
                         team.email.forEach(function(email) {
                             if (email.address === profile.emails[0].value) {
                                 email.accessToken = accessToken
                                 email.refreshToken = refreshToken
                             }
                         })
-                        latestEmailIndex = team.email.length - 1;
-                        emailUrl = team.email[latestEmailIndex].address.replace('@', '%40')
-                            //Fetch 5 most recent thread IDs for added Team Email from Gmail API
-                        return requestPromise.get('https://www.googleapis.com/gmail/v1/users/' + emailUrl + '/threads?maxResults=5', {
-                                headers: {
-                                    'Authorization': 'Bearer ' + team.email[latestEmailIndex].accessToken
-                                }
-                            })
+                        TokenManager.getThreads(team)
                             .then(function(threads) {
                                 threads = JSON.parse(threads)
-                                console.log('threads: ', threads)
+                                    // console.log('threads: ', threads)
                                 threads.threads.forEach(function(thread) {
                                     //Fetch each thread from GMail API using thread IDs
-                                    return requestPromise.get('https://www.googleapis.com/gmail/v1/users/' + emailUrl + '/threads/' + thread.id, {
-                                            headers: {
-                                                'Authorization': 'Bearer ' + team.email[latestEmailIndex].accessToken
-                                            }
-                                        })
+                                    TokenManager.getThreads(team, thread.id)
                                         .then(function(thread) {
                                             // console.log('thread: ', thread)
                                             thread = JSON.parse(thread);
-                                            //Save thread to DB
-                                            // ThreadModel.create({
-                                            //     associatedEmail : team.email[latestEmailIndex].address,
-                                            //     googleThreadId : thread.id
-                                            // })
-                                            // team.threads.push(thread)
-                                            // console.log('team',team)
+                                            //Save individual thread to DB
+                                            console.log('is snippet in here??', thread)
                                             var newThread = new ThreadModel({
-                                                associatedEmail: team.email[latestEmailIndex].address,
-                                                googleThreadId: thread.id
-                                            })
-
-                                            //thread variable naming is horrendous so we should clean them up - referring to thread from google vs thread from .create/new model
-                                            newThread.save(function(err, thread1) {
-                                                    console.log(err, thread1)
+                                                    associatedEmail: team.email[team.email.length - 1].address,
+                                                    googleThreadId: thread.id,
+                                                    snippet: thread.messages[0].snippet,
+                                                    historyId: thread.historyId
                                                 })
+                                                //thread variable naming is horrendous so we should clean them up - referring to thread from google vs thread from .create/new model
+                                            newThread.save()
                                                 .then(function(createdThread) {
                                                     TeamModel.findOneAndUpdate({
                                                             _id: team._id
@@ -97,50 +81,42 @@ module.exports = function(app) {
                                                         }).exec()
                                                         .then(function() {
                                                             // console.log("teaaaaaaaaaaaaaaam", team.threads)
-                                                            console.log("THREAD:", thread)
+                                                            // console.log("THREAD:", thread)
+                                                            if (thread.id === '14f27d8bd314a58f') console.log('found it', thread.messages[0].payload)
                                                             thread.messages.forEach(function(message) {
-                                                                message.payload.parts.forEach(function(part) {
-                                                                        part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
-                                                                        return part;
-                                                                    })
-                                                                    // console.log('message: ', message);
+                                                                message = TokenManager.decode(message)
                                                                     //Save each message as 'email' to our DB
                                                                 var newEmail = new EmailModel({
                                                                     googleObj: message
                                                                 })
-                                                                newEmail.save(function(err, email) {
-                                                                    console.log(err, email)
-                                                                })
-                                                                console.log('thread.id: ', thread.id, 'newEmail', newEmail)
+                                                                if (thread.id === '14f27d8bd314a58f') console.log('made it', newEmail)
+                                                                newEmail.save().then(function(newEmail) {
+                                                                    console.log('thread.id: ', thread.id, 'newEmail', newEmail)
 
-                                                                //store email refs in Thread Schema
-                                                                // console.log('thread.id',thread.id)
-                                                                ThreadModel.findOne({
-                                                                    googleThreadId: thread.id
-                                                                }).exec().then(function(one) {
-                                                                    console.log('!!!!!one', one)
+                                                                    //store email refs in Thread Schema
+                                                                    // console.log('thread.id',thread.id)
+                                                                    // ThreadModel.findOne({
+                                                                    //     googleThreadId: thread.id
+                                                                    // }).exec().then(function(one) {
+                                                                    //     console.log('!!!!!one', one)
+                                                                    // })
+                                                                    ThreadModel.findOneAndUpdate({
+                                                                            googleThreadId: thread.id
+                                                                        }, {
+                                                                            $push: {
+                                                                                messages: newEmail
+                                                                            }
+                                                                        })
+                                                                        .exec()
+                                                                        .then(function(updatedThread) {
+                                                                            console.log('updatedThread', updatedThread)
+                                                                        }, function(err) {
+                                                                            console.log(err)
+                                                                        })
                                                                 })
-                                                                ThreadModel.findOneAndUpdate({
-                                                                        googleThreadId: thread.id
-                                                                    }, {
-                                                                        $addToSet: {
-                                                                            messages: newEmail
-                                                                        }
-                                                                    })
-                                                                    .exec()
-                                                                    .then(function(updatedThread) {
-                                                                        console.log('updatedThread', updatedThread)
-                                                                    }, function(err) {
-                                                                        console.log(err)
-                                                                    })
                                                             })
-
                                                         })
-                                                        // console.log('THING', thing)
-
                                                 })
-
-                                            //Decode each message in thread
                                         })
                                 })
                             })
