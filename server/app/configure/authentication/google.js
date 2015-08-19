@@ -33,16 +33,15 @@ module.exports = function(app) {
         if (req.user) {
             console.log('profile:', profile, 'accessToken: ', accessToken, 'refreshToken: ', refreshToken)
                 // find a team that matches inputted email
-            TeamModel
-                .findOne({
+            TeamModel.findOne({
                     email: {
                         $elemMatch: {
                             address: profile.emails[0].value
                         }
                     }
                 })
-                .exec()
-                .then(function(team) {
+            .exec()
+            .then(function(team) {
                     if (team) {
                         // update tokens in correct e-mail sub-document in e-mails array
                         team.email.forEach(function(email) {
@@ -52,83 +51,55 @@ module.exports = function(app) {
                             }
                         })
                         TokenManager.getThreads(team)
-                            .then(function(threads) {
-                                threads = JSON.parse(threads)
-                                    // console.log('threads: ', threads)
-                                threads.threads.forEach(function(thread) {
-                                    //Fetch each thread from GMail API using thread IDs
-                                    TokenManager.getThreads(team, thread.id)
-                                        .then(function(thread) {
-                                            // console.log('thread: ', thread)
-                                            thread = JSON.parse(thread);
-                                            //Save individual thread to DB
-                                            console.log('is snippet in here??', thread)
-                                            var newThread = new ThreadModel({
-                                                    associatedEmail: team.email[team.email.length - 1].address,
-                                                    googleThreadId: thread.id,
-                                                    snippet: thread.messages[0].snippet,
-                                                    historyId: thread.historyId
-                                                })
-                                                //thread variable naming is horrendous so we should clean them up - referring to thread from google vs thread from .create/new model
-                                            newThread.save()
-                                                .then(function(createdThread) {
-                                                    TeamModel.findOneAndUpdate({
-                                                            _id: team._id
-                                                        }, {
-                                                            $addToSet: {
-                                                                threads: createdThread
-                                                            }
-                                                        }).exec()
-                                                        .then(function() {
-                                                            // console.log("teaaaaaaaaaaaaaaam", team.threads)
-                                                            // console.log("THREAD:", thread)
-                                                            if (thread.id === '14f27d8bd314a58f') console.log('found it', thread.messages[0].payload)
-                                                            thread.messages.forEach(function(message) {
-                                                                message = TokenManager.decode(message)
-                                                                    //Save each message as 'email' to our DB
-                                                                var newEmail = new EmailModel({
-                                                                    googleObj: message
-                                                                })
-                                                                if (thread.id === '14f27d8bd314a58f') console.log('made it', newEmail)
-                                                                newEmail.save().then(function(newEmail) {
-                                                                    console.log('thread.id: ', thread.id, 'newEmail', newEmail)
-
-                                                                    //store email refs in Thread Schema
-                                                                    // console.log('thread.id',thread.id)
-                                                                    // ThreadModel.findOne({
-                                                                    //     googleThreadId: thread.id
-                                                                    // }).exec().then(function(one) {
-                                                                    //     console.log('!!!!!one', one)
-                                                                    // })
-                                                                    ThreadModel.findOneAndUpdate({
-                                                                            googleThreadId: thread.id
-                                                                        }, {
-                                                                            $push: {
-                                                                                messages: newEmail
-                                                                            }
-                                                                        })
-                                                                        .exec()
-                                                                        .then(function(updatedThread) {
-                                                                            console.log('updatedThread', updatedThread)
-                                                                        }, function(err) {
-                                                                            console.log(err)
-                                                                        })
-                                                                })
-                                                            })
-                                                        })
-                                                })
+                        .then(function(threads) {
+                            threads = JSON.parse(threads)
+                            // console.log('threads: ', threads)
+                            threads.threads.forEach(function(thread) {
+                                //Fetch each thread from GMail API using thread IDs
+                                TokenManager.getThreads(team, thread.id)
+                                .then(function(thread) {
+                                    // console.log('thread: ', thread)
+                                    thread = JSON.parse(thread);
+                                    //Save individual thread to DB
+                                    console.log('is snippet in here??', thread)
+                                    var newThread = new ThreadModel({
+                                            associatedEmail: team.email[team.email.length - 1].address,
+                                            googleThreadId: thread.id,
+                                            snippet: thread.messages[0].snippet,
+                                            historyId: thread.historyId
                                         })
+                                    newThread.save()
+                                    .then(function(createdThread) {
+                                        TeamModel.findOneAndUpdate({_id: team._id}, {
+                                            $addToSet: { threads: createdThread }
+                                        })
+                                        .exec()
+                                        .then(function() {
+                                            thread.messages.forEach(function(message) {
+                                                saveDecodedEmail(message)
+                                            .then(function(newEmail) {
+                                                //store email refs in Thread messages array
+                                                ThreadModel.findOneAndUpdate({ googleThreadId: thread.id }, {
+                                                    $push: {
+                                                        messages: newEmail
+                                                    }
+                                                }).exec()
+                                            })
+                                            }) // END OF forEach message
+                                        })
+                                    })
                                 })
+                            }) // END OF forEach thread.threads
+                        })
+                        .then(function() {
+                            team.save(function(err, team) {
+                                console.log('error in team save: ', err, 'team in team save: ', team)
+                                done(err, req.user)
                             })
-                            .then(function() {
-                                team.save(function(err, team) {
-                                    console.log(err, team)
-                                    done(err, req.user)
-                                })
-                            })
+                        })
                     } else {
-                        // throwing error will send to failure redirect
-                        done(new Error('team email didn\'t match'))
+                    // throwing error will send to failure redirect
+                    done(new Error('team email didnt match'))
                     }
                 })
         } else {
@@ -194,3 +165,12 @@ module.exports = function(app) {
             res.redirect('/');
         });
 };
+
+function saveDecodedEmail(message) {
+    message = TokenManager.decode(message)
+    //Save each message as 'email' to our DB
+    var newEmail = new EmailModel({
+        googleObj: message
+    })
+    return newEmail.save()
+}
