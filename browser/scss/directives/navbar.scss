@@ -1,9 +1,14 @@
 navbar {
-
-  display: block;
+  /*display: block;*/
   background: white;
   border-bottom: 1px solid black;
   box-shadow: 1px 1px 14px -3px black;
+
+  /*position: absolute;*/ /* this might be worth doing on all things in dashboard */
+
+  .navbar {
+    margin-bottom: 0px;
+  }
 
   .container {
     width: 91%;
