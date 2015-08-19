@@ -24,10 +24,12 @@ var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Team = Promise.promisifyAll(mongoose.model('Team'));
+var Email = Promise.promisifyAll(mongoose.model('Email'));
+var Thread = Promise.promisifyAll(mongoose.model('Thread'));
 
 var wipeDB = function() {
 
-    var models = [User, Team];
+    var models = [User, Team, Email, Thread];
     var promiseArr = [];
     models.forEach(function(model) {
         promiseArr.push(model.find({}).remove().exec());
