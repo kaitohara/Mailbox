@@ -13,7 +13,6 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
             })
     };
 
-    
     $scope.getThisEmailFromTheThread = function(threadId) {
         teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
             .then(function(fullEmail) {

@@ -5,20 +5,25 @@ var requestPromise = require('request-promise');
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 
-router.get('/', function(req, res){
-	
+router.get('/', function(req, res) {
+
 	UserModel.find().exec()
-	.then(function(allUsers){
-		res.send(allUsers)
-	})
+		.then(function(allUsers) {
+			console.log('all users', allUsers)
+			res.send(allUsers)
+		})
 })
 
-router.put('/:userId', function(req, res){
-	UserModel.findByIdAndUpdate(req.params.userId, {$addToSet:{teams: req.body._id}})
-	.exec()
-	.then(function(updatedUser){
-		res.send(updatedUser)
-	}, function(err){
-		console.log(err)
-	})
+router.put('/:userId', function(req, res) {
+	UserModel.findByIdAndUpdate(req.params.userId, {
+			$addToSet: {
+				teams: req.body._id
+			}
+		})
+		.exec()
+		.then(function(updatedUser) {
+			res.send(updatedUser)
+		}, function(err) {
+			console.log(err)
+		})
 })
