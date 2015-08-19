@@ -25,7 +25,7 @@
 <h5 ng-show="email">Subject: {{email.messages[0].payload.parts[0].body.data}}</h3>
 <h5 ng-show="email">Body: {{email.messages[0].payload.parts[1].body.data}}</h5>
 
-<button ng-show="email" ng-click="toggleShowEmail()">toggle messy header details</button>
+<button ng-show="email" ng-click="toggleShowEmail()">toggle email header details</button>
 
 <div 	ng-show="showEmailDetails" 
 		ng-repeat='header in email.messages[0].payload.headers'>{{header}}

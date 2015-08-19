@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var TeamModel = mongoose.model('Team');
 
 var base64 = require('js-base64').Base64;
+var base64url = require('base64url')
 
 var Gmail = require('node-gmail-api');
 var emailUrl, latestEmailIndex;

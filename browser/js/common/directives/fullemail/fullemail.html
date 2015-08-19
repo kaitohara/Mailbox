@@ -5,6 +5,11 @@
 <h5 ng-show="email">Body: {{email.messages[0].payload.parts[1].body.data}}</h5>
 <button ng-show="email" ng-click="toggleShowEmail()">
     toggle messy header details</button>
+<div>
+	<div ng-controller="replyModalCtrl">
+		<button ng-click="openReply()">popup reply</button>
+	</div>
+</div>
 <div ng-show="showEmailDetails" ng-repeat='header in email.messages[0].payload.headers'>
     {{header}}</div>
 
