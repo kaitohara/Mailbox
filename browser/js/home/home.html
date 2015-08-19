@@ -6,4 +6,30 @@
 	
 	<fullemail></fullemail> 
 
+	<div ng-repeat='team in teams'>{{team}}
+		<div ng-controller="ModalCtrl">
+		    <button type="button" class="btn" ng-click="open(); setTeam(team)">Add users to: {{team.name}}</button>
+		    <button type="button" class="btn" ng-click="getThisTeamsGmailThreads(team)">Open {{team.name}}'s threads below</button>
+		</div>
+		<br>
+	</div>
+
+	<br>
+
+	<h5 ng-show="threads"> The threads for this team: </h5>
+	<div 	ng-show="threads" 
+			ng-click='getThisEmailFromTheTread(thread.id)' 
+			ng-repeat='thread in threads'>{{thread}}
+	</div>
+	<br>
+
+	<h5 ng-show="email">The email:</h5>
+	<h5 ng-show="email">Subject: {{email.messages[0].payload.parts[0].body.data}}</h3>
+	<h5 ng-show="email">Body: {{email.messages[0].payload.parts[1].body.data}}</h5>
+
+	<button ng-show="email" ng-click="toggleShowEmail()">toggle email header details</button>
+
+	<div 	ng-show="showEmailDetails" 
+			ng-repeat='header in email.messages[0].payload.headers'>{{header}}
+	</div>
 </section>
