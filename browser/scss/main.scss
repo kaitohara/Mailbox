@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -15,7 +17,6 @@ body {
 }
 /* the ui-view on index.html is id main */
 #main {
-  padding-top: 50px;
   width: 100%;
 }
 
