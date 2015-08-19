@@ -50,6 +50,7 @@ module.exports = function(app) {
                                 email.refreshToken = refreshToken
                             }
                         })
+
                         TokenManager.getThreads(team)
                         .then(function(threads) {
                             threads = JSON.parse(threads)
