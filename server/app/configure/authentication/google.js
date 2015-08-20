@@ -68,7 +68,9 @@ module.exports = function(app) {
                                                     })
                                                 }
 
-                                                var date = messageFilter(latestMessage, 'Date')[0].value
+                                                console.log('internal date????????', thread.messages[thread.messages.length - 1].internalDate)
+
+                                                // var date = messageFilter(latestMessage, 'Date')[0].value
                                                 var sender = messageFilter(latestMessage, 'From')[0].value
                                                 var subject = messageFilter(latestMessage, 'Subject')
                                                 subject = subject[0] ? subject[0].value : 'No Subject'
@@ -76,12 +78,13 @@ module.exports = function(app) {
                                                 var newThread = new ThreadModel({
                                                         associatedEmail: team.email[team.email.length - 1].address,
                                                         googleThreadId: thread.id,
-                                                        snippet: thread.snippet,
+                                                        // snippet: thread.snippet,
                                                         historyId: thread.historyId,
                                                         latestMessage: {
-                                                            date: date,
+                                                            date: thread.messages[thread.messages.length - 1].internalDate,
                                                             from: sender,
-                                                            subject: subject
+                                                            subject: subject,
+                                                            snippet: thread.messages[thread.messages.length - 1].snippet
                                                         }
                                                     })
                                                     // console.log('saving a new thread', newThread);

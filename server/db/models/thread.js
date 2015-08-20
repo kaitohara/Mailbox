@@ -36,5 +36,6 @@ var schema = new mongoose.Schema({
     }
 });
 
+// schema.methods.convertDate = function
 
 mongoose.model('Thread', schema);
