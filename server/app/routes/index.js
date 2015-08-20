@@ -6,6 +6,7 @@ module.exports = router;
 router.use('/google', require('./google'));
 router.use('/teams', require('./teams'));
 router.use('/users', require('./users'));
+router.use('/emails', require('./emails'));
 router.use('/threads', require('./threads'));
 
 // Make sure this is after all of

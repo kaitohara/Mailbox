@@ -11,6 +11,11 @@
 		Body: {{message.googleObj.payload.parts[0].body.data}}
 
 	</li>
+	<div ng-show="thread">
+		<div ng-controller="replyModalCtrl">
+			<button ng-click="openReply()">reply</button>
+		</div>
+	</div>
 </ul>
 
 

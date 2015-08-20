@@ -6,6 +6,7 @@ function TokenManager() {};
 TokenManager.prototype.getThreads = function(team, threadId) {
 	var latestEmailIndex = team.email.length - 1;
 	var emailUrl = team.email[latestEmailIndex].address.replace('@', '%40')
+	// update this to get correct token, not necessarily most recent
 	var aToken = team.email[latestEmailIndex].accessToken;
 	var options = {
 		headers: {
@@ -21,6 +22,7 @@ TokenManager.prototype.getThreads = function(team, threadId) {
 TokenManager.prototype.getFreshToken = function(team) {
 	var latestEmailIndex = team.email.length - 1;
 	var email = team.email[latestEmailIndex];
+	// update this to get correct token, not necessarily most recent
 	var rToken = email.refreshToken;
 	var url = 'https://www.googleapis.com/oauth2/v3/token'
 	var options = {
