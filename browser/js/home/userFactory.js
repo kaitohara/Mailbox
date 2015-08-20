@@ -1,4 +1,4 @@
-app.factory('userFactory', function ($http) {
+app.factory('userFactory', function ($http, AuthService) {
 
     return {
         getAllUsers: function () {
@@ -10,6 +10,13 @@ app.factory('userFactory', function ($http) {
                 return user.data
             })
         },
+        getCurrentUser: function(){
+            return AuthService.getLoggedInUser().then(function(user){
+                return user;
+            })
+        },
+        getUser: function(userId){
+            return $http.get('/api/users/'+userId)
+        }
     };
-
 });
