@@ -6,7 +6,7 @@ app.controller('ModalCtrl', function($scope, $modal, $log, userFactory) {
 
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'js/home/settingsModal.html',
+            templateUrl: 'js/modal/settingsModal.html',
             controller: 'ModalInstanceCtrl',
             resolve: {
                 team: function() {
