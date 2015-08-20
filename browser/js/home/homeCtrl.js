@@ -52,9 +52,9 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, thre
 
     $scope.assignedUser = 'Assign';
 
-    $scope.assign = function(user, thread) {
-        $scope.assignedUser = user.firstName;
-        threadFactory.assignUserToThread(user._id, thread._id);
+    $scope.assign = function(userChoice, thread, user) {
+        $scope.assignedUser = userChoice.firstName;
+        threadFactory.assignUserToThread(userChoice._id, thread._id, user._id);
     }
 
 });
