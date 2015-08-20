@@ -1,7 +1,14 @@
-app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, teams, users) {
+app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, teams, users, $rootScope) {
 
     $scope.teams = teams;
     $scope.users = users;
+
+    $scope.user = $rootScope.user;
+    $scope.showEmailDetails = false
+
+    $scope.toggleShowEmail = function() {
+        $scope.showEmailDetails = !$scope.showEmailDetails
+    }
 
     $scope.getThisTeamsGmailThreads = function(team) {
         console.log('hit this')
