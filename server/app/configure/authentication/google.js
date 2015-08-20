@@ -139,7 +139,8 @@ module.exports = function(app) {
     app.get('/auth/google/user', middlefunc, passport.authenticate('google', {
         scope: [
             'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email'
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/gmail.compose'
         ],
         prompt: 'select_account'
     }));
@@ -148,7 +149,8 @@ module.exports = function(app) {
         passport.authenticate('google', {
             scope: [
                 "https://mail.google.com",
-                'https://www.googleapis.com/auth/userinfo.email'
+                'https://www.googleapis.com/auth/userinfo.email',
+                'https://www.googleapis.com/auth/gmail.compose'
             ],
             loginHint: req.teamEmail,
             approvalPrompt: 'force',
