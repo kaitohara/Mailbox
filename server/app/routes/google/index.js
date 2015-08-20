@@ -28,7 +28,10 @@ router.get('/:teamId/:threadId', function(req, res) {
 		.populate('messages')
 		.exec()
 		.then(function(thread) {
-			console.log('the googleObj', thread.messages[0].googleObj.payload.parts)
+			thread.messages.forEach(function(message){
+				TokenManager.decode(message)
+			})
+			// console.log('the googleObj', thread.messages[0].googleObj.payload.parts)
 			res.send(thread)
 		})
 })

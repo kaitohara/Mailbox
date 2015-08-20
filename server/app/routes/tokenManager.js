@@ -52,10 +52,16 @@ TokenManager.prototype.useNewToken = function(team, threadId) {
 }
 
 TokenManager.prototype.decode = function(message) {
-	message.payload.parts.forEach(function(part) {
-		part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
-		return part
-	})
+	console.log('message', message)
+	if (message.googleObj.payload.parts) {
+		message.googleObj.payload.parts.forEach(function(part) {
+			console.log("part", part)
+			part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
+			return part
+		})
+	} else {
+		console.log('partId', message.googleObj.payload.partId)
+	}
 	return message;
 }
 
