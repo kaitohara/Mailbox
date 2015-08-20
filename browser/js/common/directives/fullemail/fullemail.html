@@ -1,7 +1,6 @@
-<section id='fullemail' ng-show="email">
+<section id='fullemail' ng-show="thread">
 <ul>
-	<!-- {{email.messages}} -->
-	<li ng-repeat="message in email.messages">
+	<li ng-repeat="message in thread.messages">
 		<!-- {{message}} -->
 		<p>Subject: {{extractField(message, "Subject").value}}</p>
 		<p>From: {{extractField(message, "From").value}}</p>
@@ -29,7 +28,7 @@
 	</a>
     <ul class="dropdown-menu" dropdown-menu>
       <li ng-repeat='userChoice in users'> 
-        <a ng-click="assign(userChoice, email, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+        <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
       </li>
       
     </ul>

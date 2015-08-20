@@ -2,7 +2,7 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, thre
 
     $scope.teams = teams;
     $scope.users = users;
-    $scope.email;
+    $scope.thread;
 
     $scope.user = $rootScope.user;
     $scope.showEmailDetails = false
@@ -24,8 +24,8 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, thre
     $scope.getThisEmailFromTheThread = function(threadId) {
         teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
             .then(function(fullEmail) {
-                console.log('got this email', fullEmail)
-                $scope.email = fullEmail;
+                console.log('got this thread', fullEmail)
+                $scope.thread = fullEmail;
             })
     }
 
@@ -54,6 +54,7 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, thre
 
     $scope.assign = function(userChoice, thread, user) {
         $scope.assignedUser = userChoice.firstName;
+        console.log('this is the thread that got passed to assign: ', thread)
         threadFactory.assignUserToThread(userChoice._id, thread._id, user._id);
     }
 
