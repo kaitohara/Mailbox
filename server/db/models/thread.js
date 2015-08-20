@@ -28,6 +28,11 @@ var schema = new mongoose.Schema({
     },
     historyId: {
         type: Number
+    },
+    latestMessage: {
+        date: String,
+        from: String,
+        subject: String
     }
 });
 
