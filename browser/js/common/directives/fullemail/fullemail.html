@@ -1,4 +1,4 @@
-<section id='fullemail' ng-controller='ModalCtrl'>
+<section id='fullemail'>
 <ul>
 	<!-- {{email.messages}} -->
 	<li ng-repeat="message in email.messages">
@@ -13,5 +13,20 @@
 
 	</li>
 </ul>
+
+
+ <span class="dropdown" dropdown>
+   	<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
+
+   	<button class="btn">{{ assignedUser }}</button>
+    <button class="btn"><span class="caret"></span></button>
+	
+	</a>
+    <ul class="dropdown-menu" dropdown-menu>
+      <li ng-repeat='user in users'> 
+        <a ng-click="assign(user, email)">{{user.firstName}} {{user.lastName}}</a>
+      </li>
+      
+    </ul>
 
 </section>
