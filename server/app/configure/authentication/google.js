@@ -71,7 +71,9 @@ module.exports = function(app) {
                                                 console.log('internal date????????', thread.messages[thread.messages.length - 1].internalDate)
 
                                                 // var date = messageFilter(latestMessage, 'Date')[0].value
-                                                var sender = messageFilter(latestMessage, 'From')[0].value
+                                                var sender = messageFilter(latestMessage, 'From')
+                                                sender = sender[0] ? sender[0].value : 'No Sender'
+
                                                 var subject = messageFilter(latestMessage, 'Subject')
                                                 subject = subject[0] ? subject[0].value : 'No Subject'
 
