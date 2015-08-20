@@ -4,12 +4,16 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/home/home.html',
         controller: 'homeCtrl',
         resolve: {
-            teams: function(teamFactory){
-                return teamFactory
-                    .getAllTeams()
+            teams: function(teamFactory, userFactory){
+                return userFactory.getCurrentUser()
+                .then(function(user){
+                    return teamFactory
+                    .getUserTeams(user._id)
                     .then(function(teams){
                         return teams.data;
+                    })
                 })
+                console.log('resolving')
             },
             users: function(userFactory){
                 return userFactory
@@ -17,7 +21,6 @@ app.config(function ($stateProvider) {
                     .then(function(users){
                         return users.data
                     })
-
             }
         }
     });

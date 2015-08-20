@@ -9,6 +9,16 @@ router.use('/users', require('./users'));
 
 // Make sure this is after all of
 // the registered routes!
+router.get('/:userId', function(req, res, next){
+	UserModel.findOne({_id:req.params.userId})
+	.populate('teams')
+	.then(function(user){
+		res.send(user)
+	})
+	.then(null, next)
+})
+
+
 router.use(function (req, res) {
     res.status(404).end();
 });

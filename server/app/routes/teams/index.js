@@ -12,6 +12,8 @@ router.get('/', function(req, res, next) {
 		.then(null, next)
 })
 
+
+
 router.post('/createTeam', function(req, res, next) {
 	TeamModel.create({
 			name: req.body.name,
