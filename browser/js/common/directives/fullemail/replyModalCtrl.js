@@ -1,4 +1,4 @@
-app.controller('replyModalCtrl', function($scope, $modal, $log, $http) {
+app.controller('replyModalCtrl', function($scope, $modal, $log, replyFactory, $http) {
 
     $scope.animationsEnabled = true;
 
@@ -16,10 +16,11 @@ app.controller('replyModalCtrl', function($scope, $modal, $log, $http) {
         });
 
         modalInstance.result.then(function(emailReply) {
-            $scope.emailReply = emailReply;
+            $scope.email.emailReply = emailReply;
+            replyFactory.sendEmail($scope.email)
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
-        });
+        })
     };
 
     $scope.toggleAnimation = function() {
