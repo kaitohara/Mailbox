@@ -6,7 +6,7 @@ app.controller('replyModalCtrl', function($scope, $modal, $log, replyFactory, $h
 
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'js/common/directives/fullemail/replyModalTemplate.html',
+            templateUrl: 'js/modal/replyModalTemplate.html',
             controller: 'replyModalInstanceCtrl',
             resolve: {
                 email: function() {

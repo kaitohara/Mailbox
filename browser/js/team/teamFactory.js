@@ -2,21 +2,21 @@ app.factory('teamFactory', function($http) {
 
     return {
         getAllTeams: function() {
-            return $http.get('http://localhost:1337/api/teams')
+            return $http.get('/api/teams')
         },
-        getUserTeams: function(userId){
+        getUserTeams: function(userId) {
             console.log('getting User Teams', userId)
-            return $http.get('/api/users/'+userId)
+            return $http.get('/api/users/' + userId)
         },
         getThisTeamsGmailThreads: function(team) {
-            return $http.get('http://localhost:1337/api/google/getAllEmails/' + team._id)
+            return $http.get('/api/google/getAllEmails/' + team._id)
                 .then(function(threads) {
                     console.log('the threads: ', threads.data)
                     return threads.data
                 })
         },
         getThisEmailFromTheThread: function(threadId, activeTeamId) {
-            return $http.get('http://localhost:1337/api/google/' + activeTeamId + '/' + threadId)
+            return $http.get('/api/google/' + activeTeamId + '/' + threadId)
                 .then(function(fullEmail) {
                     return fullEmail.data
                 })

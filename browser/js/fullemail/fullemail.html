@@ -1,5 +1,5 @@
 <section id='fullemail' ng-show="thread">
-<ul>
+<ul ng-controller="fullemailCtrl">
 	<li ng-repeat="message in thread.messages | orderBy: 'googleObj.internalDate':true">
 		<!-- {{message}} -->
 		<p>Subject: {{extractField(message, "Subject").value}}</p>
