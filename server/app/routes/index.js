@@ -2,7 +2,7 @@
 var router = require('express').Router();
 module.exports = router;
 
-router.use('/members', require('./members'));
+// router.use('/members', require('./members'));
 router.use('/google', require('./google'));
 router.use('/teams', require('./teams'));
 router.use('/users', require('./users'));

@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var ThreadModel = mongoose.model('Thread');
 var UserModel = mongoose.model('User');
 
-router.post('/assign/', function(req, res) {
+router.post('/assign', function(req, res) {
 	var foundThread;
 
 	ThreadModel.findById(req.body.threadId)
@@ -16,12 +16,11 @@ router.post('/assign/', function(req, res) {
 			UserModel.findById(req.body.assignedTo)
 				.then(function(user) {
 					foundThread.assignedTo = user;
-
 					UserModel.findById(req.body.assignedBy)
 						.then(function(user) {
 							foundThread.assignedBy = user;
 							foundThread.save();
-							console.log(foundThread)
+							console.log('this is the newly assigned thread: ', foundThread)
 						})
 				})
 		})
