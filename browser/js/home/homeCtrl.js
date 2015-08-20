@@ -2,6 +2,7 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
 
     $scope.teams = teams;
     $scope.users = users;
+
     $scope.user = $rootScope.user;
     $scope.showEmailDetails = false
 

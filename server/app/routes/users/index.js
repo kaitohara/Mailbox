@@ -5,12 +5,16 @@ var requestPromise = require('request-promise');
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 
-router.get('/', function(req, res){
+
+router.get('/', function(req, res) {
+
 	UserModel.find().exec()
-	.then(function(allUsers){
-		res.send(allUsers)
-	})
+		.then(function(allUsers) {
+			console.log('all users', allUsers)
+			res.send(allUsers)
+		})
 })
+
 
 router.get('/:userId', function(req, res, next){
 	UserModel.findById(req.params.userId)

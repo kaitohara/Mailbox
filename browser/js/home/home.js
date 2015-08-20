@@ -7,13 +7,14 @@ app.config(function ($stateProvider) {
             teams: function(teamFactory, userFactory){
                 return userFactory.getCurrentUser()
                 .then(function(user){
+                    if (user){
                     return teamFactory
                     .getUserTeams(user._id)
                     .then(function(teams){
                         return teams.data;
                     })
+                    }
                 })
-                console.log('resolving')
             },
             users: function(userFactory){
                 return userFactory

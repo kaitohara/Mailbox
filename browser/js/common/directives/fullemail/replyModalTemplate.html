@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h3 class="modal-title">Reply</h3>
+</div>
+    <div class="modal-body">
+        <form id="email-reply" name="email-reply" ng-submit="">
+        <div class="form-group">
+            <label for="emailTo">To:</label>
+            <input type="text" ng-model="emailReply.to" class="form-control" id="emailTo" placeholder="somebody@anywhere.com">
+        </div>
+        <div class="form-group">
+            <label for="emailFrom">From:</label>
+            <input type="text" ng-model="emailReply.from" class="form-control" id="emailFrom" placeholder="teammailfsa@gmail.com">
+        </div>
+        <div class="form-group">
+            <label for="Subject">Subject:</label>
+            <input type="text" ng-model="emailReply.subject" class="form-control" id="Subject">
+        </div>
+        <div class="form-group">
+            <label for="Body">Body:</label>
+            <input type="text" ng-model="emailReply.body" class="form-control" id="Body">
+        </div>
+</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="sendReply()">Send</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Save As Draft</button>
+</div>
