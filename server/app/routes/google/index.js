@@ -28,45 +28,8 @@ router.get('/:teamId/:threadId', function(req, res) {
 		.populate('messages')
 		.exec()
 		.then(function(thread) {
-			console.log('the googleObj', thread.messages[0].googleObj.payload.parts)
+			thread.decrypt()
+				// console.log('the googleObj', thread.messages[0].googleObj.payload.parts)
 			res.send(thread)
 		})
 })
-
-// router.get('/getAllEmails/:id', function(req, res) {
-// 	TeamModel.findById(req.params.id)
-// 		.then(function(team) {
-// 			requestTeam = team
-// 			return TokenManager.getThreads(team)
-// 		})
-// 		.then(function(threads) {
-// 			return threads
-// 		}, function(err) {
-// 			return TokenManager.useNewToken(requestTeam);
-// 		})
-// 		.then(function(threads) {
-// 			res.send(threads);
-// 		})
-// })
-
-// router.get('/:teamId/:threadId', function(req, res) {
-// 	TeamModel.findById(req.params.teamId)
-// 		.then(function(team) {
-// 			requestTeam = team
-// 			return TokenManager.getThreads(team, req.params.threadId)
-// 		})
-// 		.then(function(thread) {
-// 			thread = JSON.parse(thread)
-// 			if (!Array.isArray(thread.messages)) thread.messages = [thread.messages];
-// 			thread.messages.forEach(function(message) {
-// 				TokenManager.decode(message)
-// 				return message
-// 			})
-// 			return thread
-// 		}, function(err) {
-// 			return TokenManager.useNewToken(requestTeam, req.params.threadId);
-// 		})
-// 		.then(function(thread) {
-// 			res.send(thread)
-// 		})
-// })

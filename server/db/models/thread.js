@@ -36,6 +36,19 @@ var schema = new mongoose.Schema({
     }
 });
 
-// schema.methods.convertDate = function
+function decode(message) {
+    message.payload.parts.forEach(function(part) {
+        part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
+        return part
+    })
+    return message;
+}
+
+schema.methods.decrypt = function() {
+    this.messages = this.messages.forEach(function(message) {
+        decode(message);
+    })
+    console.log('messages', this.messages)
+}
 
 mongoose.model('Thread', schema);
