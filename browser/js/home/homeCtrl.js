@@ -5,11 +5,6 @@ app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFact
     $scope.thread;
 
     $scope.user = $rootScope.user;
-    $scope.showEmailDetails = false
-
-    $scope.toggleShowEmail = function() {
-        $scope.showEmailDetails = !$scope.showEmailDetails
-    }
 
     $scope.getThisTeamsGmailThreads = function(team) {
         return teamFactory.getThisTeamsGmailThreads(team)
@@ -24,12 +19,6 @@ app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFact
             .then(function(fullEmail) {
                 $scope.thread = fullEmail;
             })
-    }
-
-    $scope.extractField = function(messageObj, fieldName) {
-        return messageObj.googleObj.payload.headers.filter(function(header) {
-            return header.name === fieldName;
-        })[0];
     };
 
     // dropdown
