@@ -1,10 +1,10 @@
 .sidebar {
   position: fixed;
-/*  z-index: 0;
+  z-index: 0;
   left: 0;
-  top: 0;
-  bottom: 0;*/
-  margin-left:-204px;
+  top: 50px;
+  bottom: 0;
+  margin-left:0px;
   height: 95vh;
 
   width: 204px;
@@ -25,13 +25,10 @@
   transition: left 0.3s ease-in-out;
 }
 
-
-
-
 @media (min-width: 768px) {
   .page-controls, .content-wrap, .loader-wrap {
-    margin-left: 50px;
-    left: 154px;
+    // margin-left: 50px;
+    // left: -154px;
   }
 }
 .nav-collapsed .page-controls, .nav-collapsed .content-wrap, .nav-collapsed .loader-wrap {
@@ -119,7 +116,7 @@
   position: relative;
   z-index: 0;
   height: 100%;
-  left: 204px;
+  // left: 204px;
 }
 
 .content {
@@ -860,6 +857,6 @@
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
     transform: translate(0, 0);
-    margin-left: 204px;
+    // margin-left: 204px;
   }
 }
