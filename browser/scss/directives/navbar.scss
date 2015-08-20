@@ -1,6 +1,6 @@
 navbar {
   /*display: block;*/
-  background: white;
+  background-color: #242424;
   border-bottom: 1px solid black;
   // box-shadow: 1px 1px 14px -3px black;
   z-index:100;
@@ -55,7 +55,7 @@ navbar {
     float: right;
     margin-top: 12px;
     span {
-      color: white;
+      color: black;
     }
     a {
       color: #f30046;
