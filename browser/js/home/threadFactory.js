@@ -1,13 +1,14 @@
 app.factory('threadFactory', function($http) {
 
-    return {
-        assignUserToThread: function(userId, threadId) {
+	return {
+		assignUserToThread: function(victimId, threadId, culpritId) {
 
-            return $http.post('http://localhost:1337/api/threads/assign/', {
-                assignedTo: userId,
-                thread: threadId
-            })
-        }
-    };
+			return $http.post('http://localhost:1337/api/threads/assign/', {
+				assignedTo: victimId,
+				assignedBy: culpritId,
+				thread: threadId
+			})
+		}
+	};
 
 });

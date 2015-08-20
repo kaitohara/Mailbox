@@ -23,8 +23,8 @@
 	
 	</a>
     <ul class="dropdown-menu" dropdown-menu>
-      <li ng-repeat='user in users'> 
-        <a ng-click="assign(user, email)">{{user.firstName}} {{user.lastName}}</a>
+      <li ng-repeat='userChoice in users'> 
+        <a ng-click="assign(userChoice, email, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
       </li>
       
     </ul>

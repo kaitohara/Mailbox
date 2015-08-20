@@ -16,11 +16,16 @@ router.post('/assign/', function(req, res) {
 			UserModel.findById(req.body.assignedTo)
 				.then(function(user) {
 					foundThread.assignedTo = user;
-					foundThread.save();
-					console.log(foundThread)
+
+					UserModel.findById(req.body.assignedBy)
+						.then(function(user) {
+							foundThread.assignedBy = user;
+							foundThread.save();
+							console.log(foundThread)
+						})
 				})
 		})
 		.then(function() {
-			res.send(200);
+			res.sendStatus(200);
 		})
 })
