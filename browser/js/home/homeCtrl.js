@@ -1,4 +1,4 @@
-app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, threadFactory, teams, users, $rootScope) {
+app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFactory, teams, users, $rootScope) {
 
     $scope.teams = teams;
     $scope.users = users;
@@ -12,10 +12,8 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, thre
     }
 
     $scope.getThisTeamsGmailThreads = function(team) {
-        console.log('hit this')
         return teamFactory.getThisTeamsGmailThreads(team)
             .then(function(threads) {
-                console.log('contrller threadds', threads)
                 $scope.activeTeam = team;
                 $scope.threads = threads;
             })
@@ -24,7 +22,6 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, thre
     $scope.getThisEmailFromTheThread = function(threadId) {
         teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
             .then(function(fullEmail) {
-                console.log('got this thread', fullEmail)
                 $scope.thread = fullEmail;
             })
     }
@@ -38,10 +35,6 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, thre
     // dropdown
     $scope.status = {
         isopen: false
-    };
-
-    $scope.toggled = function(open) {
-        $log.log('Dropdown is now: ', open);
     };
 
     $scope.toggleDropdown = function($event) {

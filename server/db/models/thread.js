@@ -28,8 +28,14 @@ var schema = new mongoose.Schema({
     },
     historyId: {
         type: Number
+    },
+    latestMessage: {
+        date: String,
+        from: String,
+        subject: String
     }
 });
 
+// schema.methods.convertDate = function
 
 mongoose.model('Thread', schema);
