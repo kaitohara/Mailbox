@@ -1,7 +1,8 @@
-app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, teams, users, $rootScope) {
+app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, threadFactory, teams, users, $rootScope) {
 
     $scope.teams = teams;
     $scope.users = users;
+    $scope.email;
 
     $scope.user = $rootScope.user;
     $scope.showEmailDetails = false
@@ -33,5 +34,27 @@ app.controller('homeCtrl', function($scope, $log, userFactory, teamFactory, team
             return header.name === fieldName;
         })[0];
     };
+
+    // dropdown
+    $scope.status = {
+        isopen: false
+    };
+
+    $scope.toggled = function(open) {
+        $log.log('Dropdown is now: ', open);
+    };
+
+    $scope.toggleDropdown = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.status.isopen = !$scope.status.isopen;
+    };
+
+    $scope.assignedUser = 'Assign';
+
+    $scope.assign = function(user, thread) {
+        $scope.assignedUser = user.firstName;
+        threadFactory.assignUserToThread(user._id, thread._id);
+    }
 
 });
