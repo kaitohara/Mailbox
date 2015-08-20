@@ -24,10 +24,10 @@ var schema = new mongoose.Schema({
     admin: {
         type: Boolean
     },
-    teams: {
-        type: [mongoose.Schema.Types.ObjectId],
+    teams: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Team'
-    },
+    }],
     available: {
         type: Boolean
     },

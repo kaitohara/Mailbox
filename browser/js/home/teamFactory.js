@@ -4,6 +4,10 @@ app.factory('teamFactory', function($http) {
         getAllTeams: function() {
             return $http.get('http://localhost:1337/api/teams')
         },
+        getUserTeams: function(userId){
+            console.log('getting User Teams', userId)
+            return $http.get('/api/users/'+userId)
+        },
         getThisTeamsGmailThreads: function(team) {
             return $http.get('http://localhost:1337/api/google/getAllEmails/' + team._id)
                 .then(function(threads) {
