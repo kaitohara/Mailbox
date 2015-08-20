@@ -10,14 +10,14 @@ app.controller('replyModalCtrl', function($scope, $modal, $log, replyFactory, $h
             controller: 'replyModalInstanceCtrl',
             resolve: {
                 email: function() {
-                    return $scope.email;
+                    return $scope.thread;
                 }
             }
         });
 
         modalInstance.result.then(function(emailReply) {
-            $scope.email.emailReply = emailReply;
-            replyFactory.sendEmail($scope.email)
+            $scope.thread.emailReply = emailReply;
+            replyFactory.sendEmail($scope.thread)
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
         })
