@@ -8,7 +8,7 @@
 		<p>Date: {{extractField(message, "Date").value}}</p>
 		
 		<!-- Subject: {{message.payload.parts[0].body.data}} -->
-		Body: {{message.googleObj.payload.parts[0].body.data}}
+		Body: {{parseBody(message.googleObj.payload.parts[0].body.data)}}
 
 	</li>
 	<div ng-show="thread">
