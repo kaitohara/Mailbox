@@ -14,6 +14,7 @@ app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFact
         $event.stopPropagation();
         $scope.status.isopen = !$scope.status.isopen;
     };
+
     $scope.assignedUser = 'Assign';
     ///////////////////////////////////////////
 
