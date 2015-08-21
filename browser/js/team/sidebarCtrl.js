@@ -1,6 +1,7 @@
-app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state) {
+app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state, inboxFactory) {
 	// $scope.team;
 	$scope.activeTeam;
+	$scope.team;
 
 	$scope.getTeamMembers = function(team) {
 		userFactory.getTeamMembers(team._id)
@@ -10,6 +11,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state)
 	}
 	
 	$scope.goToTeam = function(team){
+		$scope.team = team;
 		console.log('going to team', team._id)
 		$state.go('home.teamId', {teamId: team._id})
 	}
@@ -21,4 +23,8 @@ app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state)
                 $scope.thread = fullEmail;
             })
     };
+    $scope.syncInbox = function(){
+    	console.log('hit this', $scope.team._id)
+    	inboxFactory.syncInbox($scope.team._id)
+    }
 })

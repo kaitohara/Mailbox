@@ -34,6 +34,16 @@ Utils.prototype.getOneThread = function(team, threadId) {
     return requestPromise.get(fullUrl, settings.options)
 }
 
+Utils.prototype.syncInbox = function(team) {
+    console.log('using utils.js on this team', team)
+    var settings = threadRequestManager(team),
+        urlTail = `/history?startHistoryId=${team.historyId}`,
+        // startHistoryId = team.historyId, //newest message's history id?
+        fullUrl = settings.urlHead + urlTail
+        console.log(fullUrl, 'options', settings.options)
+    return requestPromise.get(fullUrl, settings.options)
+}
+
 function tokenRequestManager(team) {
     var requestSettings = {}
         // use this to get the correct token, not necessarily most recent

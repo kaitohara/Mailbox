@@ -1,5 +1,6 @@
 <section id='inbox'>
 
+	<button ng-click="syncInbox()">Fetch New Emails</button>
 	<ul id='inboxThread'>
 		<li
 		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"

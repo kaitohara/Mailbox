@@ -18,7 +18,10 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Thread'
     }],
-    email: [addressSchema]
+    email: [addressSchema],
+    historyId: {
+        type: String
+    }
 });
 
 

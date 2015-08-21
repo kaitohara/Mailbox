@@ -22,7 +22,29 @@ router.get('/getAllEmails/:id', function(req, res) {
 		})
 })
 
-router.get('/:threadId', function(req, res) {
+
+router.get('/syncInbox/:teamId', function(req, res) {
+	var globalTeam;
+	TeamModel.findById(req.params.teamId)
+		.then(function(team) {
+			// console.log('found this team in database', team)
+			globalTeam = team;
+			return Utils.syncInbox(globalTeam)
+		})
+		.then(function(googleResp) {
+			googleResp = JSON.parse(googleResp)
+			console.log('googleResp', googleResp)
+			globalTeam.historyId = googleResp.historyId;
+			return globalTeam.save()
+		})
+		.then(function(thing){
+			console.log('THE THING: ', thing)
+			res.sendStatus(200)
+		})
+})
+
+// PUT EVERYTHING ABOVE THIS WEIRD ROUTE
+router.get('/:teamId', function(req, res) {
 	ThreadModel.findById(req.params.threadId)
 		.populate('messages')
 		.exec()
@@ -35,3 +57,4 @@ router.get('/:threadId', function(req, res) {
 			res.send(thread)
 		})
 })
+
