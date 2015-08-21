@@ -8,11 +8,22 @@ var UserModel = mongoose.model('User');
 router.get('/', function(req, res) {
 	UserModel.find().exec()
 		.then(function(allUsers) {
-			console.log('all users', allUsers)
 			res.send(allUsers)
 		})
 })
 
+router.get('/teamMembers/:teamId', function(req, res, next) {
+	UserModel.find({
+			teams: {
+				$in: [req.params.teamId]
+			}
+		})
+		.select('firstName')
+		.exec()
+		.then(function(user) {
+			res.json(user)
+		})
+})
 
 router.get('/:userId', function(req, res, next) {
 	UserModel.findById(req.params.userId)
@@ -24,7 +35,6 @@ router.get('/:userId', function(req, res, next) {
 		})
 		.then(null, next)
 })
-
 
 router.put('/:userId', function(req, res) {
 	UserModel.findByIdAndUpdate(req.params.userId, {

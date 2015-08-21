@@ -17,6 +17,13 @@ app.factory('userFactory', function($http, AuthService) {
         },
         getUser: function(userId) {
             return $http.get('/api/users/' + userId)
+        },
+        getTeamMembers: function(teamId) {
+            // console.log('factory team id motherfucker', teamId)
+            return $http.get('/api/users/teamMembers/' + teamId)
+                .then(function(teammates) {
+                    return teammates.data
+                })
         }
-    };
-});
+    }
+})
