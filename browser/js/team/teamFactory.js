@@ -7,20 +7,12 @@ app.factory('teamFactory', function($http) {
         getUserTeams: function(userId) {
             return $http.get('/api/users/' + userId)
         },
-        getThisTeamsGmailThreads: function(team) {
-            return $http.get('/api/google/getAllEmails/' + team._id)
-                .then(function(threads) {
-                    return threads.data
-                })
-        },
-        /////////for state
         getThisTeamsGmailThreadsId: function(teamId) {
             return $http.get('/api/google/getAllEmails/' + teamId)
                 .then(function(threads) {
                     return threads.data
                 })
         },
-        /////////////////
         getThisEmailFromTheThread: function(threadId) {
             return $http.get('/api/google/'+ threadId)
                 .then(function(fullEmail) {
@@ -33,12 +25,6 @@ app.factory('teamFactory', function($http) {
                 email: email
             });
         },
-        // getThisTeam: function(teamId){
-        //     return $http.get('/api/teams/'+teamId)
-        //     .then(function(team){
-        //         return team.data
-        //     })
-        // }
     };
 
 });
