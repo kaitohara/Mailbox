@@ -32,7 +32,9 @@ app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state,
 		inboxFactory.syncInbox($scope.team._id)
 	}
 
-	(function showOnlineStatus() {
+	$scope.showOnlineStatus = function() {
 		Socket.emit('onlineStatus', `${$scope.name} is online`);
-	})()
+	}
+
+	$scope.showOnlineStatus();
 })
