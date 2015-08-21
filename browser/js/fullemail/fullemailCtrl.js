@@ -10,7 +10,7 @@ app.controller('fullemailCtrl', function($scope, thread) {
 
 	$scope.parseBody = function(body){
 		var regex = /On [A-z]{3}, [A-z]{3} [0-9]{1,2}, [0-9]{4} at [0-9]{1,2}:[0-9]{1,2} [A,P]M, /;
-		// $scope.myHTML = body;
+		// $scope.myHTML = body; 
 		if (body) return (body.split(regex))[0];
 		return body;
 	};
