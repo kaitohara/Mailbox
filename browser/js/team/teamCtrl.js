@@ -20,4 +20,12 @@ app.controller('teamCtrl', function($scope, teamFactory, userFactory) {
 				$scope.getTeamMembers();
 			})
 	};
+
+	$scope.getThisEmailFromTheThread = function(threadId) {
+		console.log('hit this')
+        teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
+            .then(function(fullEmail) {
+                $scope.thread = fullEmail;
+            })
+    };
 })

@@ -3,15 +3,16 @@ app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFact
     $scope.teams = teams;
     $scope.users = users;
     $scope.thread;
+    
 
     $scope.user = $rootScope.user;
 
-    $scope.getThisEmailFromTheThread = function(threadId) {
-        teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
-            .then(function(fullEmail) {
-                $scope.thread = fullEmail;
-            })
-    }
+    // $scope.getThisEmailFromTheThread = function(threadId) {
+    //     teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
+    //         .then(function(fullEmail) {
+    //             $scope.thread = fullEmail;
+    //         })
+    // }
 
     $scope.status = {
         isopen: false

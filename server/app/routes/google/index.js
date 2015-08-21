@@ -7,6 +7,7 @@ var ThreadModel = mongoose.model('Thread');
 
 var Gmail = require('node-gmail-api');
 var emailUrl, latestEmailIndex;
+var Utils = require('../../configure/utilityFunctions')
 
 var googleConfig = require('../../../env').GOOGLE;
 
@@ -22,12 +23,14 @@ router.get('/getAllEmails/:id', function(req, res) {
 })
 
 router.get('/:teamId/:threadId', function(req, res) {
+	console.log(req.params.teamId, req.params.threadId)
 	ThreadModel.findById(req.params.threadId)
 		.populate('messages')
 		.exec()
 		.then(function(thread) {
+				console.log(thread)
 			thread.messages.forEach(function(message){
-				TokenManager.decode(message)
+				Utils.decode(message)
 			})
 			// console.log('the googleObj', thread.messages[0].googleObj.payload.parts)
 			res.send(thread)
