@@ -1,4 +1,6 @@
-app.controller('fullemailCtrl', function($scope, $sce) {
+app.controller('fullemailCtrl', function($scope, thread) {
+
+	$scope.thread = thread;
 	
 	$scope.extractField = function(messageObj, fieldName) {
 		return messageObj.googleObj.payload.headers.filter(function(header) {

@@ -2,8 +2,11 @@
 <!-- 		<inboxthread></inboxthread> -->
 
 <!-- <section> -->
-	<ul id='inboxThread'> <!-- getThisEmailFromTheThread(thread._id) -->
-		<li ng-click="goToThread()" class='thread' ng-repeat="thread in threads | orderBy: 'latestMessage.date':true">
+	<ul id='inboxThread'> <!-- getThisEmailFromTheThread(thread._id) ng-controller='threadCtrl'-->
+		<li
+		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
+		ng-click="goToThread(thread._id)"
+		class='thread'>
 			<div>
 				<p>From: {{thread.latestMessage.from}}</p>
 				<p>Date: {{thread.latestMessage.date | date:'medium'}}</p>
@@ -15,3 +18,4 @@
 
 
 </section>
+<ui-view></ui-view>

@@ -12,6 +12,12 @@ router.get('/', function(req, res, next) {
 		.then(null, next)
 })
 
+router.get('/:id', function(req, res, next) {
+	TeamModel.findById(req.params.id).then(function(team) {
+			res.send(team)
+		})
+		.then(null, next)
+})
 
 
 router.post('/createTeam', function(req, res, next) {

@@ -32,7 +32,13 @@ app.factory('teamFactory', function($http) {
                 name: name,
                 email: email
             });
-        }
+        },
+        // getThisTeam: function(teamId){
+        //     return $http.get('/api/teams/'+teamId)
+        //     .then(function(team){
+        //         return team.data
+        //     })
+        // }
     };
 
 });
