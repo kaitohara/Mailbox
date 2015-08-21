@@ -19,7 +19,7 @@ app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFact
             .then(function(fullEmail) {
                 $scope.thread = fullEmail;
             })
-    };
+    }
 
     // dropdown
     $scope.status = {
