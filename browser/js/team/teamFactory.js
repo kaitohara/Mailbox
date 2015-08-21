@@ -16,8 +16,10 @@ app.factory('teamFactory', function($http) {
                 })
         },
         getThisEmailFromTheThread: function(threadId, activeTeamId) {
+            console.log('threadId', threadId, 'activeTeamId', activeTeamId)
             return $http.get('/api/google/' + activeTeamId + '/' + threadId)
                 .then(function(fullEmail) {
+                    console.log('emails' , fullEmail)
                     return fullEmail.data
                 })
         },

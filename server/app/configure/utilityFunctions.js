@@ -73,10 +73,17 @@ Utils.prototype.useNewToken = function(team, threadId) {
 }
 
 Utils.prototype.decode = function(message) {
-    message.payload.parts.forEach(function(part) {
-        part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
-        return part
-    })
+    console.log('decoding this: ', message)
+    if (message.googleObj.payload.parts) {
+       message.googleObj.payload.parts.forEach(function(part) {
+           console.log("part", part)
+           part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
+           return part
+       })
+   } else {
+        //not decoding b/c partId is empty.
+        console.log('partId', message.googleObj.payload.partId)
+   }
     return message;
 }
 
