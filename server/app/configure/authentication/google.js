@@ -52,9 +52,20 @@ module.exports = function(app) {
                             }
                         })
                         Utils.getRecentThreads(team, 10)
-                            .then(function(threads) {
-                                threads = JSON.parse(threads)
-                                var promisesForAddingToTeam = threads.threads.map(function(thread) {
+                            .then(function(googleThreads) {
+                                googleThreads = JSON.parse(googleThreads);
+                                var threads = googleThreads.threads;
+
+                                var historyId = 0;
+                                threads.forEach(function(thread) {
+                                    console.log('thread in for loop', thread);
+                                    console.log('threads history id', thread.historyId);
+                                    if (thread.historyId*1 > historyId) historyId = thread.historyId*1
+                                })
+
+                                team.historyId = historyId+"";
+
+                                var promisesForAddingToTeam = threads.map(function(thread) {
                                     return Utils.getThreadContentsAndAddToTeam(team, thread);
                                 })
                                 return Promise.all(promisesForAddingToTeam);

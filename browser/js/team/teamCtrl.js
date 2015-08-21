@@ -28,4 +28,8 @@ app.controller('teamCtrl', function($scope, teamFactory, userFactory) {
                 $scope.thread = fullEmail;
             })
     };
+    $scope.syncInbox = function(){
+    	console.log('hit this')
+    	
+    }
 })
