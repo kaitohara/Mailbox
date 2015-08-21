@@ -56,10 +56,9 @@ module.exports = function(app) {
                                 googleThreads = JSON.parse(googleThreads);
                                 var threads = googleThreads.threads;
 
+                                // find most recent historyId
                                 var historyId = 0;
                                 threads.forEach(function(thread) {
-                                    console.log('thread in for loop', thread);
-                                    console.log('threads history id', thread.historyId);
                                     if (thread.historyId*1 > historyId) historyId = thread.historyId*1
                                 })
 

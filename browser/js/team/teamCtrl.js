@@ -1,4 +1,4 @@
-app.controller('teamCtrl', function($scope, teamFactory, userFactory) {
+app.controller('teamCtrl', function($scope, teamFactory, userFactory, inboxFactory) {
 	$scope.team;
 	$scope.activeTeam;
 
@@ -30,6 +30,6 @@ app.controller('teamCtrl', function($scope, teamFactory, userFactory) {
     };
     $scope.syncInbox = function(){
     	console.log('hit this')
-    	
+    	inboxFactory.syncInbox($scope.activeTeam._id)
     }
 })

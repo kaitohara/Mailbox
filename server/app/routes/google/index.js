@@ -22,6 +22,19 @@ router.get('/getAllEmails/:id', function(req, res) {
 		})
 })
 
+router.get('/syncInbox/:teamId', function(req, res) {
+	TeamModel.findById(req.params.teamId)
+		.then(function(team) {
+			// console.log('found this team in database', team)
+			Utils.syncInbox(team)
+			.then(function(googleResp) {
+				console.log('RETRIEVED NEW EMAILS', googleResp)
+				res.sendStatus(200)
+			})
+		})
+})
+
+// PUT EVERYTHING ABOVE THIS WEIRD ROUTE
 router.get('/:teamId/:threadId', function(req, res) {
 	console.log(req.params.teamId, req.params.threadId)
 	ThreadModel.findById(req.params.threadId)
@@ -36,3 +49,4 @@ router.get('/:teamId/:threadId', function(req, res) {
 			res.send(thread)
 		})
 })
+

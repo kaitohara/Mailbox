@@ -35,11 +35,12 @@ Utils.prototype.getOneThread = function(team, threadId) {
 }
 
 Utils.prototype.syncInbox = function(team) {
+    console.log('using utils.js on this team', team)
     var settings = threadRequestManager(team),
-        urlTail = '/history',
-        startHistoryId , //newest message's history id?
+        urlTail = `/history?startHistoryId=${team.historyId}`,
+        // startHistoryId = team.historyId, //newest message's history id?
         fullUrl = settings.urlHead + urlTail
-    var getPageOfHistory
+        console.log(fullUrl, 'options', settings.options)
     return requestPromise.get(fullUrl, settings.options)
 
 }
