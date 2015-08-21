@@ -22,6 +22,7 @@ router.get('/getAllEmails/:id', function(req, res) {
 		})
 })
 
+
 router.get('/syncInbox/:teamId', function(req, res) {
 	var globalTeam;
 	TeamModel.findById(req.params.teamId)
@@ -43,8 +44,7 @@ router.get('/syncInbox/:teamId', function(req, res) {
 })
 
 // PUT EVERYTHING ABOVE THIS WEIRD ROUTE
-router.get('/:teamId/:threadId', function(req, res) {
-	console.log(req.params.teamId, req.params.threadId)
+router.get('/:teamId', function(req, res) {
 	ThreadModel.findById(req.params.threadId)
 		.populate('messages')
 		.exec()

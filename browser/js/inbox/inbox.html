@@ -1,11 +1,18 @@
 <section id='inbox'>
-	<!-- second column that holds the threads -->
-	<div class='inboxColumn'>
-		<div id='inboxHeader'>
-			<!-- put some checkboxes maybe? -->
-		</div>
-			<button ng-click="syncInbox()">Fetch New Emails</button>
-			<inboxthread></inboxthread>
-	</div>
+
+	<button ng-click="syncInbox()">Fetch New Emails</button>
+	<ul id='inboxThread'>
+		<li
+		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
+		ng-click="goToThread(thread._id)"
+		class='thread'>
+			<div>
+				<p>From: {{thread.latestMessage.from}}</p>
+				<p>Date: {{thread.latestMessage.date | date:'medium'}}</p>
+				<p>Subject: {{thread.latestMessage.subject}}</p>
+			</div>
+		</li>
+	</ul>
 
 </section>
+<ui-view></ui-view>
