@@ -10,11 +10,14 @@ module.exports = function(server) {
 
 	io.on('connection', function(socket) {
 		// Now have access to socket, wowzers!
-		socket.on('test', function(testItem) {
-			console.log('socketTest:', testItem)
+		socket.on('onlineStatus', function(status) {
+			console.log(status)
+		})
+
+		socket.on('logout', function(status) {
+			console.log(status)
 		})
 	});
-
 	return io;
 
 };

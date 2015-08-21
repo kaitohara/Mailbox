@@ -1,9 +1,10 @@
-app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, Socket) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/navbar/navbar.html',
+        // controller: 'sidebarCtrl',
         link: function(scope) {
 
             scope.items = [{
@@ -22,7 +23,9 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
             };
 
             scope.logout = function() {
+                var userToLogOut = $rootScope.user.firstName;
                 AuthService.logout().then(function() {
+                    Socket.emit('logout', `${userToLogOut} is offline`)
                     $state.go('home');
                 });
             };
