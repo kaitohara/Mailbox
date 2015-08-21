@@ -3,11 +3,7 @@ app.directive('inboxthread', function($rootScope, AuthService, AUTH_EVENTS, $sta
 	return {
 		restrict: 'E',
 		templateUrl: 'js/inboxthread/inboxthread.html'
-			// link: function(scope) {
-
-
-		// }
-
+		// scope: {team: '='} //fucks everything up
 	};
 
 });

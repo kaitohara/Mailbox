@@ -1,0 +1,53 @@
+app.config(function($stateProvider) {
+    $stateProvider
+    .state('home', {
+        url: '/',
+        templateUrl: 'js/home/home.html',
+        controller: 'homeCtrl',
+        resolve: {
+            teams: function(teamFactory, userFactory) {
+                return userFactory.getCurrentUser()
+                    .then(function(user) {
+                        if (user) {
+                            return teamFactory
+                                .getUserTeams(user._id)
+                                .then(function(teams) {
+                                    return teams.data;
+                                })
+                        }
+                    })
+            },
+            users: function(userFactory) {
+                    return userFactory
+                        .getAllUsers()
+                        .then(function(users) {
+                            return users.data
+                        })
+            }
+        }
+    })
+    .state('home.teamId', {
+        url: 'teams/:teamId',
+        template: '<inbox threads="threads"></inbox><ui-view></ui-view>',
+        controller: function($scope,threads){$scope.threads = threads},
+        resolve: {
+            threads: function(teamFactory, $stateParams){
+                var teamId = $stateParams.teamId;
+                return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads){
+                    return threads
+                })
+            }
+        }
+    })
+    // .state('home.teamId.threadId', {
+    //     url: 'thread/:threadId',
+    //     templateUrl: '<fullemail email="thread"></fullemail>',
+    //     controller: function($scope,thread){$scope.email = thread},
+    //     resolve: {
+    //         thread: function(teamFactory, $stateParams){
+    //             return teamFactory.getThisEmailFromTheThread($stateParams.threadId, $stateParams.teamId)
+    //             .then(function(thread){ return thread })
+    //         }
+    //     }    
+    // })
+});

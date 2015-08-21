@@ -1,4 +1,4 @@
-app.controller('teamCtrl', function($scope, teamFactory, userFactory) {
+app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state) {
 	$scope.team;
 	$scope.activeTeam;
 
@@ -8,7 +8,16 @@ app.controller('teamCtrl', function($scope, teamFactory, userFactory) {
 				$scope.teammates = teammates;
 			})
 	}
-
+/////added for child states
+	$scope.goToTeam = function(team){
+		console.log('gooing to team', team)
+		$state.go('home.teamId', {teamId: team._id})
+	}
+	$scope.goToThread = function(team, threadId){
+		console.log('gooing to thread', threadId)
+		$state.go('home.teamId.threadId', {teamId: team._id, threadId: threadId})
+	}
+////////////////////////
 	$scope.getThisTeamsGmailThreads = function(team) {
 		console.log(team)
 		return teamFactory.getThisTeamsGmailThreads(team)

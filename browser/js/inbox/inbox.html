@@ -1,11 +1,17 @@
 <section id='inbox'>
-	<!-- second column that holds the threads -->
-	<div class='inboxColumn'>
-		<div id='inboxHeader'>
-			<!-- put some checkboxes maybe? -->
-		</div>
-		
-			<inboxthread></inboxthread>
-	</div>
+<!-- 		<inboxthread></inboxthread> -->
+
+<section id='inboxThread'>
+	<ul> <!-- getThisEmailFromTheThread(thread._id) -->
+		<li ng-click='goToThread()' class='thread' ng-repeat="thread in threads | orderBy: 'latestMessage.date':true">
+			<div>
+				<p>From: {{thread.latestMessage.from}}</p>
+				<p>Date: {{thread.latestMessage.date | date:'medium'}}</p>
+				<p>Subject: {{thread.latestMessage.subject}}</p>
+			</div>
+		</li>
+	</ul>
+</section>
+
 
 </section>
