@@ -22,8 +22,7 @@ router.get('/getAllEmails/:id', function(req, res) {
 		})
 })
 
-router.get('/:teamId/:threadId', function(req, res) {
-	console.log(req.params.teamId, req.params.threadId)
+router.get('/:threadId', function(req, res) {
 	ThreadModel.findById(req.params.threadId)
 		.populate('messages')
 		.exec()
