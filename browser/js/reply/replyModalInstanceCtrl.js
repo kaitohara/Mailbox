@@ -2,7 +2,9 @@ app.controller('replyModalInstanceCtrl', function($scope, $modalInstance, email,
 
     $scope.email = email;
     // $scope.selectedUser = null;
-
+    $scope.emailReply = {};
+    console.log('email', email)
+    $scope.emailReply.to = email.latestMessage.from
     $scope.sendReply = function() {
         $modalInstance.close($scope.emailReply);
     };
