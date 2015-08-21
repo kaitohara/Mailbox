@@ -29,7 +29,7 @@ app.config(function($stateProvider) {
     .state('home.teamId', {
         url: 'teams/:teamId',
         template: '<inbox threads="threads"></inbox><ui-view></ui-view>',
-        controller: function($scope,threads){$scope.threads = threads},
+        controller: 'inboxCtrl',
         resolve: {
             threads: function(teamFactory, $stateParams){
                 var teamId = $stateParams.teamId;
@@ -37,17 +37,23 @@ app.config(function($stateProvider) {
                     return threads
                 })
             }
+            /* firstThread: function(teamFactory, $stateParams){
+                var teamId = $stateParams.teamId;
+                return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads){
+                    return threads[0]
+                })
+            } */
         }
     })
-    // .state('home.teamId.threadId', {
-    //     url: 'thread/:threadId',
-    //     templateUrl: '<fullemail email="thread"></fullemail>',
-    //     controller: function($scope,thread){$scope.email = thread},
-    //     resolve: {
-    //         thread: function(teamFactory, $stateParams){
-    //             return teamFactory.getThisEmailFromTheThread($stateParams.threadId, $stateParams.teamId)
-    //             .then(function(thread){ return thread })
-    //         }
-    //     }    
-    // })
+    .state('home.teamId.threadId', {
+        url: 'thread/:threadId',
+        templateUrl: '<fullemail thread="thread"></fullemail>',
+        controller: function($scope,thread){$scope.thread = thread},
+        resolve: {
+            thread: function(teamFactory, $stateParams){
+                return teamFactory.getThisEmailFromTheThread($stateParams.threadId)
+                .then(function(thread){ return thread })
+            }
+        }    
+    })
 });
