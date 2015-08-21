@@ -1,8 +1,6 @@
 <section id='inbox'>
-<!-- 		<inboxthread></inboxthread> -->
 
-<!-- <section> -->
-	<ul id='inboxThread'> <!-- getThisEmailFromTheThread(thread._id) ng-controller='threadCtrl'-->
+	<ul id='inboxThread'>
 		<li
 		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
 		ng-click="goToThread(thread._id)"
@@ -14,8 +12,6 @@
 			</div>
 		</li>
 	</ul>
-<!-- </section> -->
-
 
 </section>
 <ui-view></ui-view>
