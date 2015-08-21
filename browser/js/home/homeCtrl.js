@@ -6,22 +6,13 @@ app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFact
 
     $scope.user = $rootScope.user;
 
-    $scope.getThisTeamsGmailThreads = function(team) {
-        return teamFactory.getThisTeamsGmailThreads(team)
-            .then(function(threads) {
-                $scope.activeTeam = team;
-                $scope.threads = threads;
-            })
-    };
-
     $scope.getThisEmailFromTheThread = function(threadId) {
         teamFactory.getThisEmailFromTheThread(threadId, $scope.activeTeam._id)
             .then(function(fullEmail) {
                 $scope.thread = fullEmail;
             })
-    };
+    }
 
-    // dropdown
     $scope.status = {
         isopen: false
     };

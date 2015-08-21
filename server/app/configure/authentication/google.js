@@ -16,7 +16,8 @@ var base64 = require('js-base64').Base64;
 
 var latestEmailIndex, emailUrl;
 
-var TokenManager = require('../../routes/tokenManager');
+var Utils = require('../utilityFunctions');
+var Promise = require('bluebird');
 
 module.exports = function(app) {
 
@@ -50,74 +51,13 @@ module.exports = function(app) {
                                 email.refreshToken = refreshToken
                             }
                         })
-                        TokenManager.getThreads(team)
+                        Utils.getRecentThreads(team, 10)
                             .then(function(threads) {
                                 threads = JSON.parse(threads)
-                                threads.threads.forEach(function(thread) {
-                                        //Fetch each thread from GMail API using thread IDs
-                                        TokenManager.getThreads(team, thread.id)
-                                            .then(function(thread) {
-                                                thread = JSON.parse(thread);
-                                                //Save individual thread to DB
-                                                // console.log('is snippet in here??', thread)
-                                                var latestMessage = thread.messages[thread.messages.length - 1].payload.headers
-
-                                                function messageFilter(message, prop) {
-                                                    return message.filter(function(obj) {
-                                                        return obj['name'] === prop;
-                                                    })
-                                                }
-
-                                                console.log('internal date????????', thread.messages[thread.messages.length - 1].internalDate)
-
-                                                // var date = messageFilter(latestMessage, 'Date')[0].value
-                                                var sender = messageFilter(latestMessage, 'From')
-                                                sender = sender[0] ? sender[0].value : 'No Sender'
-
-                                                var subject = messageFilter(latestMessage, 'Subject')
-                                                subject = subject[0] ? subject[0].value : 'No Subject'
-
-                                                var newThread = new ThreadModel({
-                                                        associatedEmail: team.email[team.email.length - 1].address,
-                                                        googleThreadId: thread.id,
-                                                        // snippet: thread.snippet,
-                                                        historyId: thread.historyId,
-                                                        latestMessage: {
-                                                            date: thread.messages[thread.messages.length - 1].internalDate,
-                                                            from: sender,
-                                                            subject: subject,
-                                                            snippet: thread.messages[thread.messages.length - 1].snippet
-                                                        }
-                                                    })
-                                                    // console.log('saving a new thread', newThread);
-                                                newThread.save()
-                                                    .then(function(createdThread) {
-                                                        TeamModel.findOneAndUpdate({
-                                                                _id: team._id
-                                                            }, {
-                                                                $addToSet: {
-                                                                    threads: createdThread
-                                                                }
-                                                            })
-                                                            .exec()
-                                                            .then(function() {
-                                                                thread.messages.forEach(function(message) {
-                                                                        saveDecodedEmail(message)
-                                                                            .then(function(newEmail) {
-                                                                                //store email refs in Thread messages array
-                                                                                ThreadModel.findOneAndUpdate({
-                                                                                    googleThreadId: thread.id
-                                                                                }, {
-                                                                                    $push: {
-                                                                                        messages: newEmail
-                                                                                    }
-                                                                                }).exec()
-                                                                            })
-                                                                    }) // END OF forEach message
-                                                            })
-                                                    })
-                                            })
-                                    }) // END OF forEach thread.threads
+                                var promisesForAddingToTeam = threads.threads.map(function(thread) {
+                                    return Utils.getThreadContentsAndAddToTeam(team, thread);
+                                })
+                                return Promise.all(promisesForAddingToTeam);
                             })
                             .then(function() {
                                 team.save(function(err, team) {
