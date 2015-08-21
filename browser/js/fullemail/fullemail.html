@@ -8,8 +8,12 @@
 		<p>Date: {{extractField(message, "Date").value}}</p>
 		
 		<!-- Subject: {{message.payload.parts[0].body.data}} -->
+		<div>
 		Body: {{parseBody(message.googleObj.payload.parts[0].body.data)}}
-
+		</div>
+		<!-- myHTML: {{myHTML}} -->
+		<!-- <div ng-bind-html="myHTML"></div>
+		<p ng-bind-html="myHTML"></p> -->
 	</li>
 	<div ng-show="thread">
 		<div ng-controller="replyModalCtrl">
