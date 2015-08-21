@@ -42,7 +42,6 @@ Utils.prototype.syncInbox = function(team) {
         fullUrl = settings.urlHead + urlTail
         console.log(fullUrl, 'options', settings.options)
     return requestPromise.get(fullUrl, settings.options)
-
 }
 
 function tokenRequestManager(team) {

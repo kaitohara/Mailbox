@@ -23,14 +23,22 @@ router.get('/getAllEmails/:id', function(req, res) {
 })
 
 router.get('/syncInbox/:teamId', function(req, res) {
+	var globalTeam;
 	TeamModel.findById(req.params.teamId)
 		.then(function(team) {
 			// console.log('found this team in database', team)
-			Utils.syncInbox(team)
-			.then(function(googleResp) {
-				console.log('RETRIEVED NEW EMAILS', googleResp)
-				res.sendStatus(200)
-			})
+			globalTeam = team;
+			return Utils.syncInbox(globalTeam)
+		})
+		.then(function(googleResp) {
+			googleResp = JSON.parse(googleResp)
+			console.log('googleResp', googleResp)
+			globalTeam.historyId = googleResp.historyId;
+			return globalTeam.save()
+		})
+		.then(function(thing){
+			console.log('THE THING: ', thing)
+			res.sendStatus(200)
 		})
 })
 
