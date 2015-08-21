@@ -44,7 +44,7 @@ router.get('/syncInbox/:teamId', function(req, res) {
 })
 
 // PUT EVERYTHING ABOVE THIS WEIRD ROUTE
-router.get('/:teamId', function(req, res) {
+router.get('/:threadId', function(req, res) {
 	ThreadModel.findById(req.params.threadId)
 		.populate('messages')
 		.exec()
