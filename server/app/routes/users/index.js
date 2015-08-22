@@ -30,7 +30,7 @@ router.get('/:userId', function(req, res, next) {
 		.populate('teams')
 		// .exec()
 		.then(function(user) {
-			console.log(user)
+			// console.log(user)
 			res.send(user.teams)
 		})
 		.then(null, next)
