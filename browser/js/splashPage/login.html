@@ -1,0 +1,20 @@
+<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+
+<br>
+    <p class='center'><i class="glyphicon glyphicon-envelope whiteIcon"></i></p>
+
+    <h1 class='title'>MailBox</h1>
+
+    <div id="background">
+        <img src="keyboard.jpg" class="stretch" alt="" />
+    </div>
+
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+
+    <a href="/auth/google/user" class="btn btn-block btn-social btn-lg btn-google">
+        <i class="fa fa-google"></i> Sign in with Google
+    </a>
+    
+</form>

@@ -4,7 +4,9 @@
     <base href="/" />
     <title>Fullstack Academy Generated Application</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!-- include the latest bootstrap font-awesome-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
@@ -21,7 +23,7 @@
 
 </head>
 <body ng-app="FullstackGeneratedApp">
-    <navbar></navbar>
+    <navbar ng-show='user.teams.length'></navbar>
     <div id="main" ui-view></div>
 </body>
 </html>

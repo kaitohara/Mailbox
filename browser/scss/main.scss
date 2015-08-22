@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700|Arimo);
+
 * {
   box-sizing: border-box;
   max-width: 100%;
@@ -6,7 +8,7 @@
 
 body {
   background: #fdfdfd;
-  font-family: 'Open Sans', sans-serif;
+  font-family: Raleway;
 }
 
 @mixin clearfix {
@@ -26,3 +28,4 @@ body {
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
+@import 'addATeam/main';
