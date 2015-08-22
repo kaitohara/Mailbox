@@ -1,7 +1,7 @@
 app.config(function($stateProvider) {
     $stateProvider
     .state('home', {
-        url: '/',
+        url: '/mailbox',
         templateUrl: 'js/home/home.html',
         controller: 'homeCtrl',
         resolve: {
@@ -27,7 +27,7 @@ app.config(function($stateProvider) {
         }
     })
     .state('home.teamId', {
-        url: 'teams/:teamId/',
+        url: '/teams/:teamId',
         templateUrl: 'js/inbox/inbox.html',
         controller: 'inboxCtrl',
         resolve: {
@@ -36,18 +36,11 @@ app.config(function($stateProvider) {
                 return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads){
                     return threads
                 })
-            },
-            //////may need to resolve team and inject into inboxCtrl///////
-            /* firstThread: function(teamFactory, $stateParams){
-                var teamId = $stateParams.teamId;
-                return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads){
-                    return threads[0]
-                })
-            } */
+            }
         }
     })
     .state('home.teamId.threadId', {
-        url: 'thread/:threadId',
+        url: '/thread/:threadId',
         templateUrl: 'js/fullemail/fullemail.html',
         controller: 'fullemailCtrl',
         resolve: {
@@ -56,11 +49,7 @@ app.config(function($stateProvider) {
                 return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread){ 
                     return thread 
                 })
-            }//,
-            // teamId: function($stateParams){
-            //     console.log('resolving teamId', $stateParams.teamId )
-            //     return $stateParams.teamId
-            // }
+            }
         }    
     })
 });
