@@ -1,14 +1,18 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<!-- PUSH DOWN WITH CSS INSTEAD OF BR BR BR BR -->
-<form id="create-team" name="create-team" ng-submit="createTeam()">
+<form id="createTeam" name="create-team" ng-submit="createTeam()">
 
-	<div id="background">
+<br>
+	<p class='center'><i class="glyphicon glyphicon-envelope whiteIcon"></i></p>
+
+    <h1 class='title'>MailBox</h1>
+    <h1 class='title'>Add A Team Inbox</h1>
+
+    <div id="background">
         <img src="keyboard.jpg" class="stretch" alt="" />
     </div>
+
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
 
     <div class="form-group">
         <label for="name">Team Name</label>
@@ -19,4 +23,28 @@
         <input type="text" ng-model="email" class="form-control" id="email" placeholder="Enter an email">
     </div>
     <button type="submit" class="btn btn-default">Add Team E-Mail</button>
+
 </form>
+
+
+
+<!-- <form id="create-team" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+
+<br>
+    <p class='center'><i class="glyphicon glyphicon-envelope whiteIcon"></i></p>
+
+    <h1 class='title'>MailBox</h1>
+
+    <div id="background">
+        <img src="keyboard.jpg" class="stretch" alt="" />
+    </div>
+
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+
+    <a href="/auth/google/user" class="btn btn-block btn-social btn-lg btn-google">
+        <i class="fa fa-google"></i> Sign in with Google
+    </a>
+    
+</form> -->
