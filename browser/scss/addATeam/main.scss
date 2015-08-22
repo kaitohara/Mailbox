@@ -1,6 +1,4 @@
-#createTeam {
-
-	font-family: Garamond;
+#create-team {
 	
 	width: 30%;
  	margin: 0 auto;
@@ -13,11 +11,11 @@
  	.whiteIcon {
  		color: white;
  		font-size: 150px;
+ 		overflow-y: hidden;
  	}
 
  	.title {
  		text-align: center;
- 		font-size: 56px;
  		color: white;
  	}
 
@@ -27,7 +25,7 @@
 	    position: fixed; 
 	    left: 0px; 
 	    top: 0px; 
-	    z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
+	    z-index: -1;
 	}
 
 	.stretch {
@@ -35,3 +33,4 @@
 	    height:100%;
 	}
 }
+
