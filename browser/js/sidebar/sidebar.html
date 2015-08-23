@@ -9,6 +9,7 @@
         <!-- main notification links are placed inside of .sidebar-nav -->
         <!-- every .sidebar-nav may have a title -->
         <h5 class="sidebar-nav-title">Teams<a class="action-link" href="#"><i class="glyphicon glyphicon-plus" ui-sref='membersOnly'></i></a></h5>
+
         <ul class="sidebar-nav">
             <li ng-repeat='team in teams' ng-click="goToTeam(team); getTeamMembers(team)">
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
@@ -17,24 +18,29 @@
                         <i class="glyphicon glyphicon-align-right"></i>
                     </span>
                     <span>{{team.name}}</span>
-                    <i class="glyphicon glyphicon-plus" ng-click='open(); setTeam(team)' ng-controller='ModalCtrl'></i>
+                    <i class="glyphicon glyphicon-plus ng-scope" ng-click="open(); setTeam(team)" ng-controller="ModalCtrl" style="font-size: 10px; padding:0 0 1px 10px"></i>
                     <i class="toggle fa fa-angle-down"></i>
                 </a>
+
                 <ul id="sidebar-forms" class="collapse">
                     <li ng-repeat='email in team.emailAddresses'><a>{{email}}</a></li>
                 </ul>
+
             </li>
         </ul>
+
         <h5 class="sidebar-nav-title">Teammates<a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
-        <!-- some styled links in sidebar. ready to use as links to email folders, projects, groups, etc -->
-        <ul class="sidebar-labels">
+
+        <ul class="sidebar-nav">
             <li ng-repeat='user in teammates'>
-                <a href="#">
-                    <!-- yep, .circle again -->
-                    <i class="fa fa-circle text-warning mr-xs"></i>
-                    <span class="label-name">{{user.firstName}}</span>
+                <a class="collapsed">
+                    <span class="icon">
+                        <i class="fa fa-circle text-warning mr-xs"></i>
+                    </span>
+                    <span>{{user.firstName}}</span>
                 </a>
             </li>
         </ul>
+
     </div>
 </div>

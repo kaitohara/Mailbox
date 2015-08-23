@@ -1,14 +1,17 @@
-navbar {
-  /*display: block;*/
-  background-color: #242424;
-  border-bottom: 1px solid black;
-  // box-shadow: 1px 1px 14px -3px black;
+#navbar {
   z-index:100;
   position: fixed; /* this might be worth doing on all things in dashboard */
   width: 100%;
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid $lightGrey;
 
   .navbar {
     margin-bottom: 0px;
+  }
+
+  i {
+    margin-top: 10px;
   }
 
   .container {
@@ -24,19 +27,19 @@ navbar {
   }
 
   a {
-    color: black;
     font-size: 16px;
+    color: $darkBlue;
   }
 
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
     &.active {
-      color: darken(#f31214, 10%);
+      color: $darkGrey;
     }
     &:hover {
       background: none;
-      color: #f31214;
+      color: black;
     }
     &:focus {
       background: none;
@@ -45,21 +48,22 @@ navbar {
 
   .login-button {
     float: right;
-    border: 1px solid black;
     margin-top: 10px;
     background: none;
     outline: none !important;
+    /*border: 1px solid black;*/
   }
 
   .welcome {
     float: right;
     margin-top: 12px;
     span {
-      color: black;
+      color: $darkGrey;
+      padding-right: 10px;
     }
     a {
-      color: #f30046;
       cursor: pointer;
+      color: $darkGrey;
     }
   }
 

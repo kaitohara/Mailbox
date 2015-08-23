@@ -2,22 +2,41 @@
 #inbox {
 	width: 300px;
 	height: calc(100vh - 50px);
-	border: 1px solid black;
 	overflow: scroll;
 	float: left;
+	border-right: 1px solid $lightGrey;
+
+	.fetch {
+		text-align: center;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		color: $darkBlue;
+		border-bottom: 1px solid $lightGrey;
+
+		button {
+			border: 1px solid $darkGrey;
+			background-color: white;
+		}
+	}
 
 	.thread {
 		overflow:hidden;
 		padding-left:10px;
 		width: 100%;
 		height: 80px;
-		background-color: #EEEEEE;
-		border-bottom: 1px solid #B3B4AD;
 		text-align: left;
 		list-style: none;
+		background-color: white;
+		border-bottom: 1px solid $lightGrey;
 		p{
 			padding: 0px;
 		}
+		&:hover {
+			background-color: lighten($lightGrey, 2%);
+		};
+		&:active {
+      		background-color: $lightBlue;
+    	}
 	}
 
 	ul {

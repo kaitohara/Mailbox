@@ -1,5 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700|Arimo);
 
+
+$darkGrey: #515151;
+$lightGrey: #EEEEEE;
+$black: #161616;
+$lightBlue: #C6D8E4;
+$darkBlue: #719BB1;
+
 * {
   box-sizing: border-box;
   max-width: 100%;
@@ -7,12 +14,8 @@
 }
 
 body {
-  background: #fdfdfd;
   font-family: Raleway;
-}
-
-.wat{
-	font-size: 45px;
+  background: white;
 }
 
 @mixin clearfix {

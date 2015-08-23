@@ -1,6 +1,21 @@
 
 <section id='fullemail'>
+
 <ul>
+	<li class='assign'>
+		<span class="dropdown" dropdown>
+		   	<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
+
+		   	<button class="btn">{{ assignedUser }}</button>
+		    <button class="btn"><span class="caret"></span></button>
+		</a>
+		<ul class="dropdown-menu" dropdown-menu>
+		    <li ng-repeat='userChoice in users'>
+		        <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+		    </li>
+		</ul>
+		</span>
+	</li>
 	<li ng-repeat="message in thread.messages | orderBy: 'googleObj.internalDate':reverse" class="singleMessage">
 
 		<p>Subject: {{extractField(message, "Subject").value}}</p>
@@ -12,9 +27,6 @@
 		<div>
 		Body: {{parseBody(message.googleObj.payload.parts[0].body.data)}}
 		</div>
-		<!-- myHTML: {{myHTML}} -->
-		<!-- <div ng-bind-html="myHTML"></div>
-		<p ng-bind-html="myHTML"></p> -->
 	</li>
 	<div ng-show="thread">
 		<div ng-controller="replyModalCtrl">
@@ -23,20 +35,5 @@
 	</div>
 </ul>
 
-
- <span class="dropdown" dropdown>
-   	<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
-
-   	<button class="btn">{{ assignedUser }}</button>
-    <button class="btn"><span class="caret"></span></button>
-	
-	</a>
-    <ul class="dropdown-menu" dropdown-menu>
-      <li ng-repeat='userChoice in users'> 
-        <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
-      </li>
-      
-    </ul>
-</span>
 </div>
 </section>
