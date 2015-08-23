@@ -1,6 +1,7 @@
 'use strict';
 var socketio = require('socket.io');
 var io = null;
+var onlineUserIds = [];
 
 module.exports = function(server) {
 
@@ -8,35 +9,32 @@ module.exports = function(server) {
 
 	io = socketio(server);
 
-	// console.log(io);
+	io.on('connection', function(socket) {
+		// 2) receive logged in user from frontend
+		socket.on('justCameOnline', function(userId) {
 
-	// io.on('connection', function(socket) {
-	// 	// Now have access to socket, wowzers!
-	// 	socket.on('onlineStatus', function(status) {
-	// 		console.log(status)
-	// 	})
+			// 3) push user into array of online users
+			// provided that the id isn't already listed
+			if (onlineUserIds.indexOf(userId) === -1) onlineUserIds.push(userId);
 
-	// 	socket.on('logout', function(status) {
-	// 		console.log(status)
-	// 	})
-	// });
+			// 4) supply frontend with updated 
+			// array of online users 
+			// [go to /sidebarCtrl.js line 14]
+			socket.emit('onlineUsers', onlineUserIds);
+		})
 
-	// io.on('connection', function(socket) {
-	// 	socket.on('test', function(message) {
-	// 		console.log(message);
-	// 		socket.emit('secondTest', 'right back at ya')
-	// 	})
-	// })
+		// 13) receive logged out user from frontend
+		socket.on('logout', function(userId) {
+			var userIndex = onlineUserIds.indexOf(userId);
+			// 14) if the user exists in the array of currently
+			// online users, splice it out
+			if (userIndex > -1) onlineUserIds.splice(userIndex, 1);
 
-	var nsp = '/teams/55d8d8ab3f07c7a0f67ec8d2/'
-
-	io.of(nsp).on('connection', function(socket) {
-		console.log('someone entered your namespace!');
-		// socket.on('test', function(message) {
-		// 	console.log('message', message)
-		// 	socket.emit('testing', 'testing')
-		// })
-	});
+			// 15) send the offline user to frontend
+			// [go to /sidebarCtrl.js line 22]
+			socket.emit('offlineUser', userId);
+		})
+	})
 
 	return io;
 
