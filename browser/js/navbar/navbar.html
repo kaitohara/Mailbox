@@ -1,8 +1,9 @@
-<nav class="navbar-default navbar navbar-static-top">
+<nav id='navbar' class="navbar-default navbar navbar-static-top">
     <!-- page-controls -->
     <div class="container-fluid">
         <div class="navbar-header">
             <fullstack-logo></fullstack-logo>
+<!--             <i class='glyphicon glyphicon-envelope'> -->
         </div>
         <ul class="nav navbar-nav">
             <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
@@ -12,7 +13,7 @@
         <div class="pull-right">
             <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
             <div ng-show="user" class="welcome">
-                <span>{{ user.firstName }}</span>
+                <span>Welcome, {{ user.firstName }}</span>
                 <a ng-click="logout()">Logout</a>
             </div>
         </div>
