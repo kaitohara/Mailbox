@@ -67,9 +67,11 @@ module.exports = function(app) {
                                 var promisesForAddingToTeam = threads.map(function(thread) {
                                     return Utils.getThreadContentsAndAddToTeam(team, thread);
                                 })
+                                console.log('promisesForAddingToTeam',promisesForAddingToTeam)
                                 return Promise.all(promisesForAddingToTeam);
                             })
-                            .then(function() {
+                            .then(function(result) {
+                                console.log('callback result', result)
                                 team.save(function(err, team) {
                                     console.log('error in team save: ', err, 'team in team save: ', team)
                                     done(err, req.user)
