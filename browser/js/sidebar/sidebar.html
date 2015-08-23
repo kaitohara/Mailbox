@@ -28,12 +28,14 @@
         <h5 class="sidebar-nav-title">Teammates<a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
         <!-- some styled links in sidebar. ready to use as links to email folders, projects, groups, etc -->
         <ul class="sidebar-labels">
-            <li ng-repeat='user in teammates'>
+            <li ng-repeat='teammate in teammates'>
                 <a href="#">
-                    <!-- yep, .circle again -->
-                    <i class="fa fa-circle text-warning mr-xs"></i>
-                    <span class="label-name">{{user.firstName}}</span>
+                    <span class="label-name">{{teammate.firstName}}</span>
                 </a>
+                <!-- 11) the online status glyphicon is set below. ng-class assigns the class "online" or "offline" depending on whether its property evaluates to true. For example, if teammate.isOnline is set to true from the controller, the status inherits the class "online." [go to /js/navbar.js line 25]
+
+                (Also feel free to heck out /browser/scss/directives/sidebar.scss to see how I set up the classes) -->
+                <span ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" class="glyphicon glyphicon-record status pull-right" aria-hidden="true"></span>
             </li>
         </ul>
     </div>

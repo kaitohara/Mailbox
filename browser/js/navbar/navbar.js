@@ -22,10 +22,12 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, S
                 return AuthService.isAuthenticated();
             };
 
+            // 12) upon logout, the frontend emits a signal
+            // telling the backend that the user logged
+            // out. [go to /server/io/index.js line 26]
             scope.logout = function() {
-                var userToLogOut = $rootScope.user.firstName;
                 AuthService.logout().then(function() {
-                    Socket.emit('logout', `${userToLogOut} is offline`)
+                    Socket.emit('logout', $rootScope.user._id)
                     $state.go('home');
                 });
             };
