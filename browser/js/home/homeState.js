@@ -1,7 +1,7 @@
 app.config(function($stateProvider) {
     $stateProvider
         .state('home', {
-            url: '/',
+            url: '/mailbox',
             templateUrl: 'js/home/home.html',
             controller: 'homeCtrl',
             resolve: {
@@ -27,40 +27,29 @@ app.config(function($stateProvider) {
             }
         })
         .state('home.teamId', {
-            url: 'teams/:teamId/',
+            url: '/teams/:teamId',
             templateUrl: 'js/inbox/inbox.html',
             controller: 'inboxCtrl',
             resolve: {
                 threads: function(teamFactory, $stateParams) {
-                        var teamId = $stateParams.teamId;
-                        return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads) {
-                            return threads
-                        })
-                    }
-                    //////may need to resolve team and inject into inboxCtrl///////
-                    /* firstThread: function(teamFactory, $stateParams){
-                        var teamId = $stateParams.teamId;
-                        return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads){
-                            return threads[0]
-                        })
-                    } */
+                    var teamId = $stateParams.teamId;
+                    return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads) {
+                        return threads
+                    })
+                }
             }
         })
         .state('home.teamId.threadId', {
-            url: 'thread/:threadId',
+            url: '/thread/:threadId',
             templateUrl: 'js/fullemail/fullemail.html',
             controller: 'fullemailCtrl',
             resolve: {
                 thread: function(teamFactory, $stateParams) {
-                        var threadId = $stateParams.threadId
-                        return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
-                            return thread
-                        })
-                    } //,
-                    // teamId: function($stateParams){
-                    //     console.log('resolving teamId', $stateParams.teamId )
-                    //     return $stateParams.teamId
-                    // }
+                    var threadId = $stateParams.threadId
+                    return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
+                        return thread
+                    })
+                }
             }
         })
 });

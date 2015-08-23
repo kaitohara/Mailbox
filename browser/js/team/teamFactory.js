@@ -24,7 +24,7 @@ app.factory('teamFactory', function($http) {
                 name: name,
                 email: email
             });
-        },
+        }
     };
 
 });
