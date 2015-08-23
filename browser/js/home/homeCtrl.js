@@ -9,6 +9,7 @@ app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFact
         isopen: false
     };
 
+
     $scope.toggleDropdown = function($event) {
         $event.preventDefault();
         $event.stopPropagation();

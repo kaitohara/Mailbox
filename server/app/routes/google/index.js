@@ -33,12 +33,13 @@ router.get('/syncInbox/:teamId', function(req, res) {
 		})
 		.then(function(googleResp) {
 			googleResp = JSON.parse(googleResp)
-			console.log('googleResp', googleResp)
+			// console.log('googleResp', googleResp)
+			Utils.saveSync(googleResp, globalTeam)
 			globalTeam.historyId = googleResp.historyId;
 			return globalTeam.save()
 		})
 		.then(function(thing){
-			console.log('THE THING: ', thing)
+			// console.log('THE THING: ', thing)
 			res.sendStatus(200)
 		})
 })

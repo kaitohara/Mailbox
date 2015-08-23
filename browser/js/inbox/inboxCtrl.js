@@ -1,4 +1,4 @@
-app.controller('inboxCtrl', function($scope, $state, threads) {
+app.controller('inboxCtrl', function($scope, $state, threads, Socket) {
 
 	$scope.threads = threads;
 
