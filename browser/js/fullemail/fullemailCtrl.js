@@ -20,5 +20,19 @@ app.controller('fullemailCtrl', function($scope, thread) {
 		console.log('this is the thread that got passed to assign: ', thread)
 		threadFactory.assignUserToThread(userChoice._id, thread._id, user._id);
 	};
+
+	$scope.showReply = function(index){
+		console.log(index)
+		console.log($scope.thread.messages)
+		var length = $scope.thread.messages.length 
+		// console.log($scope.thread.messages[length-1-index])
+		if ($scope.thread.messages[length-1-index].showReply) {
+			$scope.thread.messages[length-1-index].showReply = false
+		} else {
+			$scope.thread.messages[length-1-index].showReply = true
+		}
+		// $scope.thread.showReply = true
+	}
+
 	// $scope.html = $sce.trustAsHtml($scope.someHtml);
 })

@@ -1,0 +1,21 @@
+<br>
+    <form id="email-reply" name="email-reply" ng-submit="">
+    <div class="form-group">
+        <label for="emailTo">Reply To:</label>
+        <input type="text" ng-model="emailReply.to" class="form-control" id="emailTo" value="jwrice@gmail.com">
+    </div>
+    <div class="form-group">
+        <label for="emailFrom">From:</label>
+        <input type="text" ng-model="emailReply.from" class="form-control" id="emailFrom" value="teammailfsa@gmail.com">
+    </div>
+    <div class="form-group">
+        <label for="Subject">Subject:</label>
+        <input type="text" ng-model="emailReply.subject" class="form-control" id="Subject" value="hi">
+    </div>
+    <div class="form-group">
+        <label for="Body">Body:</label>
+        <input type="text" ng-model="emailReply.body" class="form-control" id="Body" value="bye">
+    </div>
+</form>
+<button type="button" ng-click="sendReply()">Send</button>
+<button type="button" ng-click="cancel()">Save As Draft</button>
