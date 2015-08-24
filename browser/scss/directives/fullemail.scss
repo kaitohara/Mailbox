@@ -3,6 +3,7 @@
   height: calc(100vh - 50px);
   display: inline-block;
   float: left;
+  // background-color: #F2F6F7;
 
   ul {
   	padding: 0px;
@@ -28,5 +29,8 @@
 .singleMessage {
 	padding: 10px;
 	margin: 10px;
+  border: 1px solid $lightGrey;
   border-bottom: 1px solid $lightGrey;
+  box-shadow: 1px 1px 3px 1px solid $darkGrey;
+  background-color: white;
 }
