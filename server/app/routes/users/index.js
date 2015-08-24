@@ -28,10 +28,11 @@ router.get('/teamMembers/:teamId', function(req, res, next) {
 router.get('/:userId', function(req, res, next) {
 	UserModel.findById(req.params.userId)
 		.populate('teams')
+		.populate('myInbox')
 		// .exec()
 		.then(function(user) {
 			// console.log(user)
-			res.send(user.teams)
+			res.send(user)
 		})
 		.then(null, next)
 })
