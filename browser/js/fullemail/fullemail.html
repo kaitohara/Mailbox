@@ -3,35 +3,47 @@
 
 <ul>
 	<li class='assign'>
+
 		<span class="dropdown" dropdown>
 		   	<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
-
-		   	<button class="btn">{{ assignedUser }}</button>
-		    <button class="btn"><span class="caret"></span></button>
-		</a>
-		<ul class="dropdown-menu" dropdown-menu>
-		    <li ng-repeat='userChoice in users'>
-		        <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
-		    </li>
-		</ul>
+		   		<button class="btn">{{ assignedUser }}</button>
+		    	<button class="btn"><span class="caret"></span></button>
+			</a>
+			<ul class="dropdown-menu" dropdown-menu>
+			    <li ng-repeat='userChoice in users'>
+			        <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+			    </li>
+			</ul>
 		</span>
-	</li>
-	<li ng-repeat="message in thread.messages | orderBy: 'googleObj.internalDate':reverse" class="singleMessage">
 
-		<p>Subject: {{extractField(message, "Subject").value}}</p>
+		<div class="checkbox">
+		    <label>
+		        <input type="checkbox" ng-model="oneAtATime"> Open only one at a time
+		    </label>
+		</div>
+
+	</li>
+</ul>
+
+<div>
+  <accordion close-others="oneAtATime">
+
+    <accordion-group is-open='$last' heading="{{extractField(message, 'Subject').value}}" ng-repeat="message in thread.messages | orderBy: 'googleObj.internalDate':reverse">
+      	<p>Subject: {{extractField(message, "Subject").value}}</p>
 		<p>From: {{extractField(message, "From").value}}</p>
 		<p>To: {{extractField(message, "To").value}}</p>
 		<p>Date: {{extractField(message, "Date").value}}</p>
-		
-		<!-- Subject: {{message.payload.parts[0].body.data}} -->
 		<div>
 		Body: {{parseBody(message.googleObj.payload.parts[0].body.data)}}
 		</div>
 		<br>
 		<button ng-click="showReply($index)" ng-hide="message.showReply">Reply</button>
 		<replydir ng-show="message.showReply"></replydir>
-	</li>
-</ul>
+    </accordion-group>
 
+  </accordion>
 </div>
+ 
+
+
 </section>
