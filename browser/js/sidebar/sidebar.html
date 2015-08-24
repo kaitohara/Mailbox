@@ -29,13 +29,10 @@
 
         <ul class="sidebar-nav">
             <li ng-repeat='teammate in teammates'>
-                <a class="collapsed">
-                    <span class="icon">
-                        <i class="fa fa-circle text-warning mr-xs" ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" ></i>
-                    </span>
+                <a class="collapsed teammate">
                     <span>{{teammate.firstName}}
                     </span>
-                    <span ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" class="glyphicon glyphicon-record status pull-right" aria-hidden="true"></span>
+                    <i ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" class="fa fa-circle status pull-right"></i>
                 </a>
             </li>
         </ul>
