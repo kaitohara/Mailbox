@@ -31,10 +31,10 @@ var schema = new mongoose.Schema({
     available: {
         type: Boolean
     },
-    myInbox: {
-        type: [mongoose.Schema.Types.ObjectId],
+    myInbox: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Thread'
-    },
+    }],
     salt: {
         type: String
     },

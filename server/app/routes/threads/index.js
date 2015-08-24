@@ -4,6 +4,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var ThreadModel = mongoose.model('Thread');
 var UserModel = mongoose.model('User');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 router.post('/assign', function(req, res) {
 	var foundThread;
@@ -11,20 +12,35 @@ router.post('/assign', function(req, res) {
 	ThreadModel.findById(req.body.threadId)
 		.then(function(thread) {
 			foundThread = thread;
-		})
-		.then(function() {
-			UserModel.findById(req.body.assignedTo)
-				.then(function(user) {
-					foundThread.assignedTo = user;
-					UserModel.findById(req.body.assignedBy)
-						.then(function(user) {
-							foundThread.assignedBy = user;
-							foundThread.save();
-							console.log('this is the newly assigned thread: ', foundThread)
-						})
+			if (foundThread.assignedTo){
+				return UserModel.findOneAndUpdate({
+					_id: foundThread.assignedTo
+				},{
+					$pull: {myInbox: foundThread._id}
+				},{
+					'new': true
 				})
+				.exec()
+			}
 		})
 		.then(function() {
+			return UserModel.findOneAndUpdate({
+				_id: req.body.assignedTo
+			}, {
+				$addToSet: {myInbox: foundThread._id}
+			})
+		})
+		// .then(function(user) {
+		// 	user.myInbox.$push(foundThread._id)
+		// 	return user.save()
+		// })
+		.then(function(user){
+			foundThread.assignedTo = user;
+			return UserModel.findById(req.body.assignedBy)
+		})
+		.then(function(user) {
+			foundThread.assignedBy = user;
+			foundThread.save();
 			res.sendStatus(200);
 		})
 })

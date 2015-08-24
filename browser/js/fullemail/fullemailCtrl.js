@@ -1,4 +1,4 @@
-app.controller('fullemailCtrl', function($scope, thread, $location, $anchorScroll) {
+app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll) {
 
 	$scope.thread = thread;
 
@@ -27,7 +27,6 @@ app.controller('fullemailCtrl', function($scope, thread, $location, $anchorScrol
 
 	$scope.assign = function(userChoice, thread, user) {
 		$scope.assignedUser = userChoice.firstName;
-		console.log('this is the thread that got passed to assign: ', thread)
 		threadFactory.assignUserToThread(userChoice._id, thread._id, user._id);
 	};
 
