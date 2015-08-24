@@ -68,6 +68,9 @@ app.config(function($stateProvider) {
                 thread: function(teamFactory, $stateParams) {
                     var threadId = $stateParams.threadId
                     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
+                        thread.messages = thread.messages.sort(function compare(a,b){
+                            return a.googleObj.internalDate - b.googleObj.internalDate;
+                        })
                         return thread;
                     })
                 }

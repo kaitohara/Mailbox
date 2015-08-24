@@ -56,7 +56,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 	$scope.showReply = function(index){
 		console.log(index)
 		var length = $scope.thread.messages.length 
-		$scope.thread.messages[length-1-index].showReply = !$scope.thread.messages[length-1-index].showReply
+		$scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply
 	}
 
 	$scope.oneAtATime = false;

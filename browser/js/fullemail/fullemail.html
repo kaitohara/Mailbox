@@ -37,7 +37,7 @@
   <accordion close-others="oneAtATime">
 
     <accordion-group 
-    	ng-repeat="message in thread.messages | orderBy: 'googleObj.internalDate':reverse"
+    	ng-repeat="message in thread.messages"
     	is-open='$last' 
     	heading="{{extractField(message, 'Subject').value}}">
 		<p>From: {{extractField(message, "From").value}}</p>
