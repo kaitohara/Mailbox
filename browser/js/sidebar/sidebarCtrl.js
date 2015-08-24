@@ -85,5 +85,11 @@ app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state,
 
 	$scope.syncInbox = function() {
 		inboxFactory.syncInbox($scope.team._id)
-	}
+		.then(function(result){
+			$rootScope.$emit('synced', 'sync complete')
+			console.log('result', result)
+		})
+	};
+
+	
 })
