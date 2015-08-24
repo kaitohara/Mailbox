@@ -8,10 +8,8 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 
 	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
-		console.log('getting team members')
 		userFactory.getTeamMembers(teamId)
 		.then(function(teammates) {
-			console.log('teammates after getTeamMembers', teammates)
 			// 8) angular displays teammates
 			// on the sidebar
 			$scope.teammates = teammates;
@@ -44,7 +42,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		// [go down to line 35]
 		Socket.on('onlineUsers', function(onlineUserIds) {
 			$scope.onlineUsers = onlineUserIds;
-			console.log('scope.onlineUsers', $scope.onlineUsers) //good
 			$scope.getTeamMembers($stateParams.teamId)
 		})
 
@@ -67,15 +64,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	// 6) function runs as soon as the user logs in,
 	// which means $scope.onlineUsers exists on the scope
 	// BEFORE the user clicks a specific team from the sidebar
-	$scope.showOnlineStatus();	
-
-	console.log('scope.team', $scope.team) //undefined
-	console.log('scope.user', $scope.user)
-	console.log('$stateParams', $stateParams)
-	console.log('$stateParams.teamId', $stateParams.teamId)
-	console.log('scope.teammates', $scope.teammates) //undefined
-	console.log('scope.onlineUsers', $scope.onlineUsers) //undefined
-
+	$scope.showOnlineStatus();
 
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
@@ -85,7 +74,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 	$scope.getThisEmailFromTheThread = function(threadId) {
-		console.log('hit this')
 		teamFactory.getThisEmailFromTheThread(threadId)
 			.then(function(fullEmail) {
 				$scope.thread = fullEmail;
@@ -96,7 +84,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		inboxFactory.syncInbox($scope.team._id)
 		.then(function(result){
 			$rootScope.$emit('synced', 'sync complete')
-			console.log('result', result)
 		})
 	};
 

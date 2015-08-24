@@ -1,6 +1,15 @@
-app.controller('fullemailCtrl', function($scope, thread) {
+app.controller('fullemailCtrl', function($scope, thread, $location, $anchorScroll) {
 
 	$scope.thread = thread;
+
+	$scope.gotoBottom = function() {
+      // set the location.hash to the id of
+      // the element you wish to scroll to.
+      $location.hash('bottom');
+      // call $anchorScroll()
+      $anchorScroll();
+    };
+
 
 	$scope.extractField = function(messageObj, fieldName) {
 		return messageObj.googleObj.payload.headers.filter(function(header) {
