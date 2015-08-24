@@ -27,6 +27,8 @@
 		<div>
 		Body: {{parseBody(message.googleObj.payload.parts[0].body.data)}}
 		</div>
+		<button ng-click="showReply($index)" ng-hide="message.showReply">Reply</button>
+		<replydir ng-show="message.showReply"></replydir>
 	</li>
 	<div ng-show="thread">
 		<div ng-controller="replyModalCtrl">
