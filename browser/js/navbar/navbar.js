@@ -1,4 +1,4 @@
-app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, Socket) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, Socket, $location) {
 
     return {
         restrict: 'E',
@@ -28,7 +28,12 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, S
             scope.logout = function() {
                 AuthService.logout().then(function() {
                     Socket.emit('logout', $rootScope.user._id)
-                    $state.go('home');
+                        // $state.go('home');
+
+                    // redirect user to splash page
+                    // comment this out if you want to
+                    // see the user's icon turn red
+                    $location.url('/')
                 });
             };
 

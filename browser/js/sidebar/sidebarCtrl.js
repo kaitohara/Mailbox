@@ -24,7 +24,8 @@ app.controller('sidebarCtrl', function($scope, teamFactory, userFactory, $state,
 			// go into the user's teammates and set their
 			// status to false. Upon this change, sidebar.html
 			// will color the glyphicon red. the end!
-			if (userIndex) {
+			if (userIndex > -1) {
+				console.log('current teammates', $scope.teammates)
 				$scope.teammates.forEach(function(teammate) {
 					if (teammate._id === userId) teammate.isOnline = false;
 				})
