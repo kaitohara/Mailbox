@@ -1,6 +1,8 @@
-app.controller('fullemailCtrl', function($scope, thread, threadFactory) {
+app.controller('fullemailCtrl', function($scope, thread, threadFactory, $state, $rootScope) {
 
 	$scope.thread = thread;
+	$scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
+	$scope.assignedBy = thread.assignedBy ? thread.assignedBy.firstName : null;
 
 	$scope.extractField = function(messageObj, fieldName) {
 		return messageObj.googleObj.payload.headers.filter(function(header) {
@@ -8,17 +10,24 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory) {
 		})[0];
 	};
 
-
 	$scope.parseBody = function(body) {
 		var regex = /On [A-z]{3}, [A-z]{3} [0-9]{1,2}, [0-9]{4} at [0-9]{1,2}:[0-9]{1,2} [A,P]M, /;
-		// $scope.myHTML = body; 
 		if (body) return (body.split(regex))[0];
 		return body;
 	};
 
 	$scope.assign = function(userChoice, thread, user) {
-		$scope.assignedUser = userChoice.firstName;
-		threadFactory.assignUserToThread(userChoice._id, thread._id, user._id);
+		// $scope.assignedUser = userChoice.firstName;
+		threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
+		.then(function(thread){
+			$scope.assignedTo = thread.data.assignedTo.firstName;
+			console.log('assigned to and rootscope user', $scope.thread, $rootScope.user)
+			if ($scope.thread.assignedTo._id === $rootScope.user._id) {
+				$state.go('home.userId', 
+					{userId: $rootScope.user._id}, 
+					{reload:true});
+			}
+		});
 	};
 
 	$scope.showReply = function(index){

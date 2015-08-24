@@ -68,7 +68,7 @@ app.config(function($stateProvider) {
                 thread: function(teamFactory, $stateParams) {
                     var threadId = $stateParams.threadId
                     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
-                        return thread
+                        return thread;
                     })
                 }
             }

@@ -30,17 +30,19 @@ router.post('/assign', function(req, res) {
 				$addToSet: {myInbox: foundThread._id}
 			})
 		})
-		// .then(function(user) {
-		// 	user.myInbox.$push(foundThread._id)
-		// 	return user.save()
-		// })
 		.then(function(user){
 			foundThread.assignedTo = user;
 			return UserModel.findById(req.body.assignedBy)
 		})
 		.then(function(user) {
 			foundThread.assignedBy = user;
-			foundThread.save();
-			res.sendStatus(200);
+			return foundThread.save();
+		})
+		.then(function(thread) {
+			res.send(thread);
+		})
+		.catch(function(err) {
+			console.log(err);
+			res.send(400);
 		})
 })
