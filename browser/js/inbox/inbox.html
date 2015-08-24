@@ -14,13 +14,13 @@
 </nav>
 
 	<ul id='inboxThread'>
-		<li class='fetch'>
+	<!-- 	<li class='fetch'>
 			<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
-			<img src="/loader.gif" style="width:100px" ng-show="showLoader">
-		</li>
+			<button ng-click="refreshThreads()">Click Me</button>
+		</li> -->
 		<li
 		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
-		ng-click="goToTeamThread(thread._id)"
+		ng-click="goToThread(thread._id)"
 		class='thread'>
 			<div>
 				<p>From: {{thread.latestMessage.from}}</p>

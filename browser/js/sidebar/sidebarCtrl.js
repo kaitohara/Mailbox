@@ -68,8 +68,9 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	// 6) function runs as soon as the user logs in,
 	// which means $scope.onlineUsers exists on the scope
 	// BEFORE the user clicks a specific team from the sidebar
-	$scope.showOnlineStatus();	
-	
+
+	$scope.showOnlineStatus();
+
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
 		$state.go('home.teamId', {
@@ -85,7 +86,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 	$scope.getThisEmailFromTheThread = function(threadId) {
-		console.log('hit this')
 		teamFactory.getThisEmailFromTheThread(threadId)
 			.then(function(fullEmail) {
 				$scope.thread = fullEmail;
@@ -97,7 +97,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		inboxFactory.syncInbox($scope.team._id)
 		.then(function(result){
 			$rootScope.$emit('synced', 'sync complete')
-			console.log('result', result)
 			$scope.showLoader = false;
 		})
 	};

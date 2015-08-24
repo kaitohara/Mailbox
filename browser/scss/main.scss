@@ -16,6 +16,10 @@ $grey: #636E82;
   overflow-x: hidden;
 }
 
+::-webkit-scrollbar { 
+    display: none; 
+}
+
 body {
   font-family: Raleway;
   background: white;
@@ -31,6 +35,8 @@ body {
 /* the ui-view on index.html is id main */
 #main {
   width: 100%;
+/*  overflow: hidden;
+  height: 100vh;*/
 }
 
 

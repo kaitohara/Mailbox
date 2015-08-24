@@ -1,8 +1,31 @@
-app.controller('fullemailCtrl', function($scope, thread, threadFactory, $state, $rootScope) {
+app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll, $rootScope, $state) {
 
-	$scope.thread = thread;
+	$scope.thread;
 	$scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
 	$scope.assignedBy = thread.assignedBy ? thread.assignedBy.firstName : null;
+
+	$scope.gotoBottom = function() {
+		$scope.thread = thread;
+		// // set the location.hash to the id of the element
+		// $location.hash('bottom');
+		// // call $anchorScroll()
+		// $anchorScroll();
+
+		setTimeout(function(){
+    	$location.hash('bottom');
+      	$anchorScroll();
+  	} , 10);
+
+    };
+
+    $scope.gotoBottom()
+
+   //  setTimeout(function(){
+   //  	$location.hash('bottom');
+   //    	$anchorScroll();
+  	// } , 500);
+
+
 
 	$scope.extractField = function(messageObj, fieldName) {
 		return messageObj.googleObj.payload.headers.filter(function(header) {
@@ -22,7 +45,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $state, 
 		.then(function(thread){
 			$scope.assignedTo = thread.data.assignedTo.firstName;
 			console.log('assigned to and rootscope user', $scope.thread, $rootScope.user)
-			if ($scope.thread.assignedTo._id === $rootScope.user._id) {
+			if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
 				$state.go('home.userId', 
 					{userId: $rootScope.user._id}, 
 					{reload:true});
@@ -33,15 +56,8 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $state, 
 	$scope.showReply = function(index){
 		console.log(index)
 		var length = $scope.thread.messages.length 
-		// below we need to reverse the math on the index due to the sorting happening in ng-repeat
-		if ($scope.thread.messages[length-1-index].showReply) {
-			$scope.thread.messages[length-1-index].showReply = false
-		} else {
-			$scope.thread.messages[length-1-index].showReply = true
-		}
+		$scope.thread.messages[length-1-index].showReply = !$scope.thread.messages[length-1-index].showReply
 	}
-
-	// $scope.thread.messages[$scope.thread.messages.length-1] has a attribute of is-open: true
 
 	$scope.oneAtATime = false;
 
@@ -50,4 +66,5 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $state, 
     	isFirstDisabled: false
 	};
 })
+
  
