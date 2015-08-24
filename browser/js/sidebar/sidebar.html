@@ -25,14 +25,17 @@
                 </ul>
             </li>
         </ul>
-        <h5 class="sidebar-nav-title">Teammates<a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
-        <!-- some styled links in sidebar. ready to use as links to email folders, projects, groups, etc -->
-        <ul class="sidebar-labels">
-            <li ng-repeat='user in teammates'>
-                <a href="#">
-                    <!-- yep, .circle again -->
-                    <i class="fa fa-circle text-warning mr-xs"></i>
-                    <span class="label-name">{{user.firstName}}</span>
+        <h5 class="sidebar-nav-title">Teammates<a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5> 
+
+        <ul class="sidebar-nav">
+            <li ng-repeat='teammate in teammates'>
+                <a class="collapsed">
+                    <span class="icon">
+                        <i class="fa fa-circle text-warning mr-xs" ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" ></i>
+                    </span>
+                    <span>{{teammate.firstName}}
+                    </span>
+                    <span ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" class="glyphicon glyphicon-record status pull-right" aria-hidden="true"></span>
                 </a>
             </li>
         </ul>
