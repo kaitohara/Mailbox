@@ -1,6 +1,6 @@
 <div id="sidebar" class="sidebar" role="navigation">
     <!-- need this .js class to initiate slimscroll -->
-    <div class="js-sidebar-content">
+    <div class="js-sidebar-content" ng-controller="ModalCtrl">
         <header class="logo hidden-xs">
             <a href="index.html">Mailbox</a>
         </header>
@@ -8,7 +8,7 @@
              looks good, so adding it and enhancing with notifications -->
         <!-- main notification links are placed inside of .sidebar-nav -->
         <!-- every .sidebar-nav may have a title -->
-        <h5 class="sidebar-nav-title">Teams<a class="action-link" href="#"><i class="glyphicon glyphicon-plus" ui-sref='membersOnly'></i></a></h5>
+        <h5 class="sidebar-nav-title">Teams<a class="action-link" href=""><i class="glyphicon glyphicon-plus" ng-click="open()"></i></a></h5>
         <ul class="sidebar-nav">
             <li ng-repeat='team in teams' ng-click="goToTeam(team); getTeamMembers(team._id)">
                 <!-- an example of nested submenu. basic bootstrap collapse component -->

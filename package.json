@@ -50,6 +50,7 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "lodash": "^3.9.3",
     "mocha-mongoose": "^1.0.3",
+    "moment": "^2.10.6",
     "mongodb": "^1.4.33",
     "mongoose": "^4.0.7",
     "node-gmail-api": "^0.3.1",

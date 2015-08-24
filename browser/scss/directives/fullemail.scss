@@ -1,15 +1,21 @@
-#fullemail {
-  width: calc(100% - 504px);
-  height: calc(100vh - 50px);
-  display: inline-block;
-  float: left;
-  // background-color: #F2F6F7;
+#fullEmailPosition {
+  position: fixed;
+  left:504px;
+  width: calc(99% - 504px);
+  height: calc(99vh - 50px);
 
-  ul {
-  	padding: 0px;
+  #listFix {
+    // position:relative;
+    // z-index: 9999;
+    overflow: visible;
+    padding: 0px;
+    margin: 0px;
   }
 
   .assign {
+    overflow:visible;
+    position:relative;
+    z-index: 9999;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -23,6 +29,23 @@
       border: 1px solid $darkGrey;
     }
   }
+}
+
+#fullemail {
+  position: fixed;
+  left:504px;
+  width: calc(100% - 504px);
+  height: calc(100vh - 50px);
+  
+  // display: inline-block;
+  float: left;
+  // background-color: #F2F6F7;
+
+  ul {
+  	padding: 0px;
+  }
+
+  
 
 }
 

@@ -32,6 +32,18 @@
 
 }
 
+.modal-sidebar {
+  position: absolute;
+  float:left;
+  z-index: 0;
+  height: 100%;
+  width: 204px;
+
+  background-color: $darkGrey;
+  color: $lightBlue;
+
+}
+
 /*.sidebar .slimScrollBar {
   -moz-border-radius: 0 !important;
   -webkit-border-radius: 0;
@@ -136,7 +148,7 @@
 .content-wrap {
   position: relative;
   z-index: 0;
-  height: 100%;
+  height: 90%;
   // left: 204px;
 }
 

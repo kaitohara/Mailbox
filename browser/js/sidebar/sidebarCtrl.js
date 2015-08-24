@@ -85,7 +85,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 	$scope.getThisEmailFromTheThread = function(threadId) {
-		console.log('hit this')
 		teamFactory.getThisEmailFromTheThread(threadId)
 			.then(function(fullEmail) {
 				$scope.thread = fullEmail;
@@ -97,7 +96,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		inboxFactory.syncInbox($scope.team._id)
 		.then(function(result){
 			$rootScope.$emit('synced', 'sync complete')
-			console.log('result', result)
 			$scope.showLoader = false;
 		})
 	};
