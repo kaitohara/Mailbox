@@ -8,6 +8,7 @@ app.controller('fullemailCtrl', function($scope, thread) {
 		})[0];
 	};
 
+
 	$scope.parseBody = function(body) {
 		var regex = /On [A-z]{3}, [A-z]{3} [0-9]{1,2}, [0-9]{4} at [0-9]{1,2}:[0-9]{1,2} [A,P]M, /;
 		// $scope.myHTML = body; 
@@ -31,4 +32,13 @@ app.controller('fullemailCtrl', function($scope, thread) {
 			$scope.thread.messages[length-1-index].showReply = true
 		}
 	}
+
+	// $scope.thread.messages[$scope.thread.messages.length-1] has a attribute of is-open: true
+
+	$scope.oneAtATime = false;
+
+	$scope.status = {
+    	isFirstOpen: true,
+    	isFirstDisabled: false
+	};
 })
