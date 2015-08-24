@@ -9,6 +9,12 @@ var _ = require('lodash');
 
 function Utils() {};
 
+function messageFilter(message, prop) {
+    return message.filter(function(obj) {
+        return obj['name'] === prop;
+    })
+}
+
 function threadRequestManager(team) {
     var requestSettings = {}
     var latestEmailIndex = team.email.length - 1;
@@ -54,6 +60,7 @@ Utils.prototype.syncInbox = function(team) {
 }
 
 Utils.prototype.createLatestMessage = function(messageHeaders, email){
+    //returns a LatestMessage object to save in the Threads model
     var sender = messageFilter(messageHeaders, 'From');
     sender = sender[0] ? sender[0].value : 'No Sender';
 
@@ -61,10 +68,10 @@ Utils.prototype.createLatestMessage = function(messageHeaders, email){
     subject = subject[0] ? subject[0].value : 'No Subject';
 
     return {
-        date:email.googleObj.internalDate,
+        date:email.internalDate,
         from: sender,
         subject: subject,
-        snippet: email.googleObj.snippet
+        snippet: email.snippet
     }
 }
 
@@ -89,51 +96,47 @@ Utils.prototype.saveSync = function(googleObj, team){
             threadMessages.forEach(function(messageId){
                 EmailModel.findOne({'googleObj.id':messageId}).exec()
                 .then(function(message){
-                    if (message) {
-                        console.log('found message: ', message )
-                    } else {
+                    if (!message){
+                        var createdEmail;
+                        var gmailObject;
                         self.getOneMessage(team, messageId)
                         .then(function(gmailMessage){
-                            gmailMessage = JSON.parse(gmailMessage);
-                            // console.log('got this message', gmailMessage)
+                            gmailObject = gmailMessage;
+                            gmailObject = JSON.parse(gmailObject);
                             var newEmail = new EmailModel({
-                                googleObj: gmailMessage
+                                googleObj: gmailObject
                             })
                             return newEmail.save()
                         })
                         .then(function(newEmail){
-                            ThreadModel.findOne({googleThreadId:key}).exec()
-                            .then(function(thread){
-                                var latestMessage = self.createLatestMessage(newEmail.googleObj.payload.headers, newEmail)
-
-                                if (thread){
-                                    // console.log('found this thread', thread, 'newEmail', newEmail)
-                                    ThreadModel.findByIdAndUpdate(thread._id, {$addToSet:{messages:newEmail}, latestMessage:latestMessage})
-                                    .exec().then(function(updatedThread){
-                                        console.log('updatedThread', updatedThread)
+                            createdEmail = newEmail;
+                            return ThreadModel.findOne({googleThreadId:gmailObject.threadId}).exec()
+                        })
+                        .then(function(thread){
+                            var latestMessage = self.createLatestMessage(createdEmail.googleObj.payload.headers, createdEmail.googleObj)
+                            if (thread){
+                                ThreadModel.findByIdAndUpdate(thread._id, {$addToSet:{messages:createdEmail}, latestMessage:latestMessage})
+                                .exec().then(function(updatedThread){
+                                    console.log('updatedThread', updatedThread)
+                                })
+                            } else {
+                                self.getOneThread(team, key)
+                                .then(function(oneThread){
+                                    oneThread = JSON.parse(oneThread)
+                                    var newThread = new ThreadModel({
+                                        associatedEmail: team.email[0].address,
+                                        googleThreadId: oneThread.id,
+                                        historyId: oneThread.historyId,
+                                        messages: [createdEmail],
+                                        latestMessage: latestMessage
                                     })
-                                } else {
-                                    self.getOneThread(team, key)
-                                    .then(function(oneThread){
-                                        oneThread = JSON.parse(oneThread)
-                                        // console.log('oneThread', oneThread)
-                                        // console.log('team', team)
-                                        var newThread = new ThreadModel({
-                                            associatedEmail: team.email[0].address,
-                                            googleThreadId: oneThread.id,
-                                            historyId: oneThread.historyId,
-                                            messages: [newEmail],
-                                            latestMessage: latestMessage
-                                        })
-                                        newThread.save().then(function(createdThread){
-                                            TeamModel.findOneAndUpdate({_id:team.id}, {$push:{threads:createdThread}})
-                                            .exec().then(function(){})
-                                        })
-                                    })
-                                    //need to create thread with this message
-                                    console.log('didnt find thread with id ', key)
-                                }
-                            })
+                                    return newThread.save()
+                                })
+                                .then(function(createdThread){
+                                    return TeamModel.findOneAndUpdate({_id:team.id}, {$push:{threads:createdThread}})
+                                })
+                                console.log('didnt find thread with id ', key)
+                            }
                         })
                         console.log('didn\'t find', messageId)
                     }
@@ -215,11 +218,6 @@ Utils.prototype.decode = function(message) {
     return message;
 }
 
-function messageFilter(message, prop) {
-    return message.filter(function(obj) {
-        return obj['name'] === prop;
-    })
-}
 
 Utils.prototype.getThreadContentsAndAddToTeam = function(team, thread) {
     var self = this;
@@ -227,25 +225,14 @@ Utils.prototype.getThreadContentsAndAddToTeam = function(team, thread) {
         self.getOneThread(team, thread.id)
             .then(function(thread) {
                 thread = JSON.parse(thread);
-                var latestMessage = thread.messages[thread.messages.length - 1].payload.headers
-
-                // var date = messageFilter(latestMessage, 'Date')[0].value
-                var sender = messageFilter(latestMessage, 'From')
-                sender = sender[0] ? sender[0].value : 'No Sender'
-
-                var subject = messageFilter(latestMessage, 'Subject')
-                subject = subject[0] ? subject[0].value : 'No Subject'
+                var headers = thread.messages[thread.messages.length - 1].payload.headers
+                var latestMessage = self.createLatestMessage(headers, thread.messages[thread.messages.length - 1])
 
                 var newThread = new ThreadModel({
                     associatedEmail: team.email[team.email.length - 1].address,
                     googleThreadId: thread.id,
                     historyId: thread.historyId,
-                    latestMessage: {
-                        date: thread.messages[thread.messages.length - 1].internalDate,
-                        from: sender,
-                        subject: subject,
-                        snippet: thread.messages[thread.messages.length - 1].snippet
-                    }
+                    latestMessage: latestMessage
                 })
                 newThread.save()
                     .then(function(createdThread) {
