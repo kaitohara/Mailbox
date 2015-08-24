@@ -42,3 +42,4 @@ app.controller('fullemailCtrl', function($scope, thread) {
     	isFirstDisabled: false
 	};
 })
+ 
