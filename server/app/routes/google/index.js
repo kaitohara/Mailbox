@@ -54,9 +54,11 @@ router.get('/syncInbox/:teamId', function(req, res) {
 router.get('/:threadId', function(req, res) {
 	ThreadModel.findById(req.params.threadId)
 		.populate('messages')
+		.populate('assignedTo')
+		.populate('assignedBy')
 		.exec()
 		.then(function(thread) {
-				console.log(thread)
+				// console.log(thread)
 			thread.messages.forEach(function(message){
 				Utils.decode(message)
 			})

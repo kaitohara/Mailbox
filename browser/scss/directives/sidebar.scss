@@ -198,7 +198,7 @@
 }
 .sidebar-nav li a {
   display: block;
-  color: #aaaaaa;
+  color: $grey;
   text-decoration: none;
 }
 .sidebar-nav li a .toggle {
@@ -352,7 +352,7 @@
   transition: opacity 0.3s ease-in-out;
 }
 .sidebar-nav-title .action-link {
-  color: #aaaaaa;
+  color: $grey;
   float: right;
   margin-right: 15px;
   margin-top: -1px;
@@ -518,7 +518,7 @@
   font-size: 16px;
   text-shadow: none;
   opacity: 1;
-  color: #aaaaaa;
+  color: $grey;
 }
 .sidebar-alerts .progress {
   background-color: #3e3e3e;
@@ -562,7 +562,7 @@
 }
 
 .chat-sidebar-content {
-  color: #aaaaaa;
+  color: $grey;
 }
 
 .chat-sidebar-contacts {

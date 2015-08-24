@@ -4,7 +4,11 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.user = $rootScope.user || 'Nobody'
 	$scope.onlineUsers; // [123, 125, 126, 200, 500, 124]
 	$scope.teammates; // [{_id: 123, isOnline = true}, {_id: 124, isOnline = false}]
+	$scope.showLoader = false;
 
+	$scope.clearTeamMembers = function(){
+		$scope.teammates = []
+	}
 
 	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
@@ -64,12 +68,20 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	// 6) function runs as soon as the user logs in,
 	// which means $scope.onlineUsers exists on the scope
 	// BEFORE the user clicks a specific team from the sidebar
+
 	$scope.showOnlineStatus();
 
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
 		$state.go('home.teamId', {
 			teamId: team._id
+		})
+	}
+
+	$scope.goToUser = function() {
+		$scope.teammates = []
+		$state.go('home.userId', {
+			userId: $scope.user._id
 		})
 	}
 
@@ -81,9 +93,11 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	};
 
 	$scope.syncInbox = function() {
+		$scope.showLoader = true;
 		inboxFactory.syncInbox($scope.team._id)
 		.then(function(result){
 			$rootScope.$emit('synced', 'sync complete')
+			$scope.showLoader = false;
 		})
 	};
 

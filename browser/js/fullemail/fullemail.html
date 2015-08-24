@@ -8,7 +8,7 @@
 			<li class='assign'>
 			    <span class="dropdown" dropdown>
 				<a class="dropdown-toggle btn-group" dropdown-toggle>
-			   		<button class="btn">{{ assignedUser }}</button>
+			   		<button class="btn">{{ assignedTo }}</button>
 			    	<button class="btn"><span class="caret"></span></button>
 			    </a>
 			    <ul class="dropdown-menu" dropdown-menu>
@@ -44,7 +44,7 @@
 		<p>To: {{extractField(message, "To").value}}</p>
 		<p>Date: {{extractField(message, "Date").value}}</p>
 		<div>
-		Body: {{parseBody(message.googleObj.payload.parts[0].body.data)}}
+		Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 		</div>
 		<br>
 		<button ng-click="showReply($index)">Toggle Reply</button>

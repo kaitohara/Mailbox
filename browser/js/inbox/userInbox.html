@@ -1,0 +1,34 @@
+<section id='inbox'>
+
+<nav id='inboxNav' class="navbar-default navbar navbar-static-top">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class='assign fetch'>
+                <button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
+                <button ng-click="refreshThreads()">Click Me</button>
+            </li>
+            <li class='assign'>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+	<ul id='inboxThread'>
+	<!-- 	<li class='fetch'>
+			<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
+			<button ng-click="refreshThreads()">Click Me</button>
+		</li> -->
+		<li
+		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
+		ng-click="goToUserThread(thread._id)"
+		class='thread'>
+			<div>
+				<p>From: {{thread.latestMessage.from}}</p>
+				<p>Date: {{thread.latestMessage.date | date:'medium'}}</p>
+				<p>Subject: {{thread.latestMessage.subject}}</p>
+			</div>
+		</li>
+	</ul>
+
+</section>
+<ui-view></ui-view>

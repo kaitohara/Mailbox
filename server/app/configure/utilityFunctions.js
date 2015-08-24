@@ -213,14 +213,18 @@ Utils.prototype.decode = function(message) {
     console.log('decoding this: ', message)
     if (message.googleObj.payload.parts) {
        message.googleObj.payload.parts.forEach(function(part) {
-           console.log("part", part)
-           part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
-           return part
-       })
-   } else {
-        //not decoding b/c partId is empty.
-        console.log('partId', message.googleObj.payload.partId)
-   }
+            console.log("part", part)
+            part.body.data = base64.decode(part.body.data).replace("==", "").replace("==", "")
+            console.log('part',part.body.data)
+            return part
+        })
+    } else if (message.googleObj.payload.body){
+        message.googleObj.payload.body.data = base64.decode(message.googleObj.payload.body.data).replace("==", "").replace("==", "")
+        console.log('message.googleObj.payload.body.data', message.googleObj.payload.body.data)
+    } else {
+         //not decoding b/c partId is empty.
+         console.log('partId', message.googleObj.payload.partId)
+    }
     return message;
 }
 
