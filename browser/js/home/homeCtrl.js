@@ -1,4 +1,4 @@
-app.controller('homeCtrl', function($scope, userFactory, teamFactory, threadFactory, teams, users, $rootScope) {
+app.controller('homeCtrl', function($scope, teams, users, $rootScope) {
 
     $scope.teams = teams;
     $scope.users = users;

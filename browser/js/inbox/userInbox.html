@@ -9,7 +9,7 @@
 		</li>
 		<li
 		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
-		ng-click="goToThread(thread._id)"
+		ng-click="goToUserThread(thread._id)"
 		class='thread'>
 			<div>
 				<p>From: {{thread.latestMessage.from}}</p>

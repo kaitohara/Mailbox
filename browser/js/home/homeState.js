@@ -11,8 +11,9 @@ app.config(function($stateProvider) {
                             if (user) {
                                 return teamFactory
                                     .getUserTeams(user._id)
-                                    .then(function(teams) {
-                                        return teams.data;
+                                    .then(function(user) {
+                                        console.log(user.data)
+                                        return user.data.teams;
                                     })
                             }
                         })
@@ -28,7 +29,7 @@ app.config(function($stateProvider) {
         })
         .state('home.teamId', {
             url: '/teams/:teamId',
-            templateUrl: 'js/inbox/inbox.html',
+            templateUrl: 'js/inbox/teamInbox.html',
             controller: 'inboxCtrl',
             resolve: {
                 threads: function(teamFactory, $stateParams) {
@@ -45,7 +46,34 @@ app.config(function($stateProvider) {
                 // }
             }
         })
+        .state('home.userId', {
+            url: '/users/:userId',
+            templateUrl: 'js/inbox/userInbox.html',
+            controller: 'inboxCtrl',
+            resolve: {
+                threads: function(userFactory, $stateParams) {
+                    var userId = $stateParams.userId;
+                    return userFactory.getUser(userId).then(function(user) {
+                        console.log('child state resolve - users myInbox:', user.data.myInbox)
+                        return user.data.myInbox;
+                    })
+                }
+            }
+        })
         .state('home.teamId.threadId', {
+            url: '/thread/:threadId',
+            templateUrl: 'js/fullemail/fullemail.html',
+            controller: 'fullemailCtrl',
+            resolve: {
+                thread: function(teamFactory, $stateParams) {
+                    var threadId = $stateParams.threadId
+                    return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
+                        return thread
+                    })
+                }
+            }
+        })
+        .state('home.userId.threadId', {
             url: '/thread/:threadId',
             templateUrl: 'js/fullemail/fullemail.html',
             controller: 'fullemailCtrl',

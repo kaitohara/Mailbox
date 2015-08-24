@@ -6,6 +6,10 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.teammates; // [{_id: 123, isOnline = true}, {_id: 124, isOnline = false}]
 
 
+	$scope.clearTeamMembers = function(){
+		$scope.teammates = []
+	}
+
 	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
 		console.log('getting team members')
@@ -81,6 +85,13 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.team = team;
 		$state.go('home.teamId', {
 			teamId: team._id
+		})
+	}
+
+	$scope.goToUser = function() {
+		$scope.teammates = []
+		$state.go('home.userId', {
+			userId: $scope.user._id
 		})
 	}
 
