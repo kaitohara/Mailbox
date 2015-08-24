@@ -23,16 +23,12 @@ app.controller('fullemailCtrl', function($scope, thread) {
 
 	$scope.showReply = function(index){
 		console.log(index)
-		console.log($scope.thread.messages)
 		var length = $scope.thread.messages.length 
-		// console.log($scope.thread.messages[length-1-index])
+		// below we need to reverse the math on the index due to the sorting happening in ng-repeat
 		if ($scope.thread.messages[length-1-index].showReply) {
 			$scope.thread.messages[length-1-index].showReply = false
 		} else {
 			$scope.thread.messages[length-1-index].showReply = true
 		}
-		// $scope.thread.showReply = true
 	}
-
-	// $scope.html = $sce.trustAsHtml($scope.someHtml);
 })
