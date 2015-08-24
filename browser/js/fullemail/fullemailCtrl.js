@@ -1,15 +1,27 @@
 app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll) {
 
-	$scope.thread = thread;
+	// $scope.thread = thread;
 
 	$scope.gotoBottom = function() {
-      // set the location.hash to the id of
-      // the element you wish to scroll to.
-      $location.hash('bottom');
-      // call $anchorScroll()
-      $anchorScroll();
+		$scope.thread = thread;
+		// // set the location.hash to the id of the element
+		// $location.hash('bottom');
+		// // call $anchorScroll()
+		// $anchorScroll();
+
+		setTimeout(function(){
+    	$location.hash('bottom');
+      	$anchorScroll();
+  	} , 10);
+
     };
 
+    $scope.gotoBottom()
+
+   //  setTimeout(function(){
+   //  	$location.hash('bottom');
+   //    	$anchorScroll();
+  	// } , 500);
 
 	$scope.extractField = function(messageObj, fieldName) {
 		return messageObj.googleObj.payload.headers.filter(function(header) {
@@ -33,15 +45,8 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 	$scope.showReply = function(index){
 		console.log(index)
 		var length = $scope.thread.messages.length 
-		// below we need to reverse the math on the index due to the sorting happening in ng-repeat
-		if ($scope.thread.messages[length-1-index].showReply) {
-			$scope.thread.messages[length-1-index].showReply = false
-		} else {
-			$scope.thread.messages[length-1-index].showReply = true
-		}
+		$scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply
 	}
-
-	// $scope.thread.messages[$scope.thread.messages.length-1] has a attribute of is-open: true
 
 	$scope.oneAtATime = false;
 
@@ -50,4 +55,5 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     	isFirstDisabled: false
 	};
 })
+
  
