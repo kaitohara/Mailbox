@@ -5,7 +5,7 @@
 	<ul id='inboxThread'>
 		<li class='fetch'>
 			<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
-			<button ng-click="test()">Click Me</button>
+			<button ng-click="refreshThreads()">Click Me</button>
 		</li>
 		<li
 		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
