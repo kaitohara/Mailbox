@@ -9,7 +9,6 @@
         <!-- main notification links are placed inside of .sidebar-nav -->
         <!-- every .sidebar-nav may have a title -->
         <h5 class="sidebar-nav-title">Teams<a class="action-link" href="#"><i class="glyphicon glyphicon-plus" ui-sref='membersOnly'></i></a></h5>
-
         <ul class="sidebar-nav">
             <li ng-repeat='team in teams' ng-click="goToTeam(team); getTeamMembers(team._id)">
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
@@ -18,17 +17,14 @@
                         <i class="glyphicon glyphicon-align-right"></i>
                     </span>
                     <span>{{team.name}}</span>
-                    <i class="glyphicon glyphicon-plus ng-scope" ng-click="open(); setTeam(team)" ng-controller="ModalCtrl" style="font-size: 10px; padding:0 0 1px 10px"></i>
+                    <i class="glyphicon glyphicon-plus" ng-click='open(); setTeam(team)' ng-controller='ModalCtrl'></i>
                     <i class="toggle fa fa-angle-down"></i>
                 </a>
-
                 <ul id="sidebar-forms" class="collapse">
                     <li ng-repeat='email in team.emailAddresses'><a>{{email}}</a></li>
                 </ul>
-
             </li>
         </ul>
-
         <h5 class="sidebar-nav-title">Teammates<a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5> 
 
         <ul class="sidebar-nav">
@@ -40,13 +36,8 @@
                     <span>{{teammate.firstName}}
                     </span>
                     <span ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" class="glyphicon glyphicon-record status pull-right" aria-hidden="true"></span>
-                
                 </a>
-                <!-- 11) the online status glyphicon is set below. ng-class assigns the class "online" or "offline" depending on whether its property evaluates to true. For example, if teammate.isOnline is set to true from the controller, the status inherits the class "online." [go to /js/navbar.js line 25]
-
-                (Also feel free to heck out /browser/scss/directives/sidebar.scss to see how I set up the classes) -->
             </li>
         </ul>
-
     </div>
 </div>

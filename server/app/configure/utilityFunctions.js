@@ -77,23 +77,43 @@ Utils.prototype.createLatestMessage = function(messageHeaders, email){
 
 Utils.prototype.saveSync = function(googleObj, team){
     var self = this;
-    if (googleObj.history) {
-        var historyMessages = googleObj.history;
-        var updatedThreads = {};
-        //Iterate through each 'change' in googleObj history
-        historyMessages.forEach(function(historyObj){
-            //Iterate through messages array of each 'change'
-            historyObj.messages.forEach(function(message){
-                var histMsgArr = updatedThreads[message.threadId]; //array of 'changed' messages in each thread 
-                updatedThreads[message.threadId] = updatedThreads[message.threadId] || [];
-                if (updatedThreads[message.threadId].indexOf(message.id) === -1){
-                    updatedThreads[message.threadId].push(message.id)
-                }
+    return new Promise(function(resolve, resject){
+        if (googleObj.history) {
+            var historyMessages = googleObj.history;
+            var updatedThreads = {};
+            //Iterate through each 'change' in googleObj history
+            historyMessages.forEach(function(historyObj){
+                //Iterate through messages array of each 'change'
+                historyObj.messages.forEach(function(message){
+                    var histMsgArr = updatedThreads[message.threadId]; //array of 'changed' messages in each thread 
+                    updatedThreads[message.threadId] = updatedThreads[message.threadId] || [];
+                    if (updatedThreads[message.threadId].indexOf(message.id) === -1){
+                        updatedThreads[message.threadId].push(message.id)
+                    }
+                })
             })
-        })
-        for (var key in updatedThreads){
-            var threadMessages = updatedThreads[key];
-            threadMessages.forEach(function(messageId){
+            var updatedMessagesArrays = _.values(updatedThreads);
+            console.log('updatedThreads', updatedThreads)
+            console.log('updatedMessagesArrays', updatedMessagesArrays)
+            var promisesforUpdatingMessages = updatedMessagesArrays.map(function(messageArray){
+                return self.getUpdatedMessagesAndSave(team, messageArray);
+            })
+            Promise.all(promisesforUpdatingMessages)
+            .then(function(result){
+                console.log('done syncing!')
+                resolve();
+            })
+        } else {
+            console.log('naaa');
+            resolve();
+        };
+    })
+}
+//message in this case is array of message objects containing an id and threadid
+Utils.prototype.getUpdatedMessagesAndSave = function(team, messageArray){
+    var self = this;
+    return new Promise(function(resolve, reject){
+        messageArray.forEach(function(messageId){
                 EmailModel.findOne({'googleObj.id':messageId}).exec()
                 .then(function(message){
                     if (!message){
@@ -118,9 +138,10 @@ Utils.prototype.saveSync = function(googleObj, team){
                                 ThreadModel.findByIdAndUpdate(thread._id, {$addToSet:{messages:createdEmail}, latestMessage:latestMessage})
                                 .exec().then(function(updatedThread){
                                     console.log('updatedThread', updatedThread)
+                                    resolve();
                                 })
                             } else {
-                                self.getOneThread(team, key)
+                                self.getOneThread(team, gmailObject.threadId)
                                 .then(function(oneThread){
                                     oneThread = JSON.parse(oneThread)
                                     var newThread = new ThreadModel({
@@ -135,32 +156,17 @@ Utils.prototype.saveSync = function(googleObj, team){
                                 .then(function(createdThread){
                                     return TeamModel.findOneAndUpdate({_id:team.id}, {$push:{threads:createdThread}})
                                 })
-                                console.log('didnt find thread with id ', key)
+                                .then(function(Team){
+                                    console.log('didnt find thread with id ', gmailObject.threadId)
+                                    resolve();
+                                })
                             }
                         })
                         console.log('didn\'t find', messageId)
+                    } else {
+                        resolve();
                     }
                 })
-            })
-        }
-    } else {
-        console.log('naaa');
-    } return;
-}
-//message in this case is array of message objects containing an id and threadid
-Utils.prototype.getUpdatedThreadsAndSave = function(message, team){
-    var self = this;
-    return new Promise(function(resolve, reject){
-        self.getOneThread(team, message.threadId)
-            .then(function(thread){
-                thread = JSON.parse(thread);
-                console.log('thread', thread.messages)
-
-                //DO STUFF HERE: COMPARE AND CHECK IF MESSAGES/THREADS EXIST, SAVE THEM TO DB ETC
-                //MAKE SURE THREAD MESSAGES REMAIN IN PROPER ORDER? or necessary?
-
-                //find unique messages?
-                resolve();
             })
     })
 }
