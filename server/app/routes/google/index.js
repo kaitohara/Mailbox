@@ -25,6 +25,7 @@ router.get('/getAllEmails/:id', function(req, res) {
 
 router.get('/syncInbox/:teamId', function(req, res) {
 	var globalTeam;
+	var googleResponse;
 	TeamModel.findById(req.params.teamId)
 		.then(function(team) {
 			// console.log('found this team in database', team)
@@ -32,15 +33,20 @@ router.get('/syncInbox/:teamId', function(req, res) {
 			return Utils.syncInbox(globalTeam)
 		})
 		.then(function(googleResp) {
-			googleResp = JSON.parse(googleResp)
+			googleResponse = JSON.parse(googleResp)
+
 			// console.log('googleResp', googleResp)
-			Utils.saveSync(googleResp, globalTeam)
-			globalTeam.historyId = googleResp.historyId;
+			return Utils.saveSync(googleResponse, globalTeam)
+		})
+		.then(function(saveResult){
+			console.log('saveResult', saveResult)
+			globalTeam.historyId = googleResponse.historyId;
 			return globalTeam.save()
 		})
 		.then(function(thing){
 			// console.log('THE THING: ', thing)
-			res.sendStatus(200)
+			console.log('complete')
+			res.status(200).send('complete')
 		})
 })
 

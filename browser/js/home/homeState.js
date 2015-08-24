@@ -34,9 +34,15 @@ app.config(function($stateProvider) {
                 threads: function(teamFactory, $stateParams) {
                     var teamId = $stateParams.teamId;
                     return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads) {
-                        return threads
+                        return threads;
                     })
                 }
+                // teammates: function(userFactory, $stateParams){
+                //     var teamId = $stateParams.teamId;
+                //     return userFactory.getTeamMembers(team._id).then(function(teammates){
+                //         return teammates;
+                //     })
+                // }
             }
         })
         .state('home.teamId.threadId', {
