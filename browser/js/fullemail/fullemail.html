@@ -34,7 +34,7 @@
 		<p>To: {{extractField(message, "To").value}}</p>
 		<p>Date: {{extractField(message, "Date").value}}</p>
 		<div>
-		Body: {{parseBody(message.googleObj.payload.parts[0].body.data)}}
+		Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 		</div>
 		<br>
 		<button ng-click="showReply($index)" ng-hide="message.showReply">Reply</button>

@@ -4,7 +4,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.user = $rootScope.user || 'Nobody'
 	$scope.onlineUsers; // [123, 125, 126, 200, 500, 124]
 	$scope.teammates; // [{_id: 123, isOnline = true}, {_id: 124, isOnline = false}]
-
+	$scope.showLoader = false;
 
 	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
@@ -93,10 +93,12 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	};
 
 	$scope.syncInbox = function() {
+		$scope.showLoader = true;
 		inboxFactory.syncInbox($scope.team._id)
 		.then(function(result){
 			$rootScope.$emit('synced', 'sync complete')
 			console.log('result', result)
+			$scope.showLoader = false;
 		})
 	};
 
