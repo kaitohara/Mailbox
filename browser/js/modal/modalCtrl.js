@@ -15,7 +15,10 @@ app.controller('ModalCtrl', function($scope, $modal, $log, userFactory) {
                 },
                 users: function() {
                     return $scope.users;
-                }
+                },
+                user: function() {
+                    return $scope.user;
+                },
             }
         });
 
