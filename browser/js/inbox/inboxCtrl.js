@@ -2,11 +2,19 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 
 	$scope.threads = threads;
 
-	$scope.goToThread = function(threadId) {
+	$scope.goToTeamThread = function(threadId) {
+		console.log('still hitting this')
 		$state.go('home.teamId.threadId', {
 			threadId: threadId
 		})
 	};
+
+	$scope.goToUserThread = function(threadId) {
+		$state.go('home.userId.threadId', {
+			threadId: threadId
+		})
+	};
+
 	$rootScope.$on('synced', function(){
 		console.log('heard it')
 		$scope.refreshThreads();

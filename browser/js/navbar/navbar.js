@@ -10,11 +10,13 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, S
             scope.items = [{
                 label: 'Home',
                 state: 'home'
-            }, {
-                label: 'Add Team',
-                state: 'membersOnly',
-                auth: true
-            }];
+            }
+            // , {
+            //     label: 'Add Team',
+            //     state: 'membersOnly',
+            //     auth: true
+            // }
+            ];
 
             scope.user = null;
 

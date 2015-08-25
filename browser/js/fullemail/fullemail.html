@@ -1,52 +1,65 @@
 
 <section id="fullEmailPosition">
+
+	<div class="fetch">
 	<ul id="listFix">
 
-	<li class='assign'>
+		<li class='emailButtons'>
 
-		<span class="dropdown" dropdown>
-		   	<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
-		   		<button class="btn">{{ assignedUser }}</button>
-		    	<button class="btn"><span class="caret"></span></button>
-			</a>
-			<ul class="dropdown-menu" dropdown-menu>
-			    <li ng-repeat='userChoice in users'>
-			        <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
-			    </li>
-			</ul>
-		</span>
+			<span class="dropdown" dropdown>
+				<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
+					<button class="btn">{{ assignedTo }}</button>
+					<button class="btn"><span class="caret"></span></button>
+				</a>
+				<ul class="dropdown-menu" dropdown-menu>
+					<li ng-repeat='userChoice in users'>
+						<a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+					</li>
+				</ul>
+			</span>
 
-		<div class="checkbox">
-		    <label>
-		        <input type="checkbox" ng-model="oneAtATime"> Open only one at a time
-		    </label>
-		</div>
+		</li>
+		<li class='emailButtons'>
+			<span>
+				<button class="btn">Delete</button>
+			</span>
+		</li>
+		<li class='checkbox emailButtons'>
+			<label>
+				<input type="checkbox" ng-model="oneAtATime"> Open only one at a time
+			</label>
+		</li>
 
-	</li>
+	</ul>
+	</div>
 
-</ul>
-<div id='fullemail'>
+	<div id='fullemail'>
 
 
-<div>
-  <accordion close-others="oneAtATime">
-
-    <accordion-group is-open='$last' heading="{{extractField(message, 'Subject').value}}" ng-repeat="message in thread.messages | orderBy: 'googleObj.internalDate':reverse">
-      	<p>Subject: {{extractField(message, "Subject").value}}</p>
-		<p>From: {{extractField(message, "From").value}}</p>
-		<p>To: {{extractField(message, "To").value}}</p>
-		<p>Date: {{extractField(message, "Date").value}}</p>
 		<div>
-		Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
-		</div>
-		<br>
-		<button ng-click="showReply($index)" ng-hide="message.showReply">Reply</button>
-		<replydir ng-show="message.showReply"></replydir>
-    </accordion-group>
+			<accordion close-others="oneAtATime">
 
-  </accordion>
-</div>
- 
-</div>
+				<accordion-group 
+				ng-repeat="message in thread.messages"
+				is-open='$last' 
+				heading="{{extractField(message, 'Subject').value}}">
+				<p>From: {{extractField(message, "From").value}}</p>
+				<p>To: {{extractField(message, "To").value}}</p>
+				<p>Date: {{extractField(message, "Date").value}}</p>
+				<div>
+					Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+				</div>
+				<br>
+				<button ng-click="showReply($index)">Toggle Reply</button>
+				<replydir ng-show="message.showReply"></replydir>
+			</accordion-group>
+
+		</accordion>
+	</div>
+
+
+
+	<a id='bottom'>The End</a>
+
 
 </section>

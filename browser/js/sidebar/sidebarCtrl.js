@@ -6,12 +6,14 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.teammates; // [{_id: 123, isOnline = true}, {_id: 124, isOnline = false}]
 	$scope.showLoader = false;
 
+	$scope.clearTeamMembers = function(){
+		$scope.teammates = []
+	}
+
 	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
-		console.log('getting team members')
 		userFactory.getTeamMembers(teamId)
 		.then(function(teammates) {
-			console.log('teammates after getTeamMembers', teammates)
 			// 8) angular displays teammates
 			// on the sidebar
 			$scope.teammates = teammates;
@@ -44,7 +46,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		// [go down to line 35]
 		Socket.on('onlineUsers', function(onlineUserIds) {
 			$scope.onlineUsers = onlineUserIds;
-			console.log('scope.onlineUsers', $scope.onlineUsers) //good
 			$scope.getTeamMembers($stateParams.teamId)
 		})
 
@@ -67,20 +68,20 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	// 6) function runs as soon as the user logs in,
 	// which means $scope.onlineUsers exists on the scope
 	// BEFORE the user clicks a specific team from the sidebar
-	$scope.showOnlineStatus();	
 
-	console.log('scope.team', $scope.team) //undefined
-	console.log('scope.user', $scope.user)
-	console.log('$stateParams', $stateParams)
-	console.log('$stateParams.teamId', $stateParams.teamId)
-	console.log('scope.teammates', $scope.teammates) //undefined
-	console.log('scope.onlineUsers', $scope.onlineUsers) //undefined
-
+	$scope.showOnlineStatus();
 
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
 		$state.go('home.teamId', {
 			teamId: team._id
+		})
+	}
+
+	$scope.goToUser = function() {
+		$scope.teammates = []
+		$state.go('home.userId', {
+			userId: $scope.user._id
 		})
 	}
 

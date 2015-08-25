@@ -31,18 +31,18 @@
 			<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
 			<button ng-click="refreshThreads()">Click Me</button>
 		</li>  -->
-			<li
+		<li
 		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
-		ng-click="goToThread(thread._id)"
+		ng-click="goToTeamThread(thread._id)"
 		class='thread'>
-				<div>
-					<p>{{cleanName(thread.latestMessage.from)}}     {{simplifyDate(thread.latestMessage.date)}}</p>
+		<div>
+			<p>{{cleanName(thread.latestMessage.from)}}     {{simplifyDate(thread.latestMessage.date)}}</p>
 
-					<p><b>{{thread.latestMessage.subject}}</b></p>
-					<p>{{thread.latestMessage.snippet}}</p>
-				</div>
-			</li>
-		</ul>
-	</div>
+			<p><b>{{thread.latestMessage.subject}}</b></p>
+			<p>{{thread.latestMessage.snippet}}</p>
+		</div>
+	</li>
+</ul>
+</div>
 </section>
 <ui-view></ui-view>

@@ -1,9 +1,11 @@
 
+
 #inboxWithButtons{
 	position:fixed;
 
 }
 .fetch {
+
 		text-align: center;
 		padding-top: 10px;
 		padding-bottom: 10px;
@@ -15,6 +17,8 @@
 			background-color: white;
 		}
 	}
+
+
 
 #inbox {
 
@@ -32,7 +36,7 @@
 		text-align: left;
 		list-style: none;
 		background-color: white;
-		border-bottom: 1px solid $lightGrey;
+		/*border-bottom: 1px solid $lightGrey;*/
 
 		p{
 			padding: 0px;
@@ -48,4 +52,40 @@
 	ul {
 		padding: 0px;
 	}
+
+}
+
+#inboxNav {
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    /*width: 300px;*/
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid $lightGrey;
+    /*margin-bottom: 100px;*/
+    height: 50px;
+    box-shadow: 0px 2px 2px 0px $darkGrey;
+    .assign {
+        display: inline;
+        padding-top: 10px;
+        color: $darkBlue;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: 10px;
+        margin-right:10px;
+        /*width: 100%;*/
+        /*text-align: center;*/
+        /*border-bottom: 1px solid $lightGrey;*/
+        a {
+            color: $darkBlue;
+        }
+        button {
+            background-color: white;
+            border: 1px solid $darkGrey;
+        }
+    }
+    .btn {
+        border-right: 1px solid red;
+    }
 }
