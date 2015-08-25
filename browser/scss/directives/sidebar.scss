@@ -32,6 +32,15 @@
 
 }
 
+/*label {
+  display: inline;
+  width: 150px
+}*/
+
+form {
+  display: inline
+}
+
 .modal-sidebar {
   position: absolute;
   float:left;
@@ -359,7 +368,7 @@
 }
 
 .sidebar-nav-title {
-  margin: 35px 0 5px 11px;
+  margin: 32px 0px 32px 20px;
   font-size: 14px;
   text-transform: uppercase;
   opacity: 1;
