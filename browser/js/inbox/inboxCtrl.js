@@ -1,6 +1,13 @@
 app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket, teamFactory) {
 
 	$scope.threads = threads;
+	$scope.assignedTo;
+
+	console.log('threads', threads)
+
+	$rootScope.$on('threadAssignment', function() {
+		$scope.refreshThreads();
+	})
 
 	$scope.goToTeamThread = function(threadId) {
 		console.log('still hitting this')
@@ -15,25 +22,25 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		})
 	};
 
-	$rootScope.$on('synced', function(){
+	$rootScope.$on('synced', function() {
 		console.log('heard it')
 		$scope.refreshThreads();
 	})
 
-	$scope.refreshThreads = function(){
+	$scope.refreshThreads = function() {
 		console.log('log this');
 		teamFactory.getThisTeamsGmailThreadsId($scope.team._id)
-		.then(function(threads){
-			$scope.threads = threads;
-		})
+			.then(function(threads) {
+				$scope.threads = threads;
+			})
 	};
 
-	$scope.cleanName = function(name){
+	$scope.cleanName = function(name) {
 		var regex = / <.+>/
 		return name.replace(regex, '')
 	}
 
-	$scope.simplifyDate = function(date){
-		return moment(date*1).format("MMM DD h:mm a")
+	$scope.simplifyDate = function(date) {
+		return moment(date * 1).format("MMM DD h:mm a")
 	}
 })

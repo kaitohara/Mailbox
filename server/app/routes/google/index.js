@@ -16,9 +16,19 @@ var requestTeam;
 router.get('/getAllEmails/:id', function(req, res) {
 	TeamModel.findById(req.params.id)
 		.populate('threads')
-		.exec()
-		.then(function(team) {
-			res.send(team.threads)
+		.exec(function(err, teams) {
+			var options = {
+				path: 'threads.assignedTo',
+				model: 'User'
+			};
+
+			if (err) return res.json(500);
+			console.log('pre-edit teams', teams)
+			TeamModel.populate(teams, options, function(err, teams) {
+				console.log('edited teams', teams)
+				console.log('exampe team', teams.threads[1].assignedTo)
+				res.json(teams.threads);
+			});
 		})
 })
 
@@ -38,12 +48,12 @@ router.get('/syncInbox/:teamId', function(req, res) {
 			// console.log('googleResp', googleResp)
 			return Utils.saveSync(googleResponse, globalTeam)
 		})
-		.then(function(saveResult){
+		.then(function(saveResult) {
 			console.log('saveResult', saveResult)
 			globalTeam.historyId = googleResponse.historyId;
 			return globalTeam.save()
 		})
-		.then(function(thing){
+		.then(function(thing) {
 			// console.log('THE THING: ', thing)
 			console.log('complete')
 			res.status(200).send('complete')
@@ -58,12 +68,11 @@ router.get('/:threadId', function(req, res) {
 		.populate('assignedBy')
 		.exec()
 		.then(function(thread) {
-				// console.log(thread)
-			thread.messages.forEach(function(message){
-				Utils.decode(message)
-			})
-			// console.log('the googleObj', thread.messages[0].googleObj.payload.parts)
+			// console.log(thread)
+			thread.messages.forEach(function(message) {
+					Utils.decode(message)
+				})
+				// console.log('the googleObj', thread.messages[0].googleObj.payload.parts)
 			res.send(thread)
 		})
 })
-
