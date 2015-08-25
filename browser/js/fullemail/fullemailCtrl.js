@@ -6,16 +6,14 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 
 	$scope.gotoBottom = function() {
 		$scope.thread = thread;
-		// // set the location.hash to the id of the element
 		// $location.hash('bottom');
-		// // call $anchorScroll()
 		// $anchorScroll();
 		setTimeout(function(){
     		$location.hash('bottom');
       		$anchorScroll();
   		} , 10);
     };
-    // $scope.gotoBottom()
+    $scope.gotoBottom()
 
 
   //   $scope.gotoBottomForChat = function(){

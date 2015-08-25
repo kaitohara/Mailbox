@@ -1,87 +1,72 @@
-
 <section id="fullEmailPosition">
 
-	<div class="fetch">
-	<ul id="listFix">
-
-		<li class='emailButtons'>
-
-			<span class="dropdown" dropdown>
+    <div class="fetch">
+        <ul id="listFix">
+            <li class='emailButtons'>
+                <span class="dropdown" dropdown>
 				<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
 					<button class="btn">{{ assignedTo }}</button>
 					<button class="btn"><span class="caret"></span></button>
-				</a>
-				<ul class="dropdown-menu" dropdown-menu>
-					<li ng-repeat='userChoice in users'>
-						<a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
-					</li>
-				</ul>
-			</span>
-
-		</li>
-		<li class='emailButtons'>
-			<span>
+                </a>
+                <ul class="dropdown-menu" dropdown-menu>
+                    <li ng-repeat='userChoice in users'>
+                        <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+                    </li>
+                </ul>
+                </span>
+            </li>
+            <li class='emailButtons'>
+                <span>
 				<button class="btn">Delete</button>
 			</span>
-		</li>
-		<li class='checkbox emailButtons'>
-			<label>
-				<input type="checkbox" ng-model="oneAtATime"> Open only one at a time
-			</label>
-		</li>
-
-	</ul>
-	</div>
-
-	<div id='fullemail'>
-
-
-		<div>
-			<accordion close-others="oneAtATime">
-
-				<accordion-group 
-				ng-repeat="message in thread.messages"
-				is-open='$last' 
-				heading="{{extractField(message, 'Subject').value}}">
-				<p>{{extractField(message, "From").value}}    →    {{extractField(message, "To").value}}</p>
-				<!-- <p>{{extractField(message, "To").value}}</p> -->
-				<p>Date: {{extractField(message, "Date").value}}</p>
-				<div>
-					Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
-				</div>
-				<br>
-				<button ng-click="showReply($index)">Toggle Reply</button>
-				<replydir ng-show="message.showReply"></replydir>
-			</accordion-group>
-
-		</accordion>
-	<a id='bottom'>The End</a>
-	</div>
-	
-
-<article class='chatWindow col-lg-12 col-md-12 col-sm-12'>
-
-    <div id="derp" class="slideable">
-        <div class='insideChatWindow'>
-            <p>Chat</p>
-            <ul>
-                <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
-            </ul>
-            <form ng-submit='sendMessage(chatMessage)'>
-                <div id='messagesDiv'></div>
-                <input type='text' placeholder='Your Message' ng-model='chatMessage.text'>
-                <button class='btn btn-sm' type='submit'>Send</button>
-            </form>
-        </div>
+            </li>
+            <li class='checkbox emailButtons'>
+                <label>
+                    <input type="checkbox" ng-model="oneAtATime"> Open only one at a time
+                </label>
+            </li>
+        </ul>
     </div>
-    <!-- <a du-smooth-scroll="bottom" ng-click='gotoBottomForChat()'>Chat<i slide-toggle="#derp" class='glyphicon glyphicon-circle-arrow-up'></i>Chat</a> -->
-    <p scroll-glue>Chat<i slide-toggle="#derp" class='glyphicon glyphicon-circle-arrow-up'></i>Chat</p>
-</article>
 
+    <div id='fullemail'>
 
-<a  id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
+        <div>
+            <accordion close-others="oneAtATime">
+                <accordion-group ng-repeat="message in thread.messages" 
+                				is-open='$last' 
+                				heading="{{extractField(message, 'Subject').value}}">
+                    <p>{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
+                    <!-- <p>{{extractField(message, "To").value}}</p> -->
+                    <p>Date: {{extractField(message, "Date").value}}</p>
+                    <div>
+                        Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+                    </div>
+                    <br>
+                    <button ng-click="showReply($index)">Toggle Reply</button>
+                    <replydir ng-show="message.showReply"></replydir>
+                </accordion-group>
+            </accordion>
+        </div>
 
-	</div>
+        <article class='chatWindow col-lg-12 col-md-12 col-sm-12'>
+            <div id="derp" class="slideable">
+                <div class='insideChatWindow'>
+                    <p>Chat</p>
+                    <ul>
+                        <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
+                    </ul>
+                    <form ng-submit='sendMessage(chatMessage)'>
+                        <div id='messagesDiv'></div>
+                        <input type='text' placeholder='Your Message' ng-model='chatMessage.text'>
+                        <button class='btn btn-sm' type='submit'>Send</button>
+                    </form>
+                </div>
+            </div>
 
+            <p>Chat<i slide-toggle="#derp" class='glyphicon glyphicon-circle-arrow-up'></i>Chat</p>
+        </article>
+        
+        <a id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
+    </div>
 
 </section>
