@@ -1,59 +1,65 @@
 
-<section id='fullemail'>
+<section id="fullEmailPosition">
 
-<nav id='fullemailNav' class="navbar-default navbar navbar-static-top">
-    <div class="container-fluid">
+	<div class="fetch">
+	<ul id="listFix">
 
-        <ul class="nav navbar-nav">
-			<li class='assign'>
-			    <span class="dropdown" dropdown>
-				<a class="dropdown-toggle btn-group" dropdown-toggle>
-			   		<button class="btn">{{ assignedTo }}</button>
-			    	<button class="btn"><span class="caret"></span></button>
-			    </a>
-			    <ul class="dropdown-menu" dropdown-menu>
-			        <li ng-repeat='userChoice in users'>
-			            <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
-			        </li>
-			    </ul>
-			    </span>
-			</li>
-			<li class='assign'>
-			    <span>
-			   		<button class="btn">Delete</button>
-			    </span>
-			</li>
-			<li class='assign checkbox'>
-			    <label>
-			        <input type="checkbox" ng-model="oneAtATime"> Open only one at a time
-			    </label>
-			</li>
-        </ul>
+		<li class='emailButtons'>
 
-    </div>
-</nav>
+			<span class="dropdown" dropdown>
+				<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
+					<button class="btn">{{ assignedTo }}</button>
+					<button class="btn"><span class="caret"></span></button>
+				</a>
+				<ul class="dropdown-menu" dropdown-menu>
+					<li ng-repeat='userChoice in users'>
+						<a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+					</li>
+				</ul>
+			</span>
 
-<div>
-  <accordion close-others="oneAtATime">
+		</li>
+		<li class='emailButtons'>
+			<span>
+				<button class="btn">Delete</button>
+			</span>
+		</li>
+		<li class='checkbox emailButtons'>
+			<label>
+				<input type="checkbox" ng-model="oneAtATime"> Open only one at a time
+			</label>
+		</li>
 
-    <accordion-group 
-    	ng-repeat="message in thread.messages"
-    	is-open='$last' 
-    	heading="{{extractField(message, 'Subject').value}}">
-		<p>From: {{extractField(message, "From").value}}</p>
-		<p>To: {{extractField(message, "To").value}}</p>
-		<p>Date: {{extractField(message, "Date").value}}</p>
+	</ul>
+	</div>
+
+	<div id='fullemail'>
+
+
 		<div>
-		Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
-		</div>
-		<br>
-		<button ng-click="showReply($index)">Toggle Reply</button>
-		<replydir ng-show="message.showReply"></replydir>
-    </accordion-group>
+			<accordion close-others="oneAtATime">
 
-  </accordion>
-</div>
+				<accordion-group 
+				ng-repeat="message in thread.messages"
+				is-open='$last' 
+				heading="{{extractField(message, 'Subject').value}}">
+				<p>From: {{extractField(message, "From").value}}</p>
+				<p>To: {{extractField(message, "To").value}}</p>
+				<p>Date: {{extractField(message, "Date").value}}</p>
+				<div>
+					Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+				</div>
+				<br>
+				<button ng-click="showReply($index)">Toggle Reply</button>
+				<replydir ng-show="message.showReply"></replydir>
+			</accordion-group>
 
+		</accordion>
+	</div>
+
+
+
+	<a id='bottom'>The End</a>
 
 
 
@@ -77,7 +83,7 @@
 
 
 
-
 <a id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
+
 
 </section>

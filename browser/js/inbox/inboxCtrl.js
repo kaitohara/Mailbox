@@ -3,6 +3,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.threads = threads;
 
 	$scope.goToTeamThread = function(threadId) {
+		console.log('still hitting this')
 		$state.go('home.teamId.threadId', {
 			threadId: threadId
 		})
@@ -26,4 +27,13 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 			$scope.threads = threads;
 		})
 	};
+
+	$scope.cleanName = function(name){
+		var regex = / <.+>/
+		return name.replace(regex, '')
+	}
+
+	$scope.simplifyDate = function(date){
+		return moment(date*1).format("MMM DD h:mm a")
+	}
 })

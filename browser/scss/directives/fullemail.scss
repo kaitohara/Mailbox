@@ -1,3 +1,59 @@
+
+#fullEmailPosition {
+  position: fixed;
+  left:504px;
+  width: calc(99% - 504px);
+  height: calc(99vh - 50px);
+
+  #listFix {
+    // position:relative;
+    // z-index: 9999;
+    overflow: visible;
+    z-index: 9999;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    display: inline;
+  }
+
+  .emailButtons {
+    display: inline;
+    overflow:visible;
+    position:relative;
+    // z-index: 9999;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: $darkBlue;
+    // border-bottom: 1px solid $lightGrey;
+    a {
+      color: $darkBlue;
+    }
+    button {
+      background: none;
+      border: 1px solid $darkGrey;
+    }
+  }
+}
+
+#fullemail {
+  position: fixed;
+  left:504px;
+  width: calc(100% - 504px);
+  height: calc(100vh - 50px);
+  
+  // display: inline-block;
+  float: left;
+  // background-color: #F2F6F7;
+
+  ul {
+  	padding: 0px;
+  }
+}
+
+
+
+ 
 #fullemail {
     width: calc(100% - 504px);
     height: calc(100vh - 50px);
@@ -13,33 +69,17 @@
         margin-bottom: 100px;
         height: 50px;
         /*box-shadow: 0px 2px 2px 0px $darkGrey;*/
-        .assign {
-            display: inline;
-            padding-top: 10px;
-            color: $darkBlue;
-            padding-left: 10px;
-            padding-right: 10px;
-            margin-left: 10px;
-            margin-right:10px;
-            /*width: 100%;*/
-            /*text-align: center;*/
-            /*border-bottom: 1px solid $lightGrey;*/
-            a {
-                color: $darkBlue;
-            }
-            button {
-                background-color: white;
-                border: 1px solid $darkGrey;
-            }
-        }
+        
         .btn {
             border-right: 1px solid red;
         }
+      }
     #bottom {
         display: block;
         margin-top: 10px;
         text-align: center;
     }
+
 }
 
 /*.singleMessage {
