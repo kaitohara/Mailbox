@@ -62,4 +62,28 @@
 	<a id='bottom'>The End</a>
 
 
+
+<article class='col-lg-12 col-md-12 col-sm-12'>
+    <div id="derp" class="slideable">
+        <div>
+            <p>Chat</p>
+            <ul>
+                <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
+            </ul>
+            <form ng-submit='sendMessage(chatMessage)'>
+                <div id='messagesDiv'></div>
+                <!-- <input type='text' placeholder='{{user.firstName}}' ng-model='chatMessage.name'> -->
+                <input type='text' placeholder='Message' ng-model='chatMessage.text'>
+                <button class='btn btn-sm' type='submit'>Send</button>
+            </form>
+        </div>
+    </div>
+    <i slide-toggle="#derp" ng-click='gotoBottom()' class='glyphicon glyphicon-circle-arrow-up'></i>
+</article>
+
+
+
+<a id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
+
+
 </section>
