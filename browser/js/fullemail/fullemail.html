@@ -50,7 +50,7 @@
 					Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 				</div>
 				<br>
-				<button ng-click="showReply($index)">Toggle Reply</button>
+				<button ng-click="showReply($index)" class="replyButton">Reply</button>
 				<replydir ng-show="message.showReply"></replydir>
 			</accordion-group>
 

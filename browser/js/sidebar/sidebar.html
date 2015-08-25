@@ -10,7 +10,7 @@
         <!-- every .sidebar-nav may have a title -->
 
 
-        <h5 class="sidebar-nav-title">Inboxes<a class="action-link" href="#"><i class="glyphicon glyphicon-plus" ui-sref='membersOnly'></i></a></h5>
+        <h5 class="sidebar-nav-title">Inboxes<a class="action-link" href="#" ng-click="open()"><i class="glyphicon glyphicon-plus"></i></a></h5>
 
         <ul class="sidebar-nav">
             <li ng-click="goToUser()">
@@ -34,7 +34,7 @@
                         <i class="glyphicon glyphicon-align-right"></i>
                     </span>
                     <span>{{team.name}}</span>
-                    <i class="glyphicon glyphicon-plus" ng-click='open(); setTeam(team)' ng-controller='ModalCtrl' style="font-size: 10px; padding:0 0 1px 10px"></i>
+                    <i class="glyphicon glyphicon-plus" ng-click='open(); setTeam(team)' style="font-size: 10px; padding:0 0 1px 10px"></i>
                     <i class="toggle fa fa-angle-up"></i>
                 </a>
                 <ul id="sidebar-forms" class="collapse">
