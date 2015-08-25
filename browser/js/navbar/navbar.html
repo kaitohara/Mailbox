@@ -3,7 +3,6 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <fullstack-logo></fullstack-logo>
-<!--             <i class='glyphicon glyphicon-envelope'> -->
         </div>
         <ul class="nav navbar-nav">
             <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
@@ -14,9 +13,7 @@
             <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
             <div ng-show="user" class="welcome">
                 <span>Welcome, {{ user.firstName }}</span>
-                <a ng-click="logout()">Logout</a>
-                <span class="rounded rounded-lg bg-gray text-white"><i class="fa fa-globe fa-lg"></i></span>
-                <i class="fa fa-refresh fa-lg"></i>
+                <a class='logout' ng-click="logout()">Logout</a>
             </div>
         </div>
     </div>

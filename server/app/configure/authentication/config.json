@@ -7,6 +7,7 @@
 		"key": "757503849883-uh8tpifbmutaea3g1rq7bihgeret5oi4.apps.googleusercontent.com",
 		"secret": "pCNyJ4igM-5-lSbMYzJYJ7lx",
 		"callback": "http://localhost:1337/callback",
+		// "callback": "http://192.168.1.198:1337/callback",
 		"scope" : [ 
 			"https://mail.google.com",
             "https://www.googleapis.com/auth/userinfo.profile",
