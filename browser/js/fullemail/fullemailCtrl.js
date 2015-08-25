@@ -17,7 +17,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 
 
   //   $scope.gotoBottomForChat = function(){
-		// //setTimeout(function(){
+		// setTimeout(function(){
 		// 	var duration = 200;
 		// 	var offset = 30; //pixels; adjust for floating menu, context etc
 		// 	var someElement = angular.element(document.getElementById('end'));
@@ -25,8 +25,18 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 		// 	$document.scrollToElementAnimated(someElement).then(function(){
 		// 		console.log('supposed to have scrolled', someElement )
 		// 	})
-		// //}, 1000);
+		// }, 1000);
   //   };
+
+    $scope.gotoBottomForChat = function() {
+		$scope.thread = thread;
+		// $location.hash('bottom');
+		// $anchorScroll();
+		setTimeout(function(){
+    		$location.hash('end');
+      		$anchorScroll();
+  		} , 1000);
+    };
 
   	// var someElement = angular.element(document.getElementById('end'));
    //  $document.scrollToElementAnimated(someElement);

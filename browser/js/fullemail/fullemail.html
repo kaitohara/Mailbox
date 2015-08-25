@@ -27,46 +27,45 @@
             </li>
         </ul>
     </div>
+		    <div id='fullemail'>
 
-    <div id='fullemail'>
+		        <div>
+		            <accordion close-others="oneAtATime">
+		                <accordion-group ng-repeat="message in thread.messages" 
+		                				is-open='$last' 
+		                				heading="{{extractField(message, 'Subject').value}}">
+		                    <p>{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
+		                    <p>Date: {{extractField(message, "Date").value}}</p>
+		                    <div>
+		                        Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+		                    </div>
+		                    <br>
+		                    <button ng-click="showReply($index)">Toggle Reply</button>
+		                    <replydir ng-show="message.showReply"></replydir>
+		                </accordion-group>
+		            </accordion>
+		        </div>
 
-        <div>
-            <accordion close-others="oneAtATime">
-                <accordion-group ng-repeat="message in thread.messages" 
-                				is-open='$last' 
-                				heading="{{extractField(message, 'Subject').value}}">
-                    <p>{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
-                    <!-- <p>{{extractField(message, "To").value}}</p> -->
-                    <p>Date: {{extractField(message, "Date").value}}</p>
-                    <div>
-                        Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
-                    </div>
-                    <br>
-                    <button ng-click="showReply($index)">Toggle Reply</button>
-                    <replydir ng-show="message.showReply"></replydir>
-                </accordion-group>
-            </accordion>
-        </div>
+		        <div class='col-lg-12 col-md-12 col-sm-12'>
+		            <div id="derp" class="slideable">
+		                <div class='insideChatWindow'>
+		                    <p>Chat</p>
+		                    <ul>
+		                        <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
+		                    </ul>
+		                    <form ng-submit='sendMessage(chatMessage)'>
+		                        <div id='messagesDiv'></div>
+		                        <input type='text' placeholder='Your Message' ng-model='chatMessage.text'>
+		                        <button class='btn btn-sm' type='submit'>Send</button>
+		                    </form>
+		                </div>
+		            </div>
 
-        <article class='chatWindow col-lg-12 col-md-12 col-sm-12'>
-            <div id="derp" class="slideable">
-                <div class='insideChatWindow'>
-                    <p>Chat</p>
-                    <ul>
-                        <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
-                    </ul>
-                    <form ng-submit='sendMessage(chatMessage)'>
-                        <div id='messagesDiv'></div>
-                        <input type='text' placeholder='Your Message' ng-model='chatMessage.text'>
-                        <button class='btn btn-sm' type='submit'>Send</button>
-                    </form>
-                </div>
-            </div>
+		            <p ng-click='gotoBottomForChat()'>Chat<i slide-toggle="#derp" class='glyphicon glyphicon-circle-arrow-up'></i>Chat</p>
+		        	<a id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
+		        </div>
+		    <a id='end' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
+		    </div>
 
-            <p>Chat<i slide-toggle="#derp" class='glyphicon glyphicon-circle-arrow-up'></i>Chat</p>
-        </article>
-        
-        <a id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
-    </div>
 
 </section>
