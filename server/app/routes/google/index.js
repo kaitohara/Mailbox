@@ -25,8 +25,6 @@ router.get('/getAllEmails/:id', function(req, res) {
 			if (err) return res.json(500);
 			console.log('pre-edit teams', teams)
 			TeamModel.populate(teams, options, function(err, teams) {
-				console.log('edited teams', teams)
-				console.log('exampe team', teams.threads[1].assignedTo)
 				res.json(teams.threads);
 			});
 		})
