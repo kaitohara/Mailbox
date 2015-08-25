@@ -9,7 +9,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	})
 
 	$scope.goToTeamThread = function(threadId) {
-		console.log('still hitting this')
 		$state.go('home.teamId.threadId', {
 			threadId: threadId
 		})
@@ -23,12 +22,12 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	};
 
 	$rootScope.$on('synced', function() {
-		console.log('heard it')
+		console.log('syncing, heard it')
 		$scope.refreshThreads();
 	})
 
 	$scope.refreshThreads = function() {
-		console.log('log this');
+		console.log('refreshing threads');
 		if ($scope.inboxTeam) {
 			teamFactory.getThisTeamsGmailThreadsId($scope.inboxTeam._id)
 				.then(function(threads) {
