@@ -14,7 +14,7 @@ app.factory('teamFactory', function($http) {
                 })
         },
         getThisEmailFromTheThread: function(threadId) {
-            return $http.get('/api/google/'+ threadId)
+            return $http.get('/api/google/' + threadId)
                 .then(function(fullThread) {
                     return fullThread.data
                 })
@@ -24,6 +24,9 @@ app.factory('teamFactory', function($http) {
                 name: name,
                 email: email
             });
+        },
+        getOneTeam: function(teamId) {
+            return $http.get('/api/teams/' + teamId)
         }
     };
 

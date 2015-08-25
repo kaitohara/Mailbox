@@ -37,13 +37,14 @@ app.config(function($stateProvider) {
                     return teamFactory.getThisTeamsGmailThreadsId(teamId).then(function(threads) {
                         return threads;
                     })
+                },
+                team: function(teamFactory, $stateParams) {
+                    var teamId = $stateParams.teamId;
+                    return teamFactory.getOneTeam(teamId).then(function(team) {
+                        console.log('team factory', team.data);
+                        return team.data;
+                    })
                 }
-                // teammates: function(userFactory, $stateParams){
-                //     var teamId = $stateParams.teamId;
-                //     return userFactory.getTeamMembers(team._id).then(function(teammates){
-                //         return teammates;
-                //     })
-                // }
             }
         })
         .state('home.userId', {
@@ -57,6 +58,9 @@ app.config(function($stateProvider) {
                         console.log('child state resolve - users myInbox:', user.data.myInbox)
                         return user.data.myInbox;
                     })
+                },
+                team: function(teamFactory, $stateParams) {
+                    return
                 }
             }
         })
@@ -68,7 +72,7 @@ app.config(function($stateProvider) {
                 thread: function(teamFactory, $stateParams) {
                     var threadId = $stateParams.threadId
                     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
-                        thread.messages = thread.messages.sort(function compare(a,b){
+                        thread.messages = thread.messages.sort(function compare(a, b) {
                             return a.googleObj.internalDate - b.googleObj.internalDate;
                         })
                         return thread;
@@ -81,10 +85,19 @@ app.config(function($stateProvider) {
             templateUrl: 'js/fullemail/fullemail.html',
             controller: 'fullemailCtrl',
             resolve: {
+                // thread: function(teamFactory, $stateParams) {
+                //     var threadId = $stateParams.threadId
+                //     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
+                //         return thread
+                //     })
+                // }
                 thread: function(teamFactory, $stateParams) {
                     var threadId = $stateParams.threadId
                     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
-                        return thread
+                        thread.messages = thread.messages.sort(function compare(a, b) {
+                            return a.googleObj.internalDate - b.googleObj.internalDate;
+                        })
+                        return thread;
                     })
                 }
             }

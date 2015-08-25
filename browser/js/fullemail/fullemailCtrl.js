@@ -34,13 +34,14 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
         threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
             .then(function(thread) {
                 $scope.assignedTo = thread.data.assignedTo.firstName;
-                if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
-                    $state.go('home.userId', {
-                        userId: $rootScope.user._id
-                    }, {
-                        reload: true
-                    });
-                }
+                // if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
+
+                //     // $state.go('home.userId', {
+                //     //     userId: $rootScope.user._id
+                //     // }, {
+                //     //     reload: true
+                //     // });
+                // }
                 $rootScope.$broadcast('threadAssignment');
             });
     };

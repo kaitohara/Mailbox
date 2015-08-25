@@ -1,10 +1,8 @@
-
-
 <section id='inboxWithButtons'>
-	<div class=" fetch">
-		<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
+	<!-- <div class=" fetch">
+		<button class='btn fetchButton' ng-click="syncInbox()">Fetch New Emails</button>
 		<img src="/loader.gif" style="width:100px" ng-show="showLoader">
-	</div>
+	</div> -->
 
 	<div id="inbox">
 
@@ -31,18 +29,20 @@
 			<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
 			<button ng-click="refreshThreads()">Click Me</button>
 		</li>  -->
-			<li
+		<li
 		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
 		ng-click="goToUserThread(thread._id)"
 		class='thread'>
-				<div>
-					<p>{{cleanName(thread.latestMessage.from)}}     {{simplifyDate(thread.latestMessage.date)}}</p>
-
-					<p><b>{{thread.latestMessage.subject}}</b></p>
-					<p>{{thread.latestMessage.snippet}}</p>
-				</div>
-			</li>
-		</ul>
-	</div>
+		<div>
+			<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
+		</div>
+		<div>
+			<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
+			<p>You</p>
+			<!-- <p>{{thread.latestMessage.snippet}}</p> -->
+		</div>
+	</li>
+</ul>
+</div>
 </section>
 <ui-view></ui-view>
