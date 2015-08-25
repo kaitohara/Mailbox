@@ -9,6 +9,7 @@ app.controller('homeCtrl', function($scope, teams, users, $rootScope) {
         isopen: false
     };
 
+
     $scope.toggleDropdown = function($event) {
         $event.preventDefault();
         $event.stopPropagation();

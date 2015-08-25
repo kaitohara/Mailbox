@@ -28,6 +28,23 @@
     </nav>
 </div>
 
+    <div class="panel panel-default" id="create-team">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add A Team Inbox</h3>
+      </div>
+      <div class="panel-body">
+        <b>Team Name</b>
+        <input type="text" ng-model="name" class="form-control" id="name" placeholder="Enter team name" value="faux team">
+      </div>
+      <div class="panel-body">
+        <b>Team E-Mail</b>
+        <input type="text" ng-model="email" class="form-control" id="email" placeholder="Enter an email">
+      </div>
+      <a ng-click='createTeam()' class="btn btn-block btn-social btn-lg btn-google panel-button">
+            <i class="fa fa-google"></i> Sign in with Google
+        </a>
+    </div>
+
     <form id="create-team" name="create-team">
 
         <h2 class='title'>Start Collaborating Now</h2>
