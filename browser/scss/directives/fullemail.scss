@@ -7,8 +7,6 @@
   background-color: #EEEEEE;
 
   #listFix {
-    // position:relative;
-    // z-index: 9999;
     overflow: visible;
     z-index: 9999;
     padding: 0px;
@@ -21,12 +19,11 @@
     display: inline;
     overflow:visible;
     position:relative;
-    // z-index: 9999;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
     color: $darkBlue;
-    // border-bottom: 1px solid $lightGrey;
+
     a {
       color: $darkBlue;
     }
@@ -51,21 +48,13 @@
     ul {
       padding: 0px;
      } 
-    #fullemailNav {
-        z-index: 100;
-        position: fixed;
-        width: 100%;
-        background-color: white;
-        border: none;
-        border-bottom: 1px solid $lightGrey;
-        margin-bottom: 100px;
-        height: 50px;
-        /*box-shadow: 0px 2px 2px 0px $darkGrey;*/
-        
-        .btn {
-            border-right: 1px solid red;
-        }
-      }
+
+    .replyButton {
+      background-color:white;
+      border: 1px solid #DDDDDD;
+    }
+
+    
     #bottom {
         display: block;
         margin-top: 10px;
@@ -73,10 +62,4 @@
     }
 
 }
-
-/*.singleMessage {
-padding: 10px;
-margin: 10px;
-border-bottom: 1px solid $lightGrey;
-}*/
 

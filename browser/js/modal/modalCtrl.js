@@ -3,11 +3,12 @@ app.controller('ModalCtrl', function($scope, $modal, $log, userFactory) {
     $scope.animationsEnabled = true;
 
     $scope.open = function() {
-
+        console.log('opening')
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'js/modal/settingsModal.html',
             controller: 'ModalInstanceCtrl',
+            windowClass: 'settings-modal',
             resolve: {
                 team: function() {
                     return $scope.team;

@@ -36,11 +36,12 @@
 		ng-click="goToTeamThread(thread._id)"
 		class='thread'>
 		<div>
-			<p>{{cleanName(thread.latestMessage.from)}}     {{simplifyDate(thread.latestMessage.date)}}</p>
-
-			<p><b>{{thread.latestMessage.subject}}</b></p>
-			<!-- <p>{{thread.latestMessage.snippet}}</p> -->
+			<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
+		</div>
+		<div>
+			<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
 			<p>Assigned To: {{ thread.assignedTo.firstName || 'Nobody' }}</p>
+			<!-- <p>{{thread.latestMessage.snippet}}</p> -->
 		</div>
 	</li>
 </ul>
