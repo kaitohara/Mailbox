@@ -2,7 +2,16 @@
 
 <section id='inboxWithButtons'>
 	<div class=" fetch">
-		<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
+		<button class='btn fetchButton' ng-click="syncInbox()">Fetch</button>
+
+
+	<form class="form-inline">
+    	<div class="form-group">
+        	<label for="exampleInputName2">Search:</label>
+        	<input type="text" class="form-control" ng-model='search' placeholder="Hello">
+    	</div>
+    </form>
+		
 		<img src="/loader.gif" style="width:100px" ng-show="showLoader">
 	</div>
 
@@ -32,7 +41,7 @@
 			<button ng-click="refreshThreads()">Click Me</button>
 		</li>  -->
 			<li
-		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
+		ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
 		ng-click="goToUserThread(thread._id)"
 		class='thread'>
 				<div>
