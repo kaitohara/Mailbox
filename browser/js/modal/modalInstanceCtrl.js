@@ -3,6 +3,7 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
     $scope.team = team;
     $scope.users = users;
     $scope.user = user;
+    console.log(user)
     teamFactory.getUserTeams(user._id)
         .then(function(user){
             $scope.teams = user.data.teams
@@ -31,7 +32,7 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
         })
     }
 
-    $scope.showTeamMembers = true
+    $scope.showMyProfile = true
 
     $scope.openMyProfile = function(){
         $scope.showMyProfile = true
