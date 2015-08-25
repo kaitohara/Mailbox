@@ -10,7 +10,7 @@
 	padding-bottom: 10px;
 	color: $darkBlue;
 	border-bottom: 1px solid $lightGrey;
-
+	overflow:visible;
 
 }
 
@@ -39,8 +39,8 @@
 		background-color: white;
 		border-bottom: 1px solid #EFEFEF;
 		background-color: #F9F9F9;
-		border-bottom: 1px solid $lightGrey;
-		border-right: 1px solid $lightGrey;
+		border-bottom: 1px solid #DDDDDD;
+		border-right: 1px solid #DDDDDD;
 
 		p{
 			padding: 0px;
