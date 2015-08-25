@@ -1,7 +1,18 @@
 app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket, teamFactory, team, inboxFactory) {
 	$scope.inboxTeam = $scope.team || team;
 	$scope.threads = threads;
-	// console.log('these are the users threads:', assignedThreads)
+
+
+	function displayPersonalAssignment(threadsArray) {
+		threadsArray.forEach(function(thread) {
+			if (thread.assignedTo && thread.assignedTo._id === $rootScope.user._id) {
+				thread.assignedTo.firstName = "You"
+			}
+		})
+	}
+
+	displayPersonalAssignment($scope.threads)
+
 	$scope.assignedTo;
 
 	$rootScope.$on('threadAssignment', function() {
@@ -27,11 +38,11 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	})
 
 	$scope.refreshThreads = function() {
-		console.log('refreshing threads');
 		if ($scope.inboxTeam) {
 			teamFactory.getThisTeamsGmailThreadsId($scope.inboxTeam._id)
 				.then(function(threads) {
 					$scope.threads = threads;
+					displayPersonalAssignment($scope.threads);
 				})
 		} else {
 			console.log('user assignments')
