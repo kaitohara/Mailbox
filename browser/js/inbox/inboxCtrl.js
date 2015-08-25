@@ -5,31 +5,9 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 
 	console.log('threads', threads)
 
-	$rootScope.$on('threadAssignment', function(event, assignedThread) {
-		// console.log('the assigned thread is:', assignedThread)
-		console.log('all the threads', threads)
-		$scope.threads.forEach(function(thread) {
-			// console.log('threadId', thread._id)
-			// console.log('assignedThreadId', assignedThread._id)
-			if (thread._id === assignedThread._id) {
-				console.log('individual thread', thread)
-					// console.log('middle column thread assignment', thread.assignedTo)
-					// console.log('right column thread assignment', assignedThread.assignedTo.firstName)
-					// thread.assignedTo = assignedThread.assignedTo.firstName;
-					// $scope.threads[0].assignedTo = 'please work';
-					// $scope.$digest()
-					// console.log($scope.threads)
-					// $scope.$apply(function() {
-					// 	thread.assignedTo = assignedThread.assignedTo.firstName;
-					// })
-			}
-
-			// thread.assignedTo = assignedThread.assignedTo.firstName
-			// console.log(thread.assignedTo, assignedThread.assignedTo.firstName)
-			// console.log('potentially altered thread', $scope.threads)
-		})
+	$rootScope.$on('threadAssignment', function() {
+		$scope.refreshThreads();
 	})
-
 
 	$scope.goToTeamThread = function(threadId) {
 		console.log('still hitting this')

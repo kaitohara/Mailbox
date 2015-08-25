@@ -41,8 +41,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
                         reload: true
                     });
                 }
-                console.log('thread from step 1', thread)
-                $rootScope.$emit('threadAssignment', thread.data)
+                $rootScope.$broadcast('threadAssignment');
             });
     };
 

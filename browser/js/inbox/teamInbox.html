@@ -40,7 +40,7 @@
 
 			<p><b>{{thread.latestMessage.subject}}</b></p>
 			<!-- <p>{{thread.latestMessage.snippet}}</p> -->
-			<p>Assigned To: {{ thread.assignedTo || 'Nobody' }}</p>
+			<p>Assigned To: {{ thread.assignedTo.firstName || 'Nobody' }}</p>
 		</div>
 	</li>
 </ul>
