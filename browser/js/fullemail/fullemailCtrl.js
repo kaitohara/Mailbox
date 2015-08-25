@@ -11,7 +11,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 		setTimeout(function(){
     		$location.hash('bottom');
       		$anchorScroll();
-  		} , 10);
+  		} , 1);
     };
     $scope.gotoBottom()
 
