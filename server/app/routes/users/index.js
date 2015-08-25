@@ -13,6 +13,7 @@ router.get('/', function(req, res) {
 })
 
 router.get('/teamMembers/:teamId', function(req, res, next) {
+	console.log('hitting backend route', req.params.teamId)
 	UserModel.find({
 			teams: {
 				$in: [req.params.teamId]
@@ -29,9 +30,7 @@ router.get('/:userId', function(req, res, next) {
 	UserModel.findById(req.params.userId)
 		.populate('teams')
 		.populate('myInbox')
-		// .exec()
 		.then(function(user) {
-			// console.log(user)
 			res.send(user)
 		})
 		.then(null, next)

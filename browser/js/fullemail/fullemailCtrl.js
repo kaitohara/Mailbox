@@ -73,19 +73,38 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     };
 
     $scope.assign = function(userChoice, thread, user) {
+        console.log(window.location.pathname)
         threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
             .then(function(thread) {
                 $scope.assignedTo = thread.data.assignedTo.firstName;
-                if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
+                if (window.location.pathname.indexOf("users") > -1) {
                     $state.go('home.userId', {
                         userId: $rootScope.user._id
                     }, {
                         reload: true
                     });
+                } else {
+                    $rootScope.$broadcast('threadAssignment');
                 }
-                $rootScope.$broadcast('threadAssignment');
-            });
-    };
+            })
+    }
+
+    // threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
+    //     .then(function(thread) {
+    //         $scope.assignedTo = thread.data.assignedTo.firstName;
+    //         // if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
+
+    //         //     // $state.go('home.userId', {
+    //         //     //     userId: $rootScope.user._id
+    //         //     // }, {
+    //         //     //     reload: true
+    //         //     // });
+    //         // }
+
+
+    //         //only broadcast this event for team inboxes
+    //         $rootScope.$broadcast('threadAssignment');
+
 
     $scope.oneAtATime = false;
 

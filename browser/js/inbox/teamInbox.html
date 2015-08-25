@@ -17,29 +17,8 @@
 
 	<div id="inbox">
 
-	<!-- <ul id='inboxThread'>
-		<li class='fetch'>
-			<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
-			<img src="/loader.gif" style="width:100px" ng-show="showLoader"> -->
-
-
-
-
-<!--         <ul class="nav navbar-nav">
-            <li class='assign fetch'>
-                <button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
-                <button ng-click="refreshThreads()">Click Me</button>
-            </li>
-            <li class='assign'>
-            </li>
-        </ul> -->
-
-
         <ul id='inboxThread'>
-<!-- 	 	<li class='fetch'>
-			<button class='btn' ng-click="syncInbox()">Fetch New Emails</button>
-			<button ng-click="refreshThreads()">Click Me</button>
-		</li>  -->
+
 		<li
 		ng-animate="'animate'"
 		ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
