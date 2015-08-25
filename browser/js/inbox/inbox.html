@@ -32,9 +32,11 @@
 			<button ng-click="refreshThreads()">Click Me</button>
 		</li>  -->
 			<li
-		ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
-		ng-click="goToThread(thread._id)"
-		class='thread'>
+			class='thread'
+			ng-animate="'animate'"
+			ng-repeat="thread in threads | orderBy: 'latestMessage.date':true"
+			ng-click="goToThread(thread._id)"
+			>
 				<div>
 					<p>{{cleanName(thread.latestMessage.from)}}     {{simplifyDate(thread.latestMessage.date)}}</p>
 
@@ -42,7 +44,7 @@
 
 					<p>{{thread.latestMessage.snippet}}</p>
 					
-					<p>Assigned To: </p>
+					<p ng-show='thread.assignedTo'>Assigned To: </p>
 				</div>
 			</li>
 		</ul>

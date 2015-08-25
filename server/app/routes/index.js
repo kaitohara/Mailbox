@@ -12,6 +12,8 @@ router.use('/threads', require('./threads'));
 // Make sure this is after all of
 // the registered routes!
 
+
+// WHY DO WE HAVE THIS?
 router.get('/:userId', function(req, res, next) {
 	UserModel.findOne({
 			_id: req.params.userId
