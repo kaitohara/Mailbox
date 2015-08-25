@@ -2,7 +2,7 @@
   position: fixed;
   left:504px;
   width: calc(99% - 504px);
-  height: calc(99vh - 50px);
+  height: calc(100vh - 1px);
   background-color: #EEEEEE;
 
   #listFix {
@@ -36,38 +36,38 @@
 
 
 #fullemail {
-    padding:25px;
+    padding-left:15px;
+    padding-right:15px;
+    padding-bottom: 50px;
     position: fixed;
     left:504px;
     width: calc(100% - 504px);
-    height: calc(100vh - 50px);
+    height: calc(100vh - 60px);
     display: inline-block;
     float: left;
 
     //overflow: visible; //makes it not scroll
 
-    ul {
-      padding: 0px;
-     } 
-    #fullemailNav {
-        z-index: 100;
-        position: fixed;
-        width: 100%;
-        background-color: white;
-        border: none;
-        border-bottom: 1px solid $lightGrey;
-        margin-bottom: 100px;
-        height: 50px;
-        /*box-shadow: 0px 2px 2px 0px $darkGrey;*/
-        
-        .btn {
-            border-right: 1px solid red;
-        }
-      }
+    .chatIcon {
+      text-align: center;
+    }
     #bottom {
         display: block;
-        margin-top: 10px;
+        margin-top: 5px;
+        text-align: center;
+    }
+    #end{
+        display: block;
+        margin-top: 5px;
         text-align: center;
     }
 
+}
+
+[scroll-glue-top],
+[scroll-glue-bottom],
+[scroll-glue] {
+    height: 100px;
+    overflow-y: scroll;
+    border: 1px solid gray;
 }
