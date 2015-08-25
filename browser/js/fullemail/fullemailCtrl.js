@@ -11,7 +11,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 		setTimeout(function(){
     		$location.hash('bottom');
       		$anchorScroll();
-  		} , 1);
+  		} , 10);
     };
     $scope.gotoBottom()
 
@@ -69,6 +69,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.sendMessage = function(chatMessage){
     	chatMessage.name = $scope.user.firstName;
     	console.log(chatMessage)
+    	$scope.chatMessages.$add(chatMessage)
     };
 
     $scope.assign = function(userChoice, thread, user) {

@@ -58,6 +58,13 @@
       border: 1px solid #DDDDDD;
     }
 
+    .chatBar {
+      width: 100%;
+      height: 20px;
+      background-color: $darkBlue;
+      border: 1px solid $lightGrey;
+    }
+
     #bottom {
         display: block;
         margin-top: 5px;
