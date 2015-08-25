@@ -56,34 +56,30 @@
 
 		</accordion>
 	</div>
+	
 
-
-
-	<a id='bottom'>The End</a>
-
-
-
-<article class='col-lg-12 col-md-12 col-sm-12'>
+<article class='chatWindow col-lg-12 col-md-12 col-sm-12'>
     <div id="derp" class="slideable">
-        <div>
+        <div class='insideChatWindow'>
             <p>Chat</p>
             <ul>
                 <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
             </ul>
             <form ng-submit='sendMessage(chatMessage)'>
                 <div id='messagesDiv'></div>
-                <!-- <input type='text' placeholder='{{user.firstName}}' ng-model='chatMessage.name'> -->
-                <input type='text' placeholder='Message' ng-model='chatMessage.text'>
+                <input type='text' placeholder='Your Message' ng-model='chatMessage.text'>
                 <button class='btn btn-sm' type='submit'>Send</button>
             </form>
         </div>
     </div>
-    <i slide-toggle="#derp" ng-click='gotoBottom()' class='glyphicon glyphicon-circle-arrow-up'></i>
+    <!-- <a du-smooth-scroll="bottom" ng-click='gotoBottomForChat()'>Chat<i slide-toggle="#derp" class='glyphicon glyphicon-circle-arrow-up'></i>Chat</a> -->
+    <p scroll-glue>Chat<i slide-toggle="#derp" class='glyphicon glyphicon-circle-arrow-up'></i>Chat</p>
 </article>
 
 
+<a  id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
 
-<a id='bottom' class='col-lg-12 col-md-12 col-sm-12'>The End</a>
+	</div>
 
 
 </section>

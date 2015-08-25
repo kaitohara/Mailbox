@@ -1,4 +1,4 @@
-app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll, $rootScope, $state, $firebaseArray) {
+app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll, $rootScope, $state, $firebaseArray, $document ) {
 
 	$scope.thread;
 	$scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
@@ -13,10 +13,25 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 		setTimeout(function(){
     		$location.hash('bottom');
       		$anchorScroll();
-  		} , 100);
+  		} , 10);
     };
+    // $scope.gotoBottom()
 
-    $scope.gotoBottom()
+
+  //   $scope.gotoBottomForChat = function(){
+		// //setTimeout(function(){
+		// 	var duration = 200;
+		// 	var offset = 30; //pixels; adjust for floating menu, context etc
+		// 	var someElement = angular.element(document.getElementById('end'));
+		// 	// $document.scrollToElement(someElement, offset, duration);
+		// 	$document.scrollToElementAnimated(someElement).then(function(){
+		// 		console.log('supposed to have scrolled', someElement )
+		// 	})
+		// //}, 1000);
+  //   };
+
+  	// var someElement = angular.element(document.getElementById('end'));
+   //  $document.scrollToElementAnimated(someElement);
 
 	$scope.extractField = function(messageObj, fieldName) {
 		return messageObj.googleObj.payload.headers.filter(function(header) {
