@@ -2,23 +2,23 @@
 
 #inboxWithButtons{
 	position:fixed;
-
 }
 .fetch {
-
-		text-align: center;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		color: $darkBlue;
-		border-bottom: 1px solid $lightGrey;
-
-		button {
-			border: 1px solid $darkGrey;
-			background-color: white;
-		}
-	}
+	background-color: #F8F9FB;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: $darkBlue;
+	border-bottom: 1px solid $lightGrey;
 
 
+}
+
+.fetchButton {
+	background-color: #FF5467;
+	color: white;
+	border-radius: 0px;
+}
 
 #inbox {
 
@@ -26,7 +26,8 @@
 	height: calc(100vh - 100px);
 	overflow: scroll;
 	// float: left;
-	border-right: 1px solid $lightGrey;
+	
+	background-color: #F9F9F9;
 
 	.thread {
 		overflow:hidden;
@@ -36,13 +37,17 @@
 		text-align: left;
 		list-style: none;
 		background-color: white;
-		/*border-bottom: 1px solid $lightGrey;*/
+		border-bottom: 1px solid #EFEFEF;
+		background-color: #F9F9F9;
+		border-bottom: 1px solid $lightGrey;
+		border-right: 1px solid $lightGrey;
 
 		p{
 			padding: 0px;
 		}
 		&:hover {
 			background-color: lighten($lightGrey, 2%);
+			border-right: 1px solid white;
 		};
 		&:active {
       		background-color: $lightBlue;

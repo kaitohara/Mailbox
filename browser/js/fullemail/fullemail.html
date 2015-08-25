@@ -43,8 +43,8 @@
 				ng-repeat="message in thread.messages"
 				is-open='$last' 
 				heading="{{extractField(message, 'Subject').value}}">
-				<p>From: {{extractField(message, "From").value}}</p>
-				<p>To: {{extractField(message, "To").value}}</p>
+				<p>{{extractField(message, "From").value}}    →    {{extractField(message, "To").value}}</p>
+				<!-- <p>{{extractField(message, "To").value}}</p> -->
 				<p>Date: {{extractField(message, "Date").value}}</p>
 				<div>
 					Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
@@ -55,10 +55,12 @@
 			</accordion-group>
 
 		</accordion>
+	<a id='bottom'>The End</a>
 	</div>
 	
 
 <article class='chatWindow col-lg-12 col-md-12 col-sm-12'>
+
     <div id="derp" class="slideable">
         <div class='insideChatWindow'>
             <p>Chat</p>

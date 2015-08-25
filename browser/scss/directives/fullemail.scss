@@ -4,6 +4,7 @@
   left:504px;
   width: calc(99% - 504px);
   height: calc(99vh - 50px);
+  background-color: #F5F4F2;
 
   #listFix {
     // position:relative;
@@ -37,6 +38,7 @@
 }
 
 #fullemail {
+  padding:25px;
   position: fixed;
   left:504px;
   width: calc(100% - 504px);
