@@ -51,22 +51,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 		return body;
 	};
 
-	$scope.assign = function(userChoice, thread, user) {
-		// $scope.assignedUser = userChoice.firstName;
-		threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
-		.then(function(thread){
-			$scope.assignedTo = thread.data.assignedTo.firstName;
-			console.log('assigned to and rootscope user', $scope.thread, $rootScope.user)
-			if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
-				$state.go('home.userId', 
-					{userId: $rootScope.user._id}, 
-					{reload:true});
-			}
-		});
-	};
-
 	$scope.showReply = function(index){
-		console.log(index)
 		var length = $scope.thread.messages.length 
 		$scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply
 	};
@@ -84,11 +69,31 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.sendMessage = function(chatMessage){
     	chatMessage.name = $scope.user.firstName;
     	console.log(chatMessage)
-        $scope.chatMessages.$add(chatMessage);
-        $scope.gotoBottom()
     };
-})
 
+    $scope.assign = function(userChoice, thread, user) {
+        threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
+            .then(function(thread) {
+                $scope.assignedTo = thread.data.assignedTo.firstName;
+                if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
+                    $state.go('home.userId', {
+                        userId: $rootScope.user._id
+                    }, {
+                        reload: true
+                    });
+                }
+                $rootScope.$broadcast('threadAssignment');
+            });
+    };
+
+    $scope.oneAtATime = false;
+
+    $scope.status = {
+        isFirstOpen: true,
+        isFirstDisabled: false
+    };
+
+})
 
 // app.directive('slideable', function () {
 //     return {
@@ -138,14 +143,6 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 //         }
 //     }
 // });
-
-
-
-
-
-
-
-
 
 
 
