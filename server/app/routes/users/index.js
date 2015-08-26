@@ -13,7 +13,6 @@ router.get('/', function(req, res) {
 })
 
 router.get('/teamMembers/:teamId', function(req, res, next) {
-	console.log('hitting backend route', req.params.teamId)
 	UserModel.find({
 			teams: {
 				$in: [req.params.teamId]
@@ -40,8 +39,10 @@ router.put('/:userId', function(req, res) {
 	UserModel.findByIdAndUpdate(req.params.userId, {
 			$addToSet: {
 				teams: req.body._id
-			}
-		})
+				}
+			},
+			{ new: true }
+		)
 		.exec()
 		.then(function(updatedUser) {
 			res.send(updatedUser)
