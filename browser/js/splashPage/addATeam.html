@@ -9,9 +9,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class='moveRightABit'>
-                    <!-- <i class="glyphicon glyphicon-envelope whiteIcon"></i> -->
-                    <a class="navbar-brand">Feedback</a>
+                <div class="moveRightABit">
+                    <!-- <p></p> -->
+                    <!-- <i class="fa fa-send whiteIcon"></i> -->
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
                 </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,7 +50,7 @@
         </div>
         <div class="form-group">
             <!-- <label for="email">Team E-Mail</label> -->
-            <input type="text" ng-model="email" class="form-control" id="email" placeholder="Enter an email address">
+            <input type="text" ng-model="email" class="form-control" id="email" placeholder="Enter a team email">
         </div>
         <a ng-click='createTeam()' class="btn btn-block btn-social btn-lg btn-google">
             <i class="fa fa-google"></i> <div id="google-btn-text">Add Team Inbox</div>
