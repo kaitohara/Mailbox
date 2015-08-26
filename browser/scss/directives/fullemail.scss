@@ -91,14 +91,16 @@
         margin-top: 5px;
         text-align: center;
     }
+    replydir {
+      width: 100%;
+      p {
+        margin: 0px;
+      }
+      /*.input-group-addon {
+        width: 80px;
+      }*/
+    }
 
 }
 
-[scroll-glue-top],
-[scroll-glue-bottom],
-[scroll-glue] {
-    height: 100px;
-    overflow-y: scroll;
-    border: 1px solid gray;
-}
 
