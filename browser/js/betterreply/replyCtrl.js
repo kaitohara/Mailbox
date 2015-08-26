@@ -18,7 +18,7 @@ app.controller('replyCtrl', function($scope, replyFactory) {
 		$scope.$parent.message.showReply = false
 	}
 
-	$scope.cancel = function(){
+	$scope.cancel = function() {
 		$scope.$parent.message.showReply = false
 	}
 })
