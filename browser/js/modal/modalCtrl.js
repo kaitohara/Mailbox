@@ -24,11 +24,12 @@ app.controller('ModalCtrl', function($scope, $modal, $log, userFactory) {
 
         modalInstance.result.then(function(selectedUser) {
             $scope.selectedUser = selectedUser;
-            $scope.setUserTeam(selectedUser, $scope.team)
-        }, function() {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
-    };
+        //     $scope.setUserTeam(selectedUser, $scope.team)
+        // }, function() {
+        //     $log.info('Modal dismissed at: ' + new Date());
+        // });
+        })
+    }
 
     $scope.toggleAnimation = function() {
         $scope.animationsEnabled = !$scope.animationsEnabled;
