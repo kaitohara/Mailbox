@@ -1,21 +1,49 @@
 <br>
     <form id="email-reply" name="email-reply" ng-submit="">
-    <div class="form-group">
-        <label for="emailTo">Reply To:</label>
-        <input type="text" ng-model="emailReply.to" class="form-control" id="emailTo" value="jwrice@gmail.com">
+
+<br>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <p for="emailTo">To:</p>
+            </span>
+            <input type="text" ng-model="emailReply.to" class="form-control" id="emailTo">
+            <span class="input-group-addon noBorderSides">
+                <p for="emailFrom">From:</p>
+            </span>
+            <input type="text" ng-model="emailReply.from" class="form-control" id="emailFrom"\>
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<br>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <p for="Subject">Subject:</p>
+            </span>
+            <input type="text" ng-model="emailReply.subject" class="form-control" id="Subject">
+        </div>
     </div>
-    <div class="form-group">
-        <label for="emailFrom">From:</label>
-        <input type="text" ng-model="emailReply.from" class="form-control" id="emailFrom" value="teammailfsa@gmail.com">
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <p for="Body">Body:</p>
+            </span>
+            <input type="text" ng-model="emailReply.body" class="form-control" id="Body" placeholder='...'>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="Subject">Subject:</label>
-        <input type="text" ng-model="emailReply.subject" class="form-control" id="Subject" value="hi">
-    </div>
-    <div class="form-group">
-        <label for="Body">Body:</label>
-        <input type="text" ng-model="emailReply.body" class="form-control" id="Body" value="bye">
-    </div>
+</div>
+
+<br>
+
 </form>
-<button type="button" ng-click="sendReply()">Send</button>
-<button type="button" ng-click="cancel()">Save As Draft</button>
+<button type="button" class='btn btn-default' ng-click="sendReply()">Send</button>
+<button type="button" class='btn btn-default' ng-click="cancel()">Save As Draft</button>
+
+
+<!-- {{extractField(thread.messages[0], "Subject").value}} -->

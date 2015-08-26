@@ -31,11 +31,11 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, S
                 AuthService.logout().then(function() {
                     Socket.emit('logout', $rootScope.user._id)
                         // $state.go('home');
-
-                    // redirect user to splash page
-                    // comment this out if you want to
-                    // see the user's icon turn red
+                        // redirect user to splash page
+                        // comment this out if you want to
+                        // see the user's icon turn red
                     $location.url('/')
+                    location.reload();
                 });
             };
 

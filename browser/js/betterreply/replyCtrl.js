@@ -1,13 +1,26 @@
 app.controller('replyCtrl', function($scope, replyFactory) {
 
 	// need to revise replyFactory so that we can send reply without needing access to parent scopes
+	$scope.extractField = function(messageObj, fieldName) {
+		return messageObj.googleObj.payload.headers.filter(function(header) {
+			return header.name.toLowerCase() === fieldName.toLowerCase();
+		})[0];
+	};
 
+	var message = $scope.$parent.$parent.$parent.message;
+
+	$scope.emailReply={};
+	$scope.emailReply.to = $scope.extractField(message, 'To').value
+	$scope.emailReply.from = $scope.extractField(message, 'From').value
+	$scope.emailReply.subject = $scope.extractField(message, 'Subject').value
 	// currently the replyFactory requires the original .thread with all messages. it uses the associatedEmail property on the original .thread in order to send the email reply to the correct email address. this could be optimized
 	$scope.sendReply = function(){
-		console.log('$scope.$parent.$parent.$parent', $scope.$parent.$parent.$parent)
+
+		// console.log('$scope.$parent.$parent.$parent', $scope.$parent.$parent.$parent)
 		// we have to dig through like 5 scopes to get to the thread ID
 		var googleThreadId = $scope.$parent.$parent.$parent.message.googleObj.threadId
 		// emailReply is bound to the reply form
+
 		var emailReply = $scope.emailReply
 		// hit replyFactory function
 		replyFactory.sendEmail([
@@ -21,4 +34,5 @@ app.controller('replyCtrl', function($scope, replyFactory) {
 	$scope.cancel = function() {
 		$scope.$parent.message.showReply = false
 	}
+
 })

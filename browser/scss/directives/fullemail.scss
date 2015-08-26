@@ -88,6 +88,10 @@
       text-align: center;
     }
 
+    .chatButton {
+        border: none;
+        background-color: transparent;
+      }
 
     .replyButton {
       background-color:white;
@@ -111,14 +115,21 @@
         margin-top: 5px;
         text-align: center;
     }
+    replydir {
+      width: 100%;
+      p {
+        margin: 0px;
+      }
+      
+      .noBorderSides{
+        border-right: none;
+        border-left: none;
+      }
+      /*.input-group-addon {
+        width: 80px;
+      }*/
+    }
 
 }
 
-[scroll-glue-top],
-[scroll-glue-bottom],
-[scroll-glue] {
-    height: 100px;
-    overflow-y: scroll;
-    border: 1px solid gray;
-}
 
