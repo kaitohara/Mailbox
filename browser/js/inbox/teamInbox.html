@@ -15,22 +15,26 @@
 	<div id="inbox">
 
     <ul id='inboxThread'>
-		<li
-		ng-animate="'animate'"
-		ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
-		ng-click="goToTeamThread(thread._id)"
-		class='thread'>
-			<div>
-				<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
+
+			<li
+			ng-animate="'animate'"
+			ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
+			ng-click="goToTeamThread(thread._id)"
+			class='thread'>
+				<div class="hoverThread">
+				<div>
+					<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
+				</div>
+				<div>
+					<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
+					<!-- <span class="glyphicon glyphicon-remove pull-right delete" aria-hidden="true"></span> -->
+					<p class="assignment">{{ thread.assignedTo.firstName }}</p>
+					<!-- <p>{{thread.latestMessage.snippet}}</p> -->
+				</div>
 			</div>
-			<div>
-				<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
-				<p class="assignment">{{ thread.assignedTo.firstName }}</p>
-				<!-- <p>{{thread.latestMessage.snippet}}</p> -->
-			</div>
-		</li>
+			</li>
 	</ul>
 	</div>
 </section>
-<div class="ghostNavbar" ng-class="{hidden: hideGhostNavbar}"></div>
+<!-- <div class="ghostNavbar" ng-class="{hidden: hideGhostNavbar}"></div> -->
 <ui-view></ui-view>
