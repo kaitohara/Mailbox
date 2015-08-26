@@ -1,4 +1,4 @@
-app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll, $rootScope, $state, $firebaseArray, $document) {
+app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll, $rootScope, $state, $firebaseArray) {
 
     $scope.thread;
     $scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
@@ -62,8 +62,6 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     };
 
     $scope.showReply = function(index) {
-        console.log('toggling reply')
-        var length = $scope.thread.messages.length
         $scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply;
         $scope.replyOrCancel === 'Reply' ? $scope.replyOrCancel = 'Cancel' : $scope.replyOrCancel = 'Reply'
     };
@@ -80,12 +78,10 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.chatMessages = $firebaseArray(threadRef);
     $scope.sendMessage = function(chatMessage) {
         chatMessage.name = $scope.user.firstName;
-        console.log(chatMessage)
         $scope.chatMessages.$add(chatMessage)
     };
 
     $scope.assign = function(userChoice, thread, user) {
-        console.log(window.location.pathname)
         threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
         .then(function(thread) {
             $scope.assignedTo = thread.data.assignedTo.firstName;

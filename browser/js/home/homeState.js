@@ -59,7 +59,7 @@ app.config(function($stateProvider) {
                         return user.data.myInbox;
                     })
                 },
-                team: function(teamFactory, $stateParams) {
+                team: function() {
                     return
                 }
             }

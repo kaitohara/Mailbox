@@ -77,7 +77,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.syncInbox = function() {
 		$scope.showLoader = true;
 		inboxFactory.syncInbox($scope.inboxTeam._id)
-			.then(function(result) {
+			.then(function() {
 				console.log('emitting')
 				$rootScope.$emit('synced', 'sync complete')
 				$scope.showLoader = false;

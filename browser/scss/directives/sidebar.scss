@@ -12,6 +12,16 @@
   color: white !important;
 }
 
+.activeBlue {
+  border-left: 4px solid #7CD7EB;
+} 
+.activeRed {
+  border-left: 4px solid #F6465F;
+}
+.activeGreen {
+  border-left: 4px solid #A5EE1E;
+}
+
 .status {
   font-size: 7px;
   padding-top: 17px;
@@ -35,6 +45,9 @@
   background-color: $darkGrey;
   color: $lightBlue;
 
+  .js-sidebar-content {
+    border-top: 35px solid #F65758;
+  }
 }
 
 .modal-header {
@@ -374,7 +387,7 @@
 }
 
 .sidebar-nav-title {
-  margin: 50px 0px 0px 20px;
+  margin: 35px 0px 0px 20px;
   font-size: 14px;
   text-transform: uppercase;
   opacity: 1;

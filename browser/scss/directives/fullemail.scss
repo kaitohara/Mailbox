@@ -3,7 +3,7 @@
   left:504px;
   width: calc(100% - 504px);
   height: calc(100vh - 1px);
-  background-color: #EEEEEE;
+  background-color: #EEF3F6;
 
   #listFix {
     overflow: visible;
@@ -18,7 +18,7 @@
     background-color: #F8F9FB;
     text-align: center;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
     color: $darkBlue;
     border-bottom: 1px solid $lightGrey;
     overflow:visible;
@@ -38,15 +38,14 @@
     padding-top: 10px;
     padding-bottom: 10px;
     color: $darkBlue;
-
-    a {
-      color: $darkBlue;
-    }
-    button {
-      background: none;
-      border: 1px solid $darkGrey;
-    }
   }
+
+  .fetchButton {
+      background: #F65758;
+      color: white;
+      border: none;
+      border-radius: 0px;
+    }
 }
 
 #fullemail {

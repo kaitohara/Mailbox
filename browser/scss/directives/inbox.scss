@@ -25,8 +25,8 @@
 			height:44px;
 		}
 		.search-icon{
-			padding:5px;
-			margin: 0 3px 0 15px;
+			padding:4px;
+			margin: 5px 0px 0px 15px;
 		}
 		.search-box{
 			border-radius: 0px;
@@ -35,12 +35,15 @@
 			box-shadow:none;
 			height:31px;
 			padding:5px;
+			width:150px;
 		}
 		.fetchButton {
 			background: #F65758;
 			color: white;
 			border: none;
 			border-radius: 0px;
+			float:right;
+			margin-right:15px;
 		}
 	}
 
@@ -77,7 +80,7 @@
 
 	#inboxThread {
 		.active {
-			background-color: #EEEEEE;
+			background-color: #EEF3F6;
 			border-right: none;
 			&:hover {
 			-webkit-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;

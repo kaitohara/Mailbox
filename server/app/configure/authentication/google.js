@@ -8,13 +8,6 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 var TeamModel = mongoose.model('Team');
-var EmailModel = mongoose.model('Email');
-var ThreadModel = mongoose.model('Thread');
-
-var requestPromise = require('request-promise');
-var base64 = require('js-base64').Base64;
-
-var latestEmailIndex, emailUrl;
 
 var Utils = require('../utilityFunctions');
 var Promise = require('bluebird');
@@ -147,13 +140,3 @@ module.exports = function(app) {
             res.redirect('/');
         });
 };
-
-function saveDecodedEmail(message) {
-    // NOT DECODING BEFORE BACKEND FOR NOW
-    // message = TokenManager.decode(message)
-    //Save each message as 'email' to our DB
-    var newEmail = new EmailModel({
-        googleObj: message
-    })
-    return newEmail.save()
-}

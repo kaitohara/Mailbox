@@ -5,9 +5,10 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.onlineUsers; // [123, 125, 126, 200, 500, 124]
 	$scope.teammates; // [{_id: 123, isOnline = true}, {_id: 124, isOnline = false}]
 	$scope.showLoader = false;
-	$scope.active = 0;
+	$scope.activeTeam = 0;
 	$scope.myInboxActive = false;
-
+	$scope.activeTeammate;
+	
 	$scope.clearTeamMembers = function() {
 		$scope.teammates = []
 	}
@@ -44,16 +45,24 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 
 		})
 	}
-	$scope.setActive = function(index) {
+	$scope.setTeamActive = function(index) {
 		console.log('index', index)
-		$scope.active = index;
+		$scope.activeTeam = index;
 		$scope.myInboxActive = false;
+		$scope.activeTeammate = -1;
 	}
 	$scope.setMyInboxActive = function() {
-		console.log('yo')
 		$scope.myInboxActive = true;
-		$scope.active = -1;
+		$scope.activeTeam = -1;
+		$scope.activeTeammate = -1;
 	}
+	$scope.setTeammateActive = function(index){
+		console.log(index)
+		$scope.activeTeammate = index;
+		$scope.activeTeam = -1;
+		$scope.myInboxActive = false;
+	}
+
 
 	$scope.showOnlineStatus();
 
