@@ -26,6 +26,7 @@
 		border: 1px solid $darkGrey;
 		border-radius: 5px;
 	}
+
 }
 
 .ghostNavbar {
@@ -43,6 +44,7 @@
 }
 
 
+
 #inbox {
 	.hoverThread {
 		-webkit-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -53,6 +55,23 @@
 		&:hover {	
 			padding-left: 10px;
 		}
+	}
+
+	#inboxThread {
+		.active {
+			background-color: #EEEEEE;
+			border-right: none;
+			&:hover {
+			-webkit-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			-moz-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			-ms-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			-o-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			background-color: lighten($lightGrey, 35%);
+			// padding-left: 10px;
+		};
+		}
+
 	}
 
 	.delete {

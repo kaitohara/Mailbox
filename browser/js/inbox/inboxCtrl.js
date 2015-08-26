@@ -2,6 +2,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.inboxTeam = $scope.team || team;
 	$scope.threads = threads;
 	// $scope.hideGhostNavbar
+	$scope.active;
 
 	function shortenSubject(thread, shortenTo) {
 		var subject = thread.latestMessage.subject
@@ -26,6 +27,10 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$rootScope.$on('threadAssignment', function() {
 		$scope.refreshThreads();
 	})
+
+	$scope.setActive = function(index){
+		$scope.active = index;
+	};
 
 	$scope.goToTeamThread = function(threadId) {
 		$state.go('home.teamId.threadId', {
@@ -70,7 +75,12 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	}
 
 	$scope.syncInbox = function() {
-		console.log('syncing')
+		$scope.showLoader = true;
 		inboxFactory.syncInbox($scope.inboxTeam._id)
+			.then(function(result) {
+				console.log('emitting')
+				$rootScope.$emit('synced', 'sync complete')
+				$scope.showLoader = false;
+			})
 	}
 })
