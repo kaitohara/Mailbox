@@ -3,6 +3,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.thread;
     $scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
     $scope.assignedBy = thread.assignedBy ? thread.assignedBy.firstName : null;
+    $scope.deflectButton;
 
     $scope.gotoBottom = function() {
         $scope.thread = thread;
@@ -15,60 +16,64 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     };
     $scope.gotoBottom()
 
-  //   $scope.gotoBottomForChat = function(){
-		// setTimeout(function(){
-		// 	var duration = 200;
-		// 	var offset = 30; //pixels; adjust for floating menu, context etc
-		// 	var someElement = angular.element(document.getElementById('end'));
-		// 	// $document.scrollToElement(someElement, offset, duration);
-		// 	$document.scrollToElementAnimated(someElement).then(function(){
-		// 		console.log('supposed to have scrolled', someElement )
-		// 	})
-		// }, 1500);
-  //   };
+    if (window.location.pathname.indexOf("users") > -1) {
+        $scope.deflectButton = true;
+    }
 
-  //   $scope.gotoBottomForChat = function() {
-		// $scope.thread = thread;
-		// setTimeout(function(){
-  //   		$location.hash('bottom');
-  //   		//$location.hash('end'); //either one works
-  //     		$anchorScroll();
-  // 		} , 1000);
-  //   };
+    //   $scope.gotoBottomForChat = function(){
+    // setTimeout(function(){
+    // 	var duration = 200;
+    // 	var offset = 30; //pixels; adjust for floating menu, context etc
+    // 	var someElement = angular.element(document.getElementById('end'));
+    // 	// $document.scrollToElement(someElement, offset, duration);
+    // 	$document.scrollToElementAnimated(someElement).then(function(){
+    // 		console.log('supposed to have scrolled', someElement )
+    // 	})
+    // }, 1500);
+    //   };
 
-  	// var someElement = angular.element(document.getElementById('end'));
-   //  $document.scrollToElementAnimated(someElement);
+    //   $scope.gotoBottomForChat = function() {
+    // $scope.thread = thread;
+    // setTimeout(function(){
+    //   		$location.hash('bottom');
+    //   		//$location.hash('end'); //either one works
+    //     		$anchorScroll();
+    // 		} , 1000);
+    //   };
 
-	$scope.extractField = function(messageObj, fieldName) {
-		return messageObj.googleObj.payload.headers.filter(function(header) {
-			return header.name.toLowerCase() === fieldName.toLowerCase();
-		})[0];
-	};
+    // var someElement = angular.element(document.getElementById('end'));
+    //  $document.scrollToElementAnimated(someElement);
 
-	$scope.parseBody = function(body) {
-		var regex = /On [A-z]{3}, [A-z]{3} [0-9]{1,2}, [0-9]{4} at [0-9]{1,2}:[0-9]{1,2} [A,P]M, /;
-		if (body) return (body.split(regex))[0];
-		return body;
-	};
+    $scope.extractField = function(messageObj, fieldName) {
+        return messageObj.googleObj.payload.headers.filter(function(header) {
+            return header.name.toLowerCase() === fieldName.toLowerCase();
+        })[0];
+    };
 
-	$scope.showReply = function(index){
-		var length = $scope.thread.messages.length 
-		$scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply
-	};
+    $scope.parseBody = function(body) {
+        var regex = /On [A-z]{3}, [A-z]{3} [0-9]{1,2}, [0-9]{4} at [0-9]{1,2}:[0-9]{1,2} [A,P]M, /;
+        if (body) return (body.split(regex))[0];
+        return body;
+    };
 
-	$scope.oneAtATime = false;
+    $scope.showReply = function(index) {
+        var length = $scope.thread.messages.length
+        $scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply
+    };
 
-	$scope.status = {
-    	isFirstOpen: true,
-    	isFirstDisabled: false
-	};
+    $scope.oneAtATime = false;
 
-	var ref = new Firebase('https://amber-fire-4541.firebaseio.com');
-	var threadRef = ref.child('thread-'+$scope.thread._id)
-	$scope.chatMessages = $firebaseArray(threadRef);
-    $scope.sendMessage = function(chatMessage){
-    	chatMessage.name = $scope.user.firstName;
-    	console.log(chatMessage)
+    $scope.status = {
+        isFirstOpen: true,
+        isFirstDisabled: false
+    };
+
+    var ref = new Firebase('https://amber-fire-4541.firebaseio.com');
+    var threadRef = ref.child('thread-' + $scope.thread._id)
+    $scope.chatMessages = $firebaseArray(threadRef);
+    $scope.sendMessage = function(chatMessage) {
+        chatMessage.name = $scope.user.firstName;
+        console.log(chatMessage)
         $scope.chatMessages.$add(chatMessage)
     };
 
@@ -92,18 +97,18 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 
 })
 
-    // threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
-    //     .then(function(thread) {
-    //         $scope.assignedTo = thread.data.assignedTo.firstName;
-    //         // if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
+// threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
+//     .then(function(thread) {
+//         $scope.assignedTo = thread.data.assignedTo.firstName;
+//         // if ($scope.thread.assignedTo && ($scope.thread.assignedTo._id === $rootScope.user._id)) {
 
-    //         //     // $state.go('home.userId', {
-    //         //     //     userId: $rootScope.user._id
-    //         //     // }, {
-    //         //     //     reload: true
-    //         //     // });
-    //         // }
+//         //     // $state.go('home.userId', {
+//         //     //     userId: $rootScope.user._id
+//         //     // }, {
+//         //     //     reload: true
+//         //     // });
+//         // }
 
 
-    //         //only broadcast this event for team inboxes
-    //         $rootScope.$broadcast('threadAssignment');
+//         //only broadcast this event for team inboxes
+//         $rootScope.$broadcast('threadAssignment');

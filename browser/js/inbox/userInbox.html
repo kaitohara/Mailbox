@@ -4,7 +4,7 @@
     <!-- <button class='btn fetchButton' ng-click="syncInbox()">Fetch</button> -->
     <form class="form-inline">
         <div class="form-group">
-            <label for="exampleInputName2">Search:</label>
+            <label for="exampleInputName">Search:</label>
             <input type="text" class="form-control" ng-model='search' placeholder="Hello">
         </div>
     </form>
@@ -14,6 +14,7 @@
             <ul id='inboxThread'>
 
                 <li ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true" ng-click="goToUserThread(thread._id)" class='thread'>
+                	<div class="hoverThread">
                     <div>
                         <p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p>
                         <p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
@@ -22,6 +23,7 @@
                         <p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
                         <p class="assignment">You</p>
                     </div>
+                </div>
                 </li>
             </ul>
         </div>
