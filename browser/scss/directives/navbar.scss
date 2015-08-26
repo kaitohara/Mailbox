@@ -59,6 +59,18 @@
     /*border: 1px solid black;*/
   }
 
+  .posta-nav {
+    background-color: #F65758;
+    color: white;
+    ul > li > a {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    a, span {
+      color: white !important;
+    }
+  }
+
   .welcome {
     float: right;
     margin-top: 12px;
