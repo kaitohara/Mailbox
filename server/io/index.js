@@ -16,6 +16,7 @@ module.exports = function(server) {
 		})
 
 		socket.on('logout', function(userId) {
+			console.log('this user is logging out', userId)
 			var userIndex = onlineUserIds.indexOf(userId);
 			if (userIndex > -1) onlineUserIds.splice(userIndex, 1);
 			socket.emit('offlineUser', userId);

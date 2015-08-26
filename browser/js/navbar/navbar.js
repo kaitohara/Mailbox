@@ -8,14 +8,14 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, S
         link: function(scope) {
 
             scope.items = [{
-                label: 'Posta',
-                state: 'home'
-            }
-            // , {
-            //     label: 'Add Team',
-            //     state: 'membersOnly',
-            //     auth: true
-            // }
+                    label: 'Posta',
+                    state: 'home'
+                }
+                // , {
+                //     label: 'Add Team',
+                //     state: 'membersOnly',
+                //     auth: true
+                // }
             ];
 
             scope.user = null;

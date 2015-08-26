@@ -34,21 +34,22 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		})
 
 		Socket.on('offlineUser', function(userId) {
-			var userIndex = $scope.onlineUsers.indexOf(userId);
-			if (userIndex > -1) {
-				console.log('current teammates', $scope.teammates)
-				$scope.teammates.forEach(function(teammate) {
-					if (teammate._id === userId) teammate.isOnline = false;
-				})
-			}
+			$scope.$apply(function() {
+				if ($scope.onlineUsers.indexOf(userId) > -1) {
+					$scope.teammates.forEach(function(teammate) {
+						if (teammate._id === userId) teammate.isOnline = false;
+					})
+				}
+			})
+
 		})
 	}
-	$scope.setActive = function(index){
+	$scope.setActive = function(index) {
 		console.log('index', index)
 		$scope.active = index;
 		$scope.myInboxActive = false;
 	}
-	$scope.setMyInboxActive = function(){
+	$scope.setMyInboxActive = function() {
 		console.log('yo')
 		$scope.myInboxActive = true;
 		$scope.active = -1;
