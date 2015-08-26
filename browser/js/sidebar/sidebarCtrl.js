@@ -5,6 +5,8 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.onlineUsers; // [123, 125, 126, 200, 500, 124]
 	$scope.teammates; // [{_id: 123, isOnline = true}, {_id: 124, isOnline = false}]
 	$scope.showLoader = false;
+	$scope.active = 0;
+	$scope.myInboxActive = false;
 
 	$scope.clearTeamMembers = function() {
 		$scope.teammates = []
@@ -32,14 +34,25 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		})
 
 		Socket.on('offlineUser', function(userId) {
-			var userIndex = $scope.onlineUsers.indexOf(userId);
-			if (userIndex > -1) {
-				console.log('current teammates', $scope.teammates)
-				$scope.teammates.forEach(function(teammate) {
-					if (teammate._id === userId) teammate.isOnline = false;
-				})
-			}
+			$scope.$apply(function() {
+				if ($scope.onlineUsers.indexOf(userId) > -1) {
+					$scope.teammates.forEach(function(teammate) {
+						if (teammate._id === userId) teammate.isOnline = false;
+					})
+				}
+			})
+
 		})
+	}
+	$scope.setActive = function(index) {
+		console.log('index', index)
+		$scope.active = index;
+		$scope.myInboxActive = false;
+	}
+	$scope.setMyInboxActive = function() {
+		console.log('yo')
+		$scope.myInboxActive = true;
+		$scope.active = -1;
 	}
 
 	$scope.showOnlineStatus();
@@ -58,19 +71,16 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		})
 	}
 
+	$scope.seeUserAssignments = function(teammate) {
+		$state.go('home.userId', {
+			userId: teammate._id
+		})
+	}
+
 	$scope.getThisEmailFromTheThread = function(threadId) {
 		teamFactory.getThisEmailFromTheThread(threadId)
 			.then(function(fullEmail) {
 				$scope.thread = fullEmail;
-			})
-	};
-
-	$scope.syncInbox = function() {
-		$scope.showLoader = true;
-		inboxFactory.syncInbox($scope.team._id)
-			.then(function(result) {
-				$rootScope.$emit('synced', 'sync complete')
-				$scope.showLoader = false;
 			})
 	};
 

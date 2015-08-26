@@ -1,7 +1,9 @@
 app.controller('addATeamCtrl', function($window, $scope, teamFactory) {
 	
-	$scope.name = 'Mailbox Team';
-	$scope.email = 'teammailfsa@gmail.com';
+	// $scope.name = 'Mailbox Team';
+	// $scope.email = 'teammailfsa@gmail.com';
+	$scope.name;
+	$scope.email;
 
 	$scope.createTeam = function() {
 		teamFactory.createTeam($scope.name, $scope.email).then(function() {

@@ -2,9 +2,18 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.inboxTeam = $scope.team || team;
 	$scope.threads = threads;
 	// $scope.hideGhostNavbar
+	$scope.active;
+
+	function shortenSubject(thread, shortenTo) {
+		var subject = thread.latestMessage.subject
+		if (subject.length > shortenTo) {
+			thread.latestMessage.subject = subject.slice(0, shortenTo) + '...'
+		}
+	}
 
 	function displayPersonalAssignment(threadsArray) {
 		threadsArray.forEach(function(thread) {
+			shortenSubject(thread, 25);
 			if (thread.assignedTo && thread.assignedTo._id === $rootScope.user._id) {
 				thread.assignedTo.firstName = "You"
 			}
@@ -19,18 +28,24 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		$scope.refreshThreads();
 	})
 
+	$scope.setActive = function(index){
+		$scope.active = index;
+	};
+
 	$scope.goToTeamThread = function(threadId) {
 		$state.go('home.teamId.threadId', {
-			threadId: threadId
-		})
-		$scope.hideGhostNavbar = true;
+				threadId: threadId
+			})
+			// $scope.hideGhostNavbar = true;
 	};
 
 	$scope.goToUserThread = function(threadId) {
-		$scope.hideGhostNavbar = true;
+		$rootScope.$emit('userInbox');
 		$state.go('home.userId.threadId', {
 			threadId: threadId
 		})
+
+		// $scope.hideGhostNavbar = true;
 	};
 
 	$rootScope.$on('synced', function() {
@@ -60,7 +75,12 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	}
 
 	$scope.syncInbox = function() {
-		console.log('syncing')
+		$scope.showLoader = true;
 		inboxFactory.syncInbox($scope.inboxTeam._id)
+			.then(function(result) {
+				console.log('emitting')
+				$rootScope.$emit('synced', 'sync complete')
+				$scope.showLoader = false;
+			})
 	}
 })

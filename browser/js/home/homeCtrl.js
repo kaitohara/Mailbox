@@ -1,6 +1,5 @@
 app.controller('homeCtrl', function($scope, $state, teams, users, $rootScope) {
 
-
     $scope.teams = teams;
     $scope.users = users;
     // $state.go('home.teamId', {teamId: $scope.teams[0]._id})

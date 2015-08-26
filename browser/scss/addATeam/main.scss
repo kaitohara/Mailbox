@@ -2,7 +2,23 @@
 	
 	width: 30%;
  	margin: 0 auto;
- 	margin-top: 1%;
+ 	margin-top: 3%;
+ 	color: white;
+
+ 	input {
+ 		background: none;
+ 		color: white;
+ 		font-size: 1.2em;
+ 		height: 50px;
+ 		text-align: center;
+ 	}
+ 	#name {
+ 		margin-top: 12%;
+ 	}
+ 	#email {
+ 		margin: 10px 0 10px 0;
+
+ 	}
 
  	.center {
  		text-align: center;
@@ -26,6 +42,12 @@
 	    left: 0px; 
 	    top: 0px; 
 	    z-index: -1;
+	    background-color: black;
+	    background-image: linear-gradient(
+      			rgba(0, 10, 20, 0.85), 
+      			rgba(0, 10, 20, 0.85)
+    			), url("keyboard.jpg");
+	    background-size: 100% 100%;
 	}
 
 	.stretch {

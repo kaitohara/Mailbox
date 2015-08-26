@@ -20,6 +20,11 @@
 					<button class="btn">Delete</button>
 				</span>
 	        </li>
+	        <li class='emailButtons'>
+	            <span>
+					<button class="btn" ng-click="deflect()" ng-if="deflectButton">Deflect</button>
+				</span>
+	        </li>
 	        <li class='one checkbox'>
 	            <label>
 	                <input type="checkbox" ng-model="oneAtATime">One at a time
@@ -31,15 +36,18 @@
 	<div id='fullemail'>
 	    <div>
 	        <accordion close-others="oneAtATime">
-	            <accordion-group ng-repeat="message in thread.messages" is-open='$last' heading="{{extractField(message, 'Subject').value}}">
-	                <p>{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
-	                <p>Date: {{extractField(message, "Date").value}}</p>
+	            <accordion-group ng-repeat="message in thread.messages" is-open='$last'>
+	            	<accordion-heading>
+	            		{{extractField(message, 'Subject').value}}
+	            	</accordion-heading>
+	                <p class="conversation">{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
+	                <p>{{extractDate(message)}}</p>
 	                <div>
-	                    Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+	                    {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 	                </div>
 	                <br>
-	                <button ng-click="showReply($index)">Toggle Reply</button>
-	                <replydir ng-show="message.showReply" message='message'></replydir>
+	                <button ng-click="showReply($index)" class="btn btn-default">{{ replyOrCancel }}</button>
+	                <replydir ng-show="message.showReply"></replydir>
 	            </accordion-group>
 	        </accordion>
 	    </div>
@@ -54,7 +62,7 @@
 	            <form ng-submit='sendMessage(chatMessage)'>
 	                <div id='messagesDiv'></div>
 	                <input type='text' placeholder='Your Message' ng-model='chatMessage.text'>
-	                <button class='btn btn-sm' type='submit'>Send</button>
+	                <button class='btn btn-sm btn-default' type='submit'>Send</button>
 	            </form>
 	        </div>
 	    </div>
