@@ -37,13 +37,13 @@
 	    <div>
 	        <accordion close-others="oneAtATime">
 	            <accordion-group ng-repeat="message in thread.messages" is-open='$last'>
-	            	<accordion-heading style="background-color: red">
+	            	<accordion-heading>
 	            		{{extractField(message, 'Subject').value}}
 	            	</accordion-heading>
-	                <p>{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
+	                <p class="conversation">{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
 	                <p>{{extractDate(message)}}</p>
 	                <div>
-	                    Body: {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+	                    {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 	                </div>
 	                <br>
 	                <button ng-click="showReply($index)" class="btn btn-default">{{ replyOrCancel }}</button>
