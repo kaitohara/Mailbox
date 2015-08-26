@@ -7,7 +7,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.showLoader = false;
 	$scope.active = 0;
 	$scope.myInboxActive = false;
-
+	
 	$scope.clearTeamMembers = function() {
 		$scope.teammates = []
 	}
