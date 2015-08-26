@@ -7,9 +7,16 @@ var TeamModel = mongoose.model('Team');
 var replyManager = require('../replyManager.js');
 
 router.post('/sendemail/:threadId', function(req, res, next) {
-	var email = req.body.email
-	TeamModel.findOne({'email.address': email.associatedEmail})
+	console.log('req.body', req.body, 'req.body.email', req.body.email)
+	var email = req.body
+	// console.log('before teammodel, email to search for:', email)
+	// console.log('before teammodel, email address to search for:', email.from)
+	// console.log('before teammodel, email address to search for (w brackets):', email[from])
+	// console.log('before teammodel, email address to search for (w brackets and quotes):', email['from'])
+	// console.log('before teammodel, email address to search for (regular again):', email.from)
+	TeamModel.findOne({'email.address': email.from})
 	.then(function(team) {
+		console.log('team inside teammodel', team)
 		return replyManager.sendEmail(
 			team, replyManager.encodeEmail(email)
 			)

@@ -365,7 +365,7 @@
 }
 
 .sidebar-nav-title {
-  margin: 35px 0 5px 11px;
+  margin: 32px 0px 32px 20px;
   font-size: 14px;
   text-transform: uppercase;
   opacity: 1;
@@ -373,6 +373,7 @@
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
+
 .sidebar-nav-title .action-link {
   color: $grey;
   float: right;

@@ -18,6 +18,7 @@
 		color: $darkBlue;
 		border-bottom: 1px solid $lightGrey;
 		overflow:visible;
+		clear:both;
 	}
 	.fetchButton {
 		background: none;
@@ -27,9 +28,36 @@
 	}
 }
 
+.ghostNavbar {
+		background-color: #F8F9FB;
+		text-align: center;
+		height: 55px;
+		color: $darkBlue;
+		border-bottom: 1px solid $lightGrey;
+		overflow:hidden;
+		margin-left:100px;
+	}
+
+.hidden {
+	display: none;
+}
 
 
 #inbox {
+	.hoverThread {
+		-webkit-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		-moz-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		-ms-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		-o-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		&:hover {	
+			padding-left: 20px;
+		}
+	}
+
+	.delete {
+		color: red;
+	}
 
 	width: 300px;
 	height: calc(100vh - 100px);
@@ -73,11 +101,11 @@
 			font-size:.8em;
 		}
 		&:hover {
-			background-color: lighten($lightGrey, 2%);
-			border-right: 1px solid white;
+			background-color: lighten($lightGrey, 35%);
+			// padding-left: 10px;
 		};
 		&:active {
-      		background-color: $lightBlue;
+      		background-color: lighten($lightGrey, 30%);
     	}
 	}
 
