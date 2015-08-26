@@ -5,7 +5,6 @@
     "main": "server/start.js",
     "scripts": {
         "start": "node server/start.js",
-        // "postinstall": "node seed && gulp build"
         "postinstall": "gulp build"
     },
     "engines": {
