@@ -51,6 +51,10 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
         })[0];
     };
 
+    $scope.extractDate = function(messageObj) {
+        return $scope.extractField(messageObj, "Date").value.split(" ").slice(0, 5).join(" ");
+    }
+
     $scope.parseBody = function(body) {
         var regex = /On [A-z]{3}, [A-z]{3} [0-9]{1,2}, [0-9]{4} at [0-9]{1,2}:[0-9]{1,2} [A,P]M, /;
         if (body) return (body.split(regex))[0];

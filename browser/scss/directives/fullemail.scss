@@ -63,11 +63,11 @@
 
     .panel-heading {
       -webkit-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-
+      -moz-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+      -ms-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+      -o-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+      transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+      border-radius: 0px;
       background-color: lighten(#222730, 20%);
       color: white;
       a {
