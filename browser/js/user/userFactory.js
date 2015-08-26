@@ -5,8 +5,13 @@ app.factory('userFactory', function($http, AuthService) {
             return $http.get('/api/users')
         },
         setUserTeam: function(user, team) {
+            console.log(
+                'backend receiving:', user,
+                'backend receiving team:', team
+                )
             return $http.put('/api/users/' + user._id, team)
                 .then(function(user) {
+                    console.log('backend returning:', user.data)
                     return user.data
                 })
         },

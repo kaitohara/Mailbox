@@ -1,4 +1,7 @@
 #navbar {
+  fullstack-logo {
+    padding-top: 20px;
+  }
   z-index:100;
   position: fixed; /* this might be worth doing on all things in dashboard */
   width: 100%;
@@ -35,7 +38,9 @@
     font-size: 16px;
     color: $darkBlue;
   }
-
+  .nav > li {
+    overflow:visible;
+  }
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
@@ -50,7 +55,11 @@
       background: none;
     }
   }
-
+  .nav-title{
+    position:relative;
+    top:20px;
+    left:5px;
+  }
   .login-button {
     float: right;
     margin-top: 10px;
@@ -60,11 +69,18 @@
   }
 
   .posta-nav {
+    overflow: visible;
     background-color: #F65758;
     color: white;
     ul > li > a {
       font-weight: bold;
       font-size: 20px;
+    }
+    ul > li {
+      overflow: visible;
+    }
+    ul {
+      overflow: visible;
     }
     a, span {
       color: white !important;
