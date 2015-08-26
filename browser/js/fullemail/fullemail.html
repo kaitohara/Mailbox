@@ -1,12 +1,12 @@
 <section id="fullEmailPosition">
 
-	<div class="emailTopButtons test">
+	<div class="emailTopButtons">
 	    <ul id="listFix">
 	        <li class='emailButtons'>
 	            <span class="dropdown" dropdown>
 					<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
-						<button class="btn">{{ assignedTo }}</button>
-						<button class="btn"><span class="caret"></span></button>
+						<button class="btn fetchButton">{{ assignedTo }}</button>
+						<button class="btn fetchButton"><span class="caret"></span></button>
 	            </a>
 	            <ul class="dropdown-menu" dropdown-menu>
 	                <li ng-repeat='userChoice in users'>
@@ -17,19 +17,20 @@
 	        </li>
 	        <li class='emailButtons'>
 	            <span>
-					<button class="btn">Delete</button>
+					<button class="btn fetchButton">Delete</button>
 				</span>
 	        </li>
 	        <li class='emailButtons'>
 	            <span>
-					<button class="btn" ng-click="deflect()" ng-if="deflectButton">Deflect</button>
+					<button class="btn fetchButton" ng-click="deflect()" ng-if="deflectButton">Deflect</button>
 				</span>
 	        </li>
-	        <li class='one checkbox'>
-	            <label>
+	        <!-- <li class='one checkbox'>
+	            <span>
 	                <input type="checkbox" ng-model="oneAtATime">One at a time
-	            </label>
-	        </li>
+	                <button class="btn fetchButton" ng-model="oneAtATime">Single View</button>
+	            </span>
+	        </li> -->
 	    </ul>
 	</div>
 	
