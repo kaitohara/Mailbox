@@ -1,39 +1,36 @@
-
-
 <section id='inboxWithButtons'>
 	<div class=" fetch">
 		<button class='btn fetchButton' ng-click="syncInbox()">Fetch</button>
 
-
-	<form class="form-inline">
-    	<div class="form-group">
-        	<label for="exampleInputName2">Search:</label>
-        	<input type="text" class="form-control" ng-model='search' placeholder="Hello">
-    	</div>
-    </form>
+		<form class="form-inline">
+	    	<div class="form-group">
+	        	<label for="exampleInputName2">Search:</label>
+	        	<input type="text" class="form-control" ng-model='search' placeholder="Hello">
+	    	</div>
+	    </form>
 		
 		<img src="/loader.gif" style="width:100px" ng-show="showLoader">
 	</div>
 
 	<div id="inbox">
 
-        <ul id='inboxThread'>
-
+    <ul id='inboxThread'>
 		<li
 		ng-animate="'animate'"
 		ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
 		ng-click="goToTeamThread(thread._id)"
 		class='thread'>
-		<div>
-			<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
-		</div>
-		<div>
-			<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
-			<p class="assignment">{{ thread.assignedTo.firstName }}</p>
-			<!-- <p>{{thread.latestMessage.snippet}}</p> -->
-		</div>
-	</li>
-</ul>
-</div>
+			<div>
+				<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
+			</div>
+			<div>
+				<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
+				<p class="assignment">{{ thread.assignedTo.firstName }}</p>
+				<!-- <p>{{thread.latestMessage.snippet}}</p> -->
+			</div>
+		</li>
+	</ul>
+	</div>
 </section>
+<div class="ghostNavbar" ng-class="{hidden: hideGhostNavbar}"></div>
 <ui-view></ui-view>

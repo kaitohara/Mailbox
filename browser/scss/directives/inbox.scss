@@ -18,6 +18,7 @@
 		color: $darkBlue;
 		border-bottom: 1px solid $lightGrey;
 		overflow:visible;
+		clear:both;
 	}
 	.fetchButton {
 		background: none;
@@ -27,6 +28,19 @@
 	}
 }
 
+.ghostNavbar {
+		background-color: #F8F9FB;
+		text-align: center;
+		height: 55px;
+		color: $darkBlue;
+		border-bottom: 1px solid $lightGrey;
+		overflow:hidden;
+		margin-left:100px;
+	}
+
+.hidden {
+	display: none;
+}
 
 
 #inbox {
