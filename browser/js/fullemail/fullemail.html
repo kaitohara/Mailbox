@@ -9,8 +9,8 @@
 						<button class="btn fetchButton"><span class="caret"></span></button>
 	            </a>
 	            <ul class="dropdown-menu" dropdown-menu>
-	                <li ng-repeat='userChoice in users'>
-	                    <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+	                <li ng-repeat='userChoice in teammates'>
+	                    <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}}</a>
 	                </li>
 	            </ul>
 	            </span>
