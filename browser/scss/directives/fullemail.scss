@@ -1,7 +1,7 @@
 #fullEmailPosition {
   position: fixed;
   left:504px;
-  width: calc(99% - 504px);
+  width: calc(100% - 504px);
   height: calc(100vh - 1px);
   background-color: #EEEEEE;
 
@@ -49,18 +49,34 @@
   }
 }
 
-
-
 #fullemail {
     padding-left:15px;
     padding-right:15px;
     padding-bottom: 50px;
+    padding-top: 15px;
     position: fixed;
     left:504px;
     width: calc(100% - 504px);
     height: calc(100vh - 60px);
     display: inline-block;
     float: left;
+
+    .panel-heading {
+      -webkit-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
+      background-color: lighten(#222730, 20%);
+      color: white;
+      a {
+        text-decoration: none;
+      }
+      &:hover {
+        padding-left: 30px;
+      }
+    }
 
     //overflow: visible; //makes it not scroll
 
