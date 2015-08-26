@@ -60,9 +60,17 @@
 	                <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
 	            </ul>
 	            <form ng-submit='sendMessage(chatMessage)'>
-	                <div id='messagesDiv'></div>
-	                <input type='text' placeholder='Your Message' ng-model='chatMessage.text'>
-	                <button class='btn btn-sm btn-default' type='submit'>Send</button>
+	                <!-- <div id='messagesDiv'></div> -->
+
+	                <div class="input-group">
+            			<input type='text' class="form-control" placeholder='Your Message' ng-model='chatMessage.text'>
+            			<span class="input-group-addon">
+                			<button class='chatButton' type='submit' ng-click='sendMessage(chatMessge)'>Send</button>
+            			</span>
+            		</div>
+
+	                <!-- <input type='text' class="form-control" placeholder='Your Message' ng-model='chatMessage.text'>
+	                <button class='btn btn-sm btn-default' type='submit'>Send</button> -->
 	            </form>
 	        </div>
 	    </div>

@@ -88,6 +88,10 @@
       text-align: center;
     }
 
+    .chatButton {
+        border: none;
+        background-color: transparent;
+      }
 
     .replyButton {
       background-color:white;
@@ -115,6 +119,11 @@
       width: 100%;
       p {
         margin: 0px;
+      }
+      
+      .noBorderSides{
+        border-right: none;
+        border-left: none;
       }
       /*.input-group-addon {
         width: 80px;
