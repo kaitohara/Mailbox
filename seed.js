@@ -44,15 +44,15 @@ var seedUsers = function() {
     var users = [{
         email: 'testing@fsa.com',
         password: 'password',
-        firstName: 'Tester'
+        firstName: 'Donald'
     }, {
         email: 'obama@gmail.com',
         password: 'potus',
-        firstName: 'Obama'
+        firstName: 'Barack'
     }, {
         email: 'mailbox@gmail.com',
         password: 'mailbox',
-        firstName: 'Mailbox'
+        firstName: 'Hillary'
     }];
 
     return User.createAsync(users);
