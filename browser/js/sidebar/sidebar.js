@@ -1,4 +1,4 @@
-app.directive('sidebar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('sidebar', function() {
 
 	return {
 		restrict: 'E',

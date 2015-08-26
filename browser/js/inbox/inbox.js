@@ -1,4 +1,4 @@
-app.directive('inbox', function($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('inbox', function() {
 
 	return {
 		restrict: 'E',

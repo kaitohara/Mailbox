@@ -50,7 +50,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.myInboxActive = false;
 	}
 	$scope.setMyInboxActive = function() {
-		console.log('yo')
 		$scope.myInboxActive = true;
 		$scope.active = -1;
 	}
