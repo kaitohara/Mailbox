@@ -18,10 +18,11 @@
     background-color: #F8F9FB;
     text-align: center;
     padding-top: 10px;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     color: $darkBlue;
     border-bottom: 1px solid $lightGrey;
     overflow:visible;
+    padding-left: 70%;
   }
   .one {
     display: inline;
@@ -41,9 +42,10 @@
   }
 
   .fetchButton {
-      background: #F65758;
-      color: white;
-      border: none;
+      background: white;
+      // color: #F65758;
+      color: #4c586c;
+      border: 1px solid #4c586c;
       border-radius: 0px;
     }
 }
