@@ -15,12 +15,12 @@
 	<div id="inbox">
 
     <ul id='inboxThread'>
-
 			<li
 			ng-animate="'animate'"
 			ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
-			ng-click="goToTeamThread(thread._id)"
-			class='thread'>
+			ng-click="goToTeamThread(thread._id); setActive($index)"
+			class='thread'
+			ng-class="{active:active === $index}">
 				<div class="hoverThread">
 				<div>
 					<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>

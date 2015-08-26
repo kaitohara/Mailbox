@@ -78,14 +78,5 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			})
 	};
 
-	$scope.syncInbox = function() {
-		$scope.showLoader = true;
-		inboxFactory.syncInbox($scope.team._id)
-			.then(function(result) {
-				$rootScope.$emit('synced', 'sync complete')
-				$scope.showLoader = false;
-			})
-	};
-
 
 })
