@@ -37,16 +37,26 @@
 
 }
 
+.modal-header {
+  background-color: #4c586c;
+}
+
+.modal-title {
+  color: white;
+}
+
+.modal-item{
+  padding-left: 0;
+}
+
 .modal-sidebar {
   position: absolute;
   float:left;
   z-index: 0;
   height: 100%;
   width: 204px;
-
   background-color: $darkGrey;
   color: $lightBlue;
-
 }
 
 .settings-modal{
@@ -371,6 +381,14 @@
   -webkit-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
+}
+
+.modal-nav-title {
+  margin: 35px 0px 35px 20px;
+}
+
+.modal-nav-selected {
+  font-weight:bold;
 }
 
 .sidebar-nav-title .action-link {

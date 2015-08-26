@@ -1,4 +1,4 @@
-app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users, user, teamFactory, $window) {
+app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users, user, teamFactory, userFactory, $window) {
 
     $scope.team = team;
     $scope.users = users;
@@ -13,27 +13,20 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
         })
     // $scope.selectedUser = null;
 
-    $scope.chooseUser = function(user) {
-        $scope.selectedUser = user
-    };
-
+    // close with newUser passed to the parent scope
     $scope.ok = function() {
         $modalInstance.close($scope.selectedUser);
     };
 
+    // dismiss modal (X and cancel buttons)
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
 
-    $scope.createTeam = function() {
-        teamFactory.createTeam($scope.name, $scope.email).then(function() {
-            $window.location.href = "/auth/google/team/" + $scope.email;
-        })
-    }
-
     $scope.showMyProfile = true
 
+    // three functions that control html shown in the modal
     $scope.openMyProfile = function(){
         $scope.showMyProfile = true
         $scope.showTeamMembers = false
@@ -52,5 +45,44 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
         $scope.showTeamForm = true
     }
 
+    // showing team and available users
 
+    $scope.chooseTeam = function(team){
+        $scope.selectedTeam = team
+        // fetch users on this team
+        $scope.availableUsers = []
+        $scope.users.forEach(function(user){
+            if (user.teams.indexOf($scope.selectedTeam._id) < 0) {
+                $scope.availableUsers.push(user)
+            }
+        })
+        console.log('scope.availableUsers for team selection:',$scope.availableUsers)
+    }
+
+    $scope.chooseUser = function(user) {
+        $scope.selectedUser = user
+    };
+
+    $scope.addUserToTeam = function(){
+        userFactory.setUserTeam($scope.selectedUser, $scope.selectedTeam)
+        .then(function(updatedUser) {
+            $scope.users.forEach(function(user){
+                if (user.firstName == updatedUser.firstName){
+                    user.teams = updatedUser.teams
+                }
+            })
+            $scope.chooseTeam($scope.selectedTeam)
+            $scope.selectedUser = null
+        },function(err){
+            console.log(err)
+        })
+    }
+
+
+    // creating a new team with newTeam binding
+    $scope.createTeam = function() {
+        teamFactory.createTeam($scope.newTeam.name, $scope.newTeam.email).then(function() {
+            $window.location.href = "/auth/google/team/" + $scope.newTeam.email;
+        })
+    }
 });

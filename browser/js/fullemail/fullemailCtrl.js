@@ -87,20 +87,18 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.assign = function(userChoice, thread, user) {
         console.log(window.location.pathname)
         threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
-            .then(function(thread) {
-                $scope.assignedTo = thread.data.assignedTo.firstName;
-                if (window.location.pathname.indexOf("users") > -1) {
-                    console.log('worddddd')
-                    $state.go('home.userId', {
-                        userId: $rootScope.user._id
-                    });
-                } else {
-                    $rootScope.$broadcast('threadAssignment');
-                }
-            })
+        .then(function(thread) {
+            $scope.assignedTo = thread.data.assignedTo.firstName;
+            if (window.location.pathname.indexOf("users") > -1) {
+                console.log('worddddd')
+                $state.go('home.userId', {
+                    userId: $rootScope.user._id
+                });
+            } else {
+                $rootScope.$broadcast('threadAssignment');
+            }
+        })
     }
-
-
 })
 
 // threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
