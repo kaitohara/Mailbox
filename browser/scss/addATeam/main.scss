@@ -6,12 +6,30 @@
  	color: white;
 
  	input {
+ 		-webkit-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		  -moz-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		  -ms-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		  -o-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+		  transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
  		background: none;
  		color: white;
  		font-size: 1.2em;
  		height: 50px;
  		text-align: center;
+ 		border-radius: 100px;
+ 		border: 1px solid black;
+
+ 		&:hover {
+ 			// padding-left: 40px;
+ 			border: 1px solid white;
+ 		}
+
+ 		&:focus {
+ 			border: 1px solid white;
+ 		}
  	}
+
  	#name {
  		margin-top: 12%;
  	}
@@ -19,7 +37,6 @@
  		margin: 10px 0 10px 0;
 
  	}
-
  	.center {
  		text-align: center;
  		margin: 0;

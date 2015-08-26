@@ -6,9 +6,9 @@
 	        	<input type="text" class="form-control search-box" ng-model='search' placeholder="Search">
 	    	</div>
 	    </form>
+		<img src="/loader.gif" style="width:28px" ng-show="showLoader">
 		<button class='btn fetchButton' ng-click="syncInbox()">Fetch</button>
 		
-		<img src="/loader.gif" style="width:100px" ng-show="showLoader">
 	</div>
 
 	<div id="inbox">
