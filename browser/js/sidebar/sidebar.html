@@ -17,7 +17,7 @@
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
                 <a class="collapsed" ng-class="{activeInbox:myInboxActive}" ng-click="setMyInboxActive()">
                     <span class="icon">
-                        <i class="glyphicon glyphicon-align-right"></i>
+                        <i class="fa fa-inbox"></i>
                     </span>
                     <span>My Emails</span>
                     <i class="glyphicon glyphicon-plus" ng-click='' style="font-size: 10px; padding:0 0 1px 10px"></i>
@@ -31,7 +31,7 @@
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
                 <a class="collapsed" ng-class="{activeInbox:active === $index}" ng-click="setActive($index)">
                     <span class="icon">
-                        <i class="glyphicon glyphicon-align-right"></i>
+                        <i class="fa fa-inbox"></i>
                     </span>
                     <span>{{team.name}}</span>
                     <i class="glyphicon glyphicon-plus" ng-click='open(); setTeam(team)' style="font-size: 10px; padding:0 0 1px 10px"></i>
@@ -47,8 +47,10 @@
         <ul class="sidebar-nav">
             <li ng-repeat='teammate in teammates'>
                 <a class="collapsed teammate">
-                    <span>{{teammate.firstName}}
+                    <span class="icon">
+                        <i class="fa fa-user-secret"></i>
                     </span>
+                    <span>{{teammate.firstName}}</span>
                     <i ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" class="fa fa-circle status pull-right"></i>
                 </a>
             </li>
