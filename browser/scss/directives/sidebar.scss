@@ -7,6 +7,15 @@
   color: red;
 }
 
+.rightSideBar {
+  background-color:#222730;
+  position: fixed;
+  left:calc(100% - 20px);
+  width: 20px;
+  height: calc(100vh - 1px);
+  border-top: 35px solid #F95554;
+}
+
 .activeInbox {
   background-color: #424C5B;
   color: white !important;
