@@ -1,7 +1,7 @@
 #fullEmailPosition {
   position: fixed;
   left:504px;
-  width: calc(100% - 504px);
+  width: calc(100% - 524px);
   height: calc(100vh - 1px);
   background-color: #EEF3F6;
 
@@ -16,13 +16,14 @@
 
   .emailTopButtons {
     background-color: #F8F9FB;
-    text-align: center;
+    // text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-right:10px;
     color: $darkBlue;
     border-bottom: 1px solid $lightGrey;
     overflow:visible;
-    padding-left: 70%;
+    padding-left: 68%;
   }
   .one {
     display: inline;
@@ -57,10 +58,11 @@
     padding-top: 15px;
     position: fixed;
     left:504px;
-    width: calc(100% - 504px);
+    width: calc(100% - 524px);
     height: calc(100vh - 60px);
     display: inline-block;
     float: left;
+
 
     .conversation {
       // font-weight: bold;
