@@ -7,13 +7,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.showLoader = false;
 	$scope.active = 0;
 	$scope.myInboxActive = false;
-	// $scope.randomIcon = "fa fa-user-secret";
-
-	var randomIcons = ["fa fa-user-secret", "fa fa-rebel", "fa fa-pied-piper-alt", "fa fa-user", "fa fa-rocket", "fa fa-paw"]
-
-	$scope.getRandomIcon = function(){
-		return randomIcons[Math.floor(Math.random()*4)]
-	}
+	
 	$scope.clearTeamMembers = function() {
 		$scope.teammates = []
 	}

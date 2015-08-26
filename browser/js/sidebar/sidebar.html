@@ -20,7 +20,7 @@
                         <i class="fa fa-inbox"></i>
                     </span>
                     <span>My Emails</span>
-                    <i ng-class="{toggle:myInboxActive, fa:myInboxActive, 'fa-angle-up':myInboxActive}"></i>
+                    <i class="toggle fa fa-angle-up"></i>
                 </a>
                 <ul id="sidebar-forms" class="collapse">
                     <li ng-repeat='email in team.emailAddresses'><a>{{email}}</a></li>
@@ -33,7 +33,7 @@
                         <i class="fa fa-inbox"></i>
                     </span>
                     <span>{{team.name}}</span>
-                    <i ng-class="{toggle:active === $index, fa:active === $index, 'fa-angle-up':active === $index}"></i>
+                    <i class="toggle fa fa-angle-up"></i>
                 </a>
                 <ul id="sidebar-forms" class="collapse">
                     <li ng-repeat='email in team.emailAddresses'><a>{{email}}</a></li>
@@ -46,7 +46,7 @@
             <li ng-repeat='teammate in teammates'>
                 <a class="collapsed teammate" ng-click="seeUserAssignments(teammate)">
                     <span class="icon">
-                        <i class="{{getRandomIcon()}}"></i>
+                        <i class="fa fa-user-secret"></i>
                     </span>
                     <span>{{teammate.firstName}}</span>
                     <i ng-class="{online: teammate.isOnline, offline: !teammate.isOnline}" class="fa fa-circle status pull-right"></i>
