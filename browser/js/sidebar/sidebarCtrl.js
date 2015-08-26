@@ -5,7 +5,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.onlineUsers; // [123, 125, 126, 200, 500, 124]
 	$scope.teammates; // [{_id: 123, isOnline = true}, {_id: 124, isOnline = false}]
 	$scope.showLoader = false;
-	$scope.active;
+	$scope.active = 0;
 	$scope.myInboxActive = false;
 
 	$scope.clearTeamMembers = function() {
