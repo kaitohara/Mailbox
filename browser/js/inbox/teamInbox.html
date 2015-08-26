@@ -3,7 +3,7 @@
 		<form class="search-form">
 			<i class="fa fa-search pull-left search-icon"></i>
 	    	<div class="form-group">
-	        	<input type="text" class="form-control search-box" ng-model='search' placeholder="Search:" >
+	        	<input type="text" class="form-control search-box" ng-model='search' placeholder="Search">
 	    	</div>
 	    </form>
 		<button class='btn fetchButton' ng-click="syncInbox()">Fetch</button>
@@ -26,9 +26,8 @@
 				</div>
 				<div>
 					<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
-					<!-- <span class="glyphicon glyphicon-remove pull-right delete" aria-hidden="true"></span> -->
+
 					<p class="assignment">{{ thread.assignedTo.firstName }}</p>
-					<!-- <p>{{thread.latestMessage.snippet}}</p> -->
 				</div>
 			</div>
 			</li>
