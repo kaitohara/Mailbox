@@ -11,7 +11,8 @@ function Utils() {};
 
 function messageFilter(message, prop) {
     return message.filter(function(obj) {
-        return obj['name'] === prop;
+        console.log('messageFilter object:', obj)
+        return obj['name'].toLowerCase() === prop.toLowerCase();
     })
 }
 

@@ -4,15 +4,16 @@ var base64 = require('js-base64').Base64;
 var replyManager = {}
 
 replyManager.encodeEmail = function(email){
+    console.log('encode email internal email: ', email)
     var unencodedString= ""+
         "Content-Type: text/plain; charset=\"UTF-8\"\n" +
         "MIME-Version: 1.0\n" +
         "Content-Transfer-Encoding: 7bit\n" +
-        "to: " + email.emailReply.to+"\n" +
-        "from: " + email.emailReply.from+"\n" +
-        "Reply-To: " + email.emailReply.from+"\n" +
-        "subject: " + email.emailReply.subject + "\n\n" +
-        email.emailReply.body
+        "to: " + email.to+"\n" +
+        "from: " + email.from+"\n" +
+        "Reply-To: " + email.from+"\n" +
+        "subject: " + email.subject + "\n\n" +
+        email.body
     console.log(' unencodedString ', unencodedString)
     return base64.encode(unencodedString).replace(/\+/g, '-').replace(/\//g, '_')
 }
