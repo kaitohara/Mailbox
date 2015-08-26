@@ -38,7 +38,7 @@
 	        <accordion close-others="oneAtATime">
 	            <accordion-group ng-repeat="message in thread.messages" is-open='$last'>
 	            	<accordion-heading>
-	            		{{extractField(message, 'Subject').value}}
+	            		<div>{{extractField(message, 'Subject').value}}</div>
 	            	</accordion-heading>
 	                <p class="conversation">{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
 	                <p>{{extractDate(message)}}</p>
