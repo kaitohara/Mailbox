@@ -71,6 +71,12 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		})
 	}
 
+	$scope.seeUserAssignments = function(teammate) {
+		$state.go('home.userId', {
+			userId: teammate._id
+		})
+	}
+
 	$scope.getThisEmailFromTheThread = function(threadId) {
 		teamFactory.getThisEmailFromTheThread(threadId)
 			.then(function(fullEmail) {
