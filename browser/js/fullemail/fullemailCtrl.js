@@ -4,6 +4,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
     $scope.assignedBy = thread.assignedBy ? thread.assignedBy.firstName : null;
     $scope.deflectButton;
+    $scope.replyOrCancel = 'Reply';
 
     $scope.gotoBottom = function() {
         $scope.thread = thread;
@@ -50,6 +51,10 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
         })[0];
     };
 
+    $scope.extractDate = function(messageObj) {
+        return $scope.extractField(messageObj, "Date").value.split(" ").slice(0, 5).join(" ");
+    }
+
     $scope.parseBody = function(body) {
         var regex = /On [A-z]{3}, [A-z]{3} [0-9]{1,2}, [0-9]{4} at [0-9]{1,2}:[0-9]{1,2} [A,P]M, /;
         if (body) return (body.split(regex))[0];
@@ -57,8 +62,10 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     };
 
     $scope.showReply = function(index) {
+        console.log('toggling reply')
         var length = $scope.thread.messages.length
-        $scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply
+        $scope.thread.messages[index].showReply = !$scope.thread.messages[index].showReply;
+        $scope.replyOrCancel === 'Reply' ? $scope.replyOrCancel = 'Cancel' : $scope.replyOrCancel = 'Reply'
     };
 
     $scope.oneAtATime = false;
@@ -83,10 +90,9 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
             .then(function(thread) {
                 $scope.assignedTo = thread.data.assignedTo.firstName;
                 if (window.location.pathname.indexOf("users") > -1) {
+                    console.log('worddddd')
                     $state.go('home.userId', {
                         userId: $rootScope.user._id
-                    }, {
-                        reload: true
                     });
                 } else {
                     $rootScope.$broadcast('threadAssignment');
