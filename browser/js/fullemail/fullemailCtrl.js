@@ -6,20 +6,20 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.deflectButton;
     $scope.replyOrCancel = 'Reply';
 
-    $scope.teammates;
+    // $scope.teammates;
 
-    $scope.getTeamMembers = function(teamId) {
-        userFactory.getTeamMembers(teamId)
-            .then(function(teammates) {
-                $scope.teammates = teammates;
+    // $scope.getTeamMembers = function(teamId) {
+    //     userFactory.getTeamMembers(teamId)
+    //         .then(function(teammates) {
+    //             $scope.teammates = teammates;
 
-                $scope.teammates.forEach(function(teammate) {
-                    if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
-                        teammate.isOnline = true;
-                    }
-                })
-            })
-    }
+    //             $scope.teammates.forEach(function(teammate) {
+    //                 if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
+    //                     teammate.isOnline = true;
+    //                 }
+    //             })
+    //         })
+    // }
 
     $scope.getTeamMembers();
 
