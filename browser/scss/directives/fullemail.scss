@@ -84,6 +84,10 @@
       padding: 20px;
     } 
 
+    .commentsPanel {
+      background-color: lighten($darkBlue, 5%);
+    }
+
     //overflow: visible; //makes it not scroll
 
     .chatIcon {
