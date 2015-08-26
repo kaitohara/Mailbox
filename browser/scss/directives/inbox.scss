@@ -19,13 +19,31 @@
 		border-bottom: 1px solid $lightGrey;
 		overflow:visible;
 		clear:both;
+		height:55px;
+		.search-form {
+			float:left;
+			height:44px;
+		}
+		.search-icon{
+			padding:5px;
+			margin: 0 3px 0 15px;
+		}
+		.search-box{
+			border-radius: 0px;
+			border: none;
+			background-color: transparent;
+			box-shadow:none;
+			height:31px;
+			padding:5px;
+		}
+		.fetchButton {
+			background: #F65758;
+			color: white;
+			border: none;
+			border-radius: 0px;
+		}
 	}
-	.fetchButton {
-		background: none;
-		color: $darkBlue;
-		border: 1px solid $darkGrey;
-		border-radius: 5px;
-	}
+
 
 }
 

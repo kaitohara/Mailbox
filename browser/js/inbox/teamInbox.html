@@ -1,13 +1,12 @@
 <section id='inboxWithButtons'>
-	<div class=" fetch">
-		<button class='btn fetchButton' ng-click="syncInbox()">Fetch</button>
-
-		<form class="form-inline">
+	<div class="fetch">
+		<form class="search-form">
+			<i class="fa fa-search pull-left search-icon"></i>
 	    	<div class="form-group">
-	        	<label for="exampleInputName2">Search:</label>
-	        	<input type="text" class="form-control" ng-model='search' placeholder="Hello">
+	        	<input type="text" class="form-control search-box" ng-model='search' placeholder="Search:" >
 	    	</div>
 	    </form>
+		<button class='btn fetchButton' ng-click="syncInbox()">Fetch</button>
 		
 		<img src="/loader.gif" style="width:100px" ng-show="showLoader">
 	</div>
