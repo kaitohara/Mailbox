@@ -78,7 +78,7 @@ Utils.prototype.createLatestMessage = function(messageHeaders, email){
 
 Utils.prototype.saveSync = function(googleObj, team){
     var self = this;
-    return new Promise(function(resolve, resject){
+    return new Promise(function(resolve, reject){
         if (googleObj.history) {
             var historyMessages = googleObj.history;
             var updatedThreads = {};
@@ -86,7 +86,7 @@ Utils.prototype.saveSync = function(googleObj, team){
             historyMessages.forEach(function(historyObj){
                 //Iterate through messages array of each 'change'
                 historyObj.messages.forEach(function(message){
-                    var histMsgArr = updatedThreads[message.threadId]; //array of 'changed' messages in each thread 
+                    // var histMsgArr = updatedThreads[message.threadId]; //array of 'changed' messages in each thread 
                     updatedThreads[message.threadId] = updatedThreads[message.threadId] || [];
                     if (updatedThreads[message.threadId].indexOf(message.id) === -1){
                         updatedThreads[message.threadId].push(message.id)

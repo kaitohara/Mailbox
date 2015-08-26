@@ -5,13 +5,7 @@ var mongoose = require('mongoose');
 var TeamModel = mongoose.model('Team');
 var ThreadModel = mongoose.model('Thread');
 
-var Gmail = require('node-gmail-api');
-var emailUrl, latestEmailIndex;
 var Utils = require('../../configure/utilityFunctions')
-
-var googleConfig = require('../../../env').GOOGLE;
-
-var requestTeam;
 
 router.get('/getAllEmails/:id', function(req, res) {
 	TeamModel.findById(req.params.id)
@@ -51,7 +45,7 @@ router.get('/syncInbox/:teamId', function(req, res) {
 			globalTeam.historyId = googleResponse.historyId;
 			return globalTeam.save()
 		})
-		.then(function(thing) {
+		.then(function() {
 			// console.log('THE THING: ', thing)
 			console.log('complete')
 			res.status(200).send('complete')
