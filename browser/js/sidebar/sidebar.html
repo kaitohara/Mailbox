@@ -20,7 +20,7 @@
                         <i class="fa fa-inbox"></i>
                     </span>
                     <span>My Emails</span>
-                    <i class="toggle fa fa-angle-up"></i>
+                    <i ng-class="{toggle:myInboxActive, fa:myInboxActive, 'fa-angle-up':myInboxActive}"></i>
                 </a>
                 <ul id="sidebar-forms" class="collapse">
                     <li ng-repeat='email in team.emailAddresses'><a>{{email}}</a></li>
@@ -33,7 +33,7 @@
                         <i class="fa fa-inbox"></i>
                     </span>
                     <span>{{team.name}}</span>
-                    <i class="toggle fa fa-angle-up"></i>
+                    <i ng-class="{toggle:active === $index, fa:active === $index, 'fa-angle-up':active === $index}"></i>
                 </a>
                 <ul id="sidebar-forms" class="collapse">
                     <li ng-repeat='email in team.emailAddresses'><a>{{email}}</a></li>

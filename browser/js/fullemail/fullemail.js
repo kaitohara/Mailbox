@@ -1,4 +1,4 @@
-app.directive('fullemail', function($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('fullemail', function() {
 
 	return {
 		restrict: 'E',

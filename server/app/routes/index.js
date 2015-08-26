@@ -14,16 +14,16 @@ router.use('/threads', require('./threads'));
 
 
 // WHY DO WE HAVE THIS?
-router.get('/:userId', function(req, res, next) {
-	UserModel.findOne({
-			_id: req.params.userId
-		})
-		.populate('teams')
-		.then(function(user) {
-			res.send(user)
-		})
-		.then(null, next)
-})
+// router.get('/:userId', function(req, res, next) {
+// 	UserModel.findOne({
+// 			_id: req.params.userId
+// 		})
+// 		.populate('teams')
+// 		.then(function(user) {
+// 			res.send(user)
+// 		})
+// 		.then(null, next)
+// })
 
 
 router.use(function(req, res) {

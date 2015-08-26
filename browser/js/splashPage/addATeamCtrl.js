@@ -1,5 +1,5 @@
 app.controller('addATeamCtrl', function($window, $scope, teamFactory) {
-	
+
 	// $scope.name = 'Mailbox Team';
 	// $scope.email = 'teammailfsa@gmail.com';
 	$scope.name;
