@@ -1,11 +1,14 @@
 app.factory('replyFactory', function($http) {
 
     return {
-        sendEmail: function(email) {
-            console.log('replyfactory', email)
-            return $http.post('/api/emails/sendemail/'+email.googleThreadId, {
-                email: email
-            });
+        sendEmail: function(emailObj) {
+            console.log('replyfactory', emailObj)
+            console.log('email obj length', emailObj.length)
+            var threadId = emailObj[0]
+            console.log(threadId)
+            var theEmail = emailObj[1]
+            console.log('the email inside of the replyfactory', theEmail)
+            return $http.post('/api/emails/sendemail/'+threadId, theEmail);
         }
     };
 

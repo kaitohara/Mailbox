@@ -1,4 +1,4 @@
-app.factory('replyFactory', function($http) {
+app.factory('deadFactory', function($http) {
 
     return {
         sendEmail: function(email) {

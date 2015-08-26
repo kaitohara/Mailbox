@@ -41,7 +41,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
 
 	$scope.extractField = function(messageObj, fieldName) {
 		return messageObj.googleObj.payload.headers.filter(function(header) {
-			return header.name === fieldName;
+			return header.name.toLowerCase() === fieldName.toLowerCase();
 		})[0];
 	};
 
