@@ -1,7 +1,7 @@
 app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket, teamFactory, team, inboxFactory) {
 	$scope.inboxTeam = $scope.team || team;
 	$scope.threads = threads;
-
+	// $scope.hideGhostNavbar
 
 	function displayPersonalAssignment(threadsArray) {
 		threadsArray.forEach(function(thread) {
@@ -23,10 +23,11 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		$state.go('home.teamId.threadId', {
 			threadId: threadId
 		})
+		$scope.hideGhostNavbar = true;
 	};
 
 	$scope.goToUserThread = function(threadId) {
-		console.log('trying to go to user')
+		$scope.hideGhostNavbar = true;
 		$state.go('home.userId.threadId', {
 			threadId: threadId
 		})
