@@ -33,17 +33,27 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			$scope.getTeamMembers($stateParams.teamId)
 		})
 
-		Socket.on('offlineUser', function(userId) {
-			$scope.$apply(function() {
-				if ($scope.onlineUsers.indexOf(userId) > -1) {
-					$scope.teammates.forEach(function(teammate) {
-						if (teammate._id === userId) teammate.isOnline = false;
-					})
-				}
-			})
+		// Socket.on('offlineUser', function(userId) {
+		// 	$scope.$apply(function() {
+		// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
+		// 			$scope.teammates.forEach(function(teammate) {
+		// 				if (teammate._id === userId) teammate.isOnline = false;
+		// 			})
+		// 		}
+		// 	})
 
-		})
+		// })
 	}
+
+	Socket.on('offlineUser', function(userId) {
+		$scope.$apply(function() {
+			if ($scope.onlineUsers.indexOf(userId) > -1) {
+				$scope.teammates.forEach(function(teammate) {
+					if (teammate._id === userId) teammate.isOnline = false;
+				})
+			}
+		})
+	})
 
 	$scope.setTeamActive = function(index) {
 		console.log('index', index)
