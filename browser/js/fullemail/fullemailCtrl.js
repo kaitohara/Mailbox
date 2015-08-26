@@ -78,7 +78,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     };
 
     $scope.assign = function(userChoice, thread, user) {
-        console.log(window.location.pathname)
+        console.log('user choice', userChoice)
         threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
             .then(function(thread) {
                 $scope.assignedTo = thread.data.assignedTo.firstName;
@@ -94,6 +94,10 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
             })
     }
 
+    $scope.deflect = function(thread, user) {
+        console.log('my teammates', $scope.teammates);
+        // $scope.assign(thread, user);
+    }
 
 })
 
