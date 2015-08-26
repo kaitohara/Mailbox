@@ -8,7 +8,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.activeTeam = 0;
 	$scope.myInboxActive = false;
 	$scope.activeTeammate;
-	
+
 	$scope.clearTeamMembers = function() {
 		$scope.teammates = []
 	}
@@ -18,7 +18,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
 				$scope.teammates = teammates;
-
 				$scope.teammates.forEach(function(teammate) {
 					if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
 						teammate.isOnline = true;
@@ -45,6 +44,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 
 		})
 	}
+
 	$scope.setTeamActive = function(index) {
 		console.log('index', index)
 		$scope.activeTeam = index;
@@ -56,7 +56,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.activeTeam = -1;
 		$scope.activeTeammate = -1;
 	}
-	$scope.setTeammateActive = function(index){
+	$scope.setTeammateActive = function(index) {
 		console.log(index)
 		$scope.activeTeammate = index;
 		$scope.activeTeam = -1;
