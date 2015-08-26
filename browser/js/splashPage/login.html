@@ -1,5 +1,5 @@
 <div id='loginPath'>
-    <nav class="navbar navbar-default navbar-custom">
+    <nav class="navbar navbar-custom">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -10,9 +10,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class='moveRightABit'>
-                    <i class="glyphicon glyphicon-envelope whiteIcon"></i>
                     <!-- <p></p> -->
-                    <a class="navbar-brand">Posta</a>
+                    <!-- <i class="fa fa-send whiteIcon"></i> -->
+                    <a class="navbar-brand">Feedback</a>
                 </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -32,12 +32,12 @@
     <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
 
     <br>
-        <p class='center'><i class="glyphicon glyphicon-envelope whiteIcon"></i></p>
+        <p class='center'><i class="fa fa-send whiteIcon"></i></p>
 
         <h1 class='title'>Posta</h1>
 
         <div id="background">
-            <img src="keyboard.jpg" class="stretch" alt="" />
+            <!-- <img src="keyboard.jpg" class="stretch" alt="" /> -->
         </div>
 
         <alert type="danger" ng-show="error">
@@ -45,7 +45,7 @@
         </alert>
     <br>
         <a href="/auth/google/user" class="btn btn-block btn-social btn-lg btn-google">
-            <i class="fa fa-google"></i> Sign in with Google
+            <i class="fa fa-google"></i><div id="google-btn-text">Sign in with Google</div>
         </a>
         
     </form>

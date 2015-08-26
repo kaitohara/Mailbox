@@ -1,5 +1,5 @@
 <div id='loginPath'>
-    <nav class="navbar navbar-default navbar-custom">
+    <nav class="navbar navbar-custom">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -10,8 +10,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class='moveRightABit'>
-                    <i class="glyphicon glyphicon-envelope whiteIcon"></i>
-                    <a class="navbar-brand">Posta</a>
+                    <!-- <i class="glyphicon glyphicon-envelope whiteIcon"></i> -->
+                    <a class="navbar-brand">Feedback</a>
                 </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -34,7 +34,7 @@
         <h4 class='title'>Add A Team Inbox</h4>
 
         <div id="background">
-            <img src="keyboard.jpg" class="stretch" alt="" />
+            <!-- <img src="keyboard.jpg" class="stretch" alt="" /> -->
         </div>
 
         <alert type="danger" ng-show="error">
@@ -42,15 +42,15 @@
         </alert>
 
         <div class="form-group">
-            <label for="name">Team Name</label>
-            <input type="text" ng-model="name" class="form-control" id="name" placeholder="Enter team name" value="faux team">
+            <!-- <label for="name">Team Name</label> -->
+            <input type="text" ng-model="name" class="form-control" id="name" placeholder="Enter a team name" value="faux team">
         </div>
         <div class="form-group">
-            <label for="email">Team E-Mail</label>
-            <input type="text" ng-model="email" class="form-control" id="email" placeholder="Enter an email">
+            <!-- <label for="email">Team E-Mail</label> -->
+            <input type="text" ng-model="email" class="form-control" id="email" placeholder="Enter an email address">
         </div>
         <a ng-click='createTeam()' class="btn btn-block btn-social btn-lg btn-google">
-            <i class="fa fa-google"></i> Sign in with Google
+            <i class="fa fa-google"></i> <div id="google-btn-text">Add Team Inbox</div>
         </a>
 
 

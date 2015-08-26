@@ -501,9 +501,17 @@ fieldset[disabled] .btn-github.active {
 }
 
 .btn-google {
-    color: #fff;
-    background-color: #dd4b39;
+    color: #0D3455;
+    //original
+    // background-color: #dd4b39;
+    background-color: #00DCDF;
     border-color: rgba(0, 0, 0, 0.2)
+}
+
+#google-btn-text {
+    font-size:1;
+    text-align: center;
+    margin-right:40px;
 }
 
 .btn-google:hover,
@@ -511,8 +519,10 @@ fieldset[disabled] .btn-github.active {
 .btn-google:active,
 .btn-google.active,
 .open>.dropdown-toggle.btn-google {
-    color: #fff;
-    background-color: #c23321;
+    color: #0D3455;
+    //original
+    // background-color: #c23321;
+    background-color: #00BEC0;
     border-color: rgba(0, 0, 0, 0.2)
 }
 
