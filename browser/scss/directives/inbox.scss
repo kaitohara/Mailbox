@@ -51,7 +51,7 @@
 		-o-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 		transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 		&:hover {	
-			padding-left: 20px;
+			padding-left: 10px;
 		}
 	}
 
@@ -79,7 +79,6 @@
 		border-bottom: 1px solid #DDDDDD;
 		border-right: 1px solid #DDDDDD;
 		padding: 10px 20px 10px 20px;
-
 		p{
 			padding: 0px;
 			margin: 0px;
@@ -101,6 +100,11 @@
 			font-size:.8em;
 		}
 		&:hover {
+			-webkit-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			-moz-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			-ms-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			-o-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+			transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 			background-color: lighten($lightGrey, 35%);
 			// padding-left: 10px;
 		};
