@@ -8,18 +8,18 @@
 }
 
 .activeInbox {
-  background-color: $lightBlue;
-  color: black;
+  background-color: #424C5B;
+  color: white !important;
 }
 
 .status {
   font-size: 7px;
-  padding-top: 13px;
-  padding-right: 10px;
+  padding-top: 17px;
+  padding-right: 20px;
 }
 
 .sidebar-nav > li > a.teammate {
-  padding-left: 10px;
+  padding-left: 50px;
 }
 
 .sidebar {
@@ -34,7 +34,6 @@
 
   background-color: $darkGrey;
   color: $lightBlue;
-
 
 }
 
@@ -246,7 +245,7 @@
 }
 .sidebar-nav > li > a {
   position: relative;
-  border-top: 1px solid $darkBlue;
+  // border-top: 1px solid $darkBlue;
   padding-left: 50px;
   line-height: 35px;
 }
@@ -275,9 +274,9 @@
   }
 }
 .sidebar-nav > li > a .icon .fa, .sidebar-nav > li > a .icon .glyphicon {
-  font-size: 16px;
+  font-size: 18px;
   vertical-align: middle;
-  color: rgba(170, 170, 170, 0.7);
+  // color: rgba(170, 170, 170, 0.7);
 }
 .sidebar-nav > li > a .icon .glyphicon {
   top: -2px;
@@ -310,7 +309,7 @@
   background-color: #161616;
 }
 .sidebar-nav > li:last-child > a {
-  border-bottom: 1px solid $darkBlue;
+  // border-bottom: 1px solid $darkBlue;
 }
 .sidebar-nav > .active > a {
   color: #f2be35;
@@ -365,7 +364,7 @@
 }
 
 .sidebar-nav-title {
-  margin: 32px 0px 32px 20px;
+  margin: 50px 0px 0px 20px;
   font-size: 14px;
   text-transform: uppercase;
   opacity: 1;
