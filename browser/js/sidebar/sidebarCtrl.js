@@ -46,6 +46,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 	Socket.on('offlineUser', function(userId) {
+		console.log('someone logged off!')
 		$scope.$apply(function() {
 			if ($scope.onlineUsers.indexOf(userId) > -1) {
 				$scope.teammates.forEach(function(teammate) {
