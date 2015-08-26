@@ -96,6 +96,7 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     $scope.sendMessage = function(chatMessage) {
         chatMessage.name = $scope.user.firstName;
         $scope.chatMessages.$add(chatMessage)
+        $scope.chatMessage.text = '';
     };
 
     $scope.assign = function(userChoice, thread, user) {
