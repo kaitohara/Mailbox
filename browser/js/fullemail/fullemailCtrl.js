@@ -89,6 +89,8 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
                     console.log('worddddd')
                     $state.go('home.userId', {
                         userId: $rootScope.user._id
+                    }, {
+                        reload: true
                     });
                 } else {
                     $rootScope.$broadcast('threadAssignment');
