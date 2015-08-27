@@ -1,6 +1,7 @@
 app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll, $rootScope, $state, $firebaseArray, userFactory) {
 
     $scope.thread;
+    // $scope.team;
     $scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
     $scope.assignedBy = thread.assignedBy ? thread.assignedBy.firstName : null;
     $scope.deflectButton;
@@ -9,19 +10,19 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     // $scope.teammates;
 
     // $scope.getTeamMembers = function(teamId) {
+    //     console.log('fullemailCtrl getting team members', teamId)
     //     userFactory.getTeamMembers(teamId)
-    //         .then(function(teammates) {
-    //             $scope.teammates = teammates;
-
-    //             $scope.teammates.forEach(function(teammate) {
-    //                 if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
-    //                     teammate.isOnline = true;
-    //                 }
-    //             })
+    //     .then(function(teammates) {
+    //         $scope.teammates = teammates;
+    //         $scope.teammates.forEach(function(teammate) {
+    //             if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
+    //                 teammate.isOnline = true;
+    //             }
     //         })
+    //     })
     // }
 
-    $scope.getTeamMembers();
+    // $scope.getTeamMembers($scope.team);
 
     $scope.gotoBottom = function() {
         $scope.thread = thread;
