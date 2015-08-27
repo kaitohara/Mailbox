@@ -13,7 +13,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.teammates = []
 	}
 
-	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
@@ -33,28 +32,30 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			$scope.getTeamMembers($stateParams.teamId)
 		})
 
-		// Socket.on('offlineUser', function(userId) {
-		// 	$scope.$apply(function() {
-		// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
-		// 			$scope.teammates.forEach(function(teammate) {
-		// 				if (teammate._id === userId) teammate.isOnline = false;
-		// 			})
-		// 		}
-		// 	})
+		Socket.on('offlineUser', function(userId) {
+			$scope.$apply(function() {
+				if ($scope.onlineUsers.indexOf(userId) > -1) {
+					$scope.teammates.forEach(function(teammate) {
+						if (teammate._id === userId) teammate.isOnline = false;
+					})
+				}
+			})
 
-		// })
+		})
 	}
 
-	Socket.on('offlineUser', function(userId) {
-		console.log('someone logged off!')
-		$scope.$apply(function() {
-			if ($scope.onlineUsers.indexOf(userId) > -1) {
-				$scope.teammates.forEach(function(teammate) {
-					if (teammate._id === userId) teammate.isOnline = false;
-				})
-			}
-		})
-	})
+	$scope.showOnlineStatus();
+
+	// Socket.on('offlineUser', function(userId) {
+	// 	console.log('someone logged off!')
+	// 	$scope.$apply(function() {
+	// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
+	// 			$scope.teammates.forEach(function(teammate) {
+	// 				if (teammate._id === userId) teammate.isOnline = false;
+	// 			})
+	// 		}
+	// 	})
+	// })
 
 	$scope.setTeamActive = function(index) {
 		console.log('index', index)
@@ -74,8 +75,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.myInboxActive = false;
 	}
 
-
-	$scope.showOnlineStatus();
 
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
