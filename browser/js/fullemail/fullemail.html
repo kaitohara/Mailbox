@@ -9,8 +9,8 @@
 						<button class="btn fetchButton"><span class="caret"></span></button>
 	            </a>
 	            <ul class="dropdown-menu" dropdown-menu>
-	                <li ng-repeat='userChoice in users'>
-	                    <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}} {{userChoice.lastName}}</a>
+	                <li ng-repeat='userChoice in teammates'>
+	                    <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}}</a>
 	                </li>
 	            </ul>
 	            </span>
@@ -23,11 +23,11 @@
 					<button class="btn fetchButton"><i class='glyphicon glyphicon-pencil'></i></button>
 				</span>
 	        </li>
-	        <li class='emailButtons'>
+	        <!-- <li class='emailButtons'>
 	            <span>
 					<button class="btn fetchButton" ng-click="deflect()" ng-if="deflectButton">Deflect</button>
 				</span>
-	        </li>
+	        </li> -->
 	        <!-- <li class='one checkbox'>
 	            <span>
 	                <input type="checkbox" ng-model="oneAtATime">One at a time
@@ -56,7 +56,7 @@
 	        </accordion>
 	    </div>
 	    <div class="panel panel-default">
-	        <div class="panel-heading">
+	        <div class="panel-heading commentsPanel">
 	            <h3 class="panel-title">Thread Comments</h3>
 	        </div>
 	        <div class="panel-body">
@@ -82,3 +82,4 @@
 	</div>
 
 </section>
+<!-- <div class="rightSideBar"></div> -->

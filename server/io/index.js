@@ -11,6 +11,7 @@ module.exports = function(server) {
 
 	io.on('connection', function(socket) {
 		socket.on('justCameOnline', function(userId) {
+			console.log('someone came online!', userId)
 			if (onlineUserIds.indexOf(userId) === -1) onlineUserIds.push(userId);
 			socket.emit('onlineUsers', onlineUserIds);
 		})

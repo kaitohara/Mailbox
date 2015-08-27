@@ -1,8 +1,31 @@
-app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket, teamFactory, team, inboxFactory) {
-	$scope.inboxTeam = $scope.team || team;
+app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket, teamFactory, team, inboxFactory, userFactory) {
+	$scope.inboxTeam = $scope.team || team || returnOneTeamId();
 	$scope.threads = threads;
 	// $scope.hideGhostNavbar
 	$scope.active;
+
+	$scope.teammates;
+
+	$scope.getTeamMembers = function(teamId) {
+		userFactory.getTeamMembers(teamId)
+			.then(function(teammates) {
+				$scope.teammates = teammates;
+				$scope.teammates.forEach(function(teammate) {
+					if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
+						teammate.isOnline = true;
+					}
+				})
+			})
+	}
+
+	function returnOneTeamId() {
+		userFactory.getUser($rootScope.user._id).then(function(user) {
+			console.log('first team', user.data.teams[0]._id);
+			$scope.getTeamMembers(user.data.teams[0]._id);
+		})
+	}
+
+	returnOneTeamId();
 
 	function shortenSubject(thread, shortenTo) {
 		var subject = thread.latestMessage.subject
@@ -28,7 +51,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		$scope.refreshThreads();
 	})
 
-	$scope.setActive = function(index){
+	$scope.setActive = function(index) {
 		$scope.active = index;
 	};
 
