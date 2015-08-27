@@ -15,9 +15,8 @@
 
     <ul id='inboxThread'>
 			<li
-			ng-animate="'animate'"
 			ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
-			ng-click="goToTeamThread(thread._id); setActive($index)"
+			ng-click="goToTeamThread(thread._id); setActive($index); getTeamMembers(team._id)"
 			class='thread'
 			ng-class="{active:active === $index}">
 				<div class="hoverThread">
