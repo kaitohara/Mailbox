@@ -13,7 +13,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.teammates = []
 	}
 
-	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
@@ -45,6 +44,8 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		// })
 	}
 
+	$scope.showOnlineStatus();
+
 	Socket.on('offlineUser', function(userId) {
 		console.log('someone logged off!')
 		$scope.$apply(function() {
@@ -74,8 +75,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.myInboxActive = false;
 	}
 
-
-	$scope.showOnlineStatus();
 
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
