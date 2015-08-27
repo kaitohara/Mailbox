@@ -13,8 +13,11 @@ app.controller('replyCtrl', function($scope, replyFactory) {
 	// $scope.emailReply.to = $scope.extractField(message, 'To').value
 	// $scope.emailReply.from = $scope.extractField(message, 'From').value
 
-	$scope.emailReply.to = $scope.extractField(message, 'From').value
-	$scope.emailReply.from = $scope.extractField(message, 'To').value
+	// console.log('6 parents:', $scope.$parent.$parent.$parent.$parent.$parent.$parent.threads[0].associatedEmail)
+
+	$scope.emailReply.to = $scope.extractField(message, 'From').value.split("<").pop().split(">")[0]
+	$scope.emailReply.from = $scope.$parent.$parent.$parent.$parent.$parent.$parent.threads[0].associatedEmail
+	// $scope.emailReply.from = $scope.extractField(message, 'To').value.split("<").pop().split(">")[0]
 
 	$scope.emailReply.subject = $scope.extractField(message, 'Subject').value
 		// currently the replyFactory requires the original .thread with all messages. it uses the associatedEmail property on the original .thread in order to send the email reply to the correct email address. this could be optimized
