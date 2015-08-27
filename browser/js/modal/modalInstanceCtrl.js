@@ -1,6 +1,8 @@
 app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users, user, teamFactory, userFactory, $window) {
 
     $scope.team = team;
+    $scope.selectedTeam = team;
+
     $scope.users = users;
     $scope.user = user;
     console.log(user)
@@ -85,4 +87,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
             $window.location.href = "/auth/google/team/" + $scope.newTeam.email;
         })
     }
+    
+    $scope.chooseTeam($scope.selectedTeam)
 });
