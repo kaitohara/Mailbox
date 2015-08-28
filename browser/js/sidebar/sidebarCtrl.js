@@ -33,6 +33,10 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		})
 	};
 
+	$rootScope.$on('addedTeamMember', function() {
+		$scope.getTeamMembers($scope.activeTeamId);
+	})
+
 	$scope.showOnlineStatus = function() {
 		Socket.emit('justCameOnline', $scope.user._id);
 		Socket.on('onlineUsers', function(onlineUserIds) {
@@ -61,21 +65,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 	$scope.showOnlineStatus();
-
-	// Socket.on('offlineUser', function(userId) {
-	// 	console.log('someone logged off!')
-	// 	$scope.$apply(function() {
-	// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
-	// 			$scope.teammates.forEach(function(teammate) {
-	// 				if (teammate._id === userId) teammate.isOnline = false;
-	// 			})
-	// 		}
-	// 	})
-	// })
-	$rootScope.$on('addedTeamMember', function() {
-		console.log('i added a team member from the sidebar!', $scope.team._id)
-		$scope.getTeamMembers($scope.team._id);
-	})
 
 	$scope.setTeamActive = function(index) {
 		console.log('index', index)
