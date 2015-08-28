@@ -26,7 +26,7 @@
 				<div>
 					<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
 
-					<p class="assignment">{{ thread.assignedTo.firstName }}</p>
+					<p class="assignment" ng-class="{red: assignedColor === 'red', blue: assignedColor === 'blue'}">{{ thread.assignedTo.firstName }}</p>
 				</div>
 			</div>
 			</li>
