@@ -13,6 +13,12 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 			})
 	}
 
+	// ensures that the assignment dropdown updates
+	// with new team member
+	$rootScope.$on('addedTeamMember', function() {
+		$scope.getTeamMembers($scope.inboxTeam._id);
+	})
+
 	function returnOneTeamId() {
 		return userFactory.getUser($rootScope.user._id).then(function(user) {
 			console.log('first team', user.data.teams[0]._id);
