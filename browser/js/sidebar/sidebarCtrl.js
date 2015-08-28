@@ -49,8 +49,9 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 					})
 				}
 			})
+		})
+	}
 
-	};
 
 	console.log('User', $scope.team)
 	console.log('teams', $scope.teams)
