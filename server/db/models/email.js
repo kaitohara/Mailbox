@@ -17,7 +17,7 @@ schema.methods.getThread = function() {
 
 schema.methods.getDate = function() {
 	return this.googleObj.payload.headers.filter(function(obj) {
-		return obj['name'] === 'Date';
+		return obj.name === 'Date';
 	})[0].value
 }
 
