@@ -18,7 +18,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			.then(function(teammates) {
 				$scope.teammates = teammates;
 				$scope.teammates.forEach(function(teammate) {
-					if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
+					if ($scope.onlineUsers && $scope.onlineUsers.indexOf(teammate._id) > -1) {
 						teammate.isOnline = true;
 					}
 				})
@@ -33,6 +33,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		})
 
 		Socket.on('offlineUser', function(userId) {
+			console.log('this person logged off', userId)
 			$scope.$apply(function() {
 				if ($scope.onlineUsers.indexOf(userId) > -1) {
 					$scope.teammates.forEach(function(teammate) {
@@ -56,6 +57,10 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	// 		}
 	// 	})
 	// })
+	$rootScope.$on('addedTeamMember', function() {
+		console.log('i added a team member from the sidebar!', $scope.team._id)
+		$scope.getTeamMembers($scope.team._id);
+	})
 
 	$scope.setTeamActive = function(index) {
 		console.log('index', index)
@@ -74,8 +79,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.activeTeam = -1;
 		$scope.myInboxActive = false;
 	}
-
-
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
 		$state.go('home.teamId', {
