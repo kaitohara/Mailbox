@@ -40,6 +40,7 @@ app.config(function($stateProvider) {
                 team: function(teamFactory, $stateParams) {
                     var teamId = $stateParams.teamId;
                     return teamFactory.getOneTeam(teamId).then(function(team) {
+
                         return team.data;
                     })
                 }
@@ -52,7 +53,9 @@ app.config(function($stateProvider) {
             resolve: {
                 threads: function(userFactory, $stateParams) {
                     var userId = $stateParams.userId;
+                    console.log('here we are')
                     return userFactory.getUser(userId).then(function(user) {
+
                         return user.data.myInbox;
                     })
                 },
@@ -69,6 +72,7 @@ app.config(function($stateProvider) {
                 threads: function(userFactory, $stateParams) {
                     var userId = $stateParams.userId;
                     return userFactory.getUser(userId).then(function(user) {
+
                         return user.data.myInbox;
                     })
                 },

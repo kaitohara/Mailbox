@@ -105,7 +105,6 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
             .then(function(threadFound) {
                 $scope.assignedTo = threadFound.data.assignedTo.firstName;
                 if (window.location.pathname.indexOf("users") > -1) {
-                    console.log('worddddd')
                     $state.go('home.userId', {
                         userId: $rootScope.user._id
                     }, {
