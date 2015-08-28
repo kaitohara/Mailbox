@@ -81,8 +81,8 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.refreshThreads = function() {
 		if ($scope.inboxTeam) {
 			teamFactory.getThisTeamsGmailThreadsId($scope.inboxTeam._id)
-				.then(function(threads) {
-					$scope.threads = threads;
+				.then(function(threadsFound) {
+					$scope.threads = threadsFound;
 					displayPersonalAssignment($scope.threads);
 				})
 		} else {
