@@ -10,7 +10,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
-				console.log('inboxCtrl teammates', teammates)
 				$scope.teammates = teammates;
 			})
 	}
@@ -23,7 +22,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 
 	function returnOneTeamId() {
 		return userFactory.getUser($rootScope.user._id).then(function(user) {
-			console.log('first team', user.data.teams[0]._id);
 			$scope.getTeamMembers(user.data.teams[0]._id);
 		})
 	}
@@ -114,7 +112,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	};
 
 	$rootScope.$on('synced', function() {
-		console.log('syncing, heard it')
 		$scope.refreshThreads();
 	})
 

@@ -6,12 +6,12 @@ app.factory('userFactory', function($http, AuthService) {
         },
         setUserTeam: function(user, team) {
             console.log(
-                'backend receiving:', user,
-                'backend receiving team:', team
+                'backend receiving this user:', user,
+                'backend receiving this team:', team
                 )
             return $http.put('/api/users/' + user._id, team)
                 .then(function(user) {
-                    console.log('backend returning:', user.data)
+                    console.log('backend returning this user:', user.data)
                     return user.data
                 })
         },

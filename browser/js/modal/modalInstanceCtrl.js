@@ -1,13 +1,14 @@
 app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users, user, teamFactory, userFactory, $window, $rootScope) {
 
     $scope.team = team;
+    $scope.selectedTeam = team;
+
     $scope.users = users;
     $scope.user = user;
     console.log(user)
     teamFactory.getUserTeams(user._id)
         .then(function(user) {
             $scope.teams = user.data.teams
-            console.log($scope.teams)
         }, function(err) {
             console.log(err)
         })
@@ -24,7 +25,7 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
     };
 
 
-    $scope.showMyProfile = true
+    $scope.showTeamMembers = true
 
     // three functions that control html shown in the modal
     $scope.openMyProfile = function() {
@@ -56,7 +57,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
                 $scope.availableUsers.push(user)
             }
         })
-        console.log('scope.availableUsers for team selection:', $scope.availableUsers)
     }
 
     $scope.chooseUser = function(user) {
@@ -73,7 +73,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
                 })
                 $scope.chooseTeam($scope.selectedTeam)
                 $scope.selectedUser = null
-                console.log('adding a team member from the modal')
                 $rootScope.$emit('addedTeamMember')
             }, function(err) {
                 console.log(err)
@@ -87,4 +86,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
             $window.location.href = "/auth/google/team/" + $scope.newTeam.email;
         })
     }
+    
+    // $scope.chooseTeam($scope.selectedTeam) //this breaks modal
 });

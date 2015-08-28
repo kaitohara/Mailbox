@@ -91,7 +91,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 	$scope.goToUser = function() {
-		console.log('going to user')
 		$scope.teammates = []
 		$state.go('home.userId', {
 			userId: $scope.user._id
@@ -99,7 +98,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 	$scope.seeUserAssignments = function(teammate) {
-		console.log('team', reloadedTeam)
 		$state.go('home.teammateId', {
 			teamId: $scope.activeTeamId || reloadedTeam,
 			userId: teammate._id
