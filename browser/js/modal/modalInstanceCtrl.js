@@ -1,6 +1,8 @@
 app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users, user, teamFactory, userFactory, $window, $rootScope) {
 
     $scope.team = team;
+    $scope.selectedTeam = team;
+
     $scope.users = users;
     $scope.user = user;
     console.log(user)
@@ -24,7 +26,7 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
     };
 
 
-    $scope.showMyProfile = true
+    $scope.showTeamMembers = true
 
     // three functions that control html shown in the modal
     $scope.openMyProfile = function() {
@@ -87,4 +89,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
             $window.location.href = "/auth/google/team/" + $scope.newTeam.email;
         })
     }
+    
+    $scope.chooseTeam($scope.selectedTeam)
 });
