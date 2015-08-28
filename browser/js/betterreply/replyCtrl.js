@@ -26,6 +26,7 @@ app.controller('replyCtrl', function($scope, replyFactory) {
 		// console.log('$scope.$parent.$parent.$parent', $scope.$parent.$parent.$parent)
 		// we have to dig through like 5 scopes to get to the thread ID
 		var googleThreadId = $scope.$parent.$parent.$parent.message.googleObj.threadId
+		console.log('googleThreadId within sendReply:', googleThreadId)
 			// emailReply is bound to the reply form
 
 		var emailReply = $scope.emailReply
