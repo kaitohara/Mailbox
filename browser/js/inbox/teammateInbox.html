@@ -21,7 +21,7 @@
                     </div>
                     <div>
                         <p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
-                        <p class="assignment">{{ selectedTeammate }}</p>
+                        <p class="assignment" ng-class="{red: thread.color === 'red', blue: thread.color === 'blue', green: thread.color === 'green', purple: thread.color === 'purple', orange: thread.color === 'orange'}">{{ selectedTeammate }}</p>
                     </div>
                 </div>
                 </li>

@@ -33,8 +33,12 @@
 	            	<accordion-heading>
 	            		<div>{{extractField(message, 'Subject').value}}</div>
 	            	</accordion-heading>
-	                <p class="conversation">{{extractField(message, "From").value}} → {{extractField(message, "To").value}}</p>
-	                <p>{{extractDate(message)}}</p>
+	                <!-- <p class="conversation">{{extractField(message, "From").value}}  <i class='glyphicon glyphicon-arrow-right'></i>  {{extractField(message, "To").value}}</p> -->
+	                <p class="conversation">
+	                	<a class='pull-left'>From: {{extractField(message, "From").value}}</a>
+	                	<a class='pull-right'>To: {{extractField(message, "To").value}}</a>
+	                </p>
+	                <p class='emailDate'>{{extractDate(message)}}</p>
 	                <div>
 	                    {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 	                </div>
@@ -62,12 +66,12 @@
 	            <h3 class="panel-title">Thread Comments</h3>
 	        </div>
 	        <div class="panel-body">
-	            <ul>
+	            <ul class='commentsDiv' scroll-glue>
 	                <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
+	                <li id='bottomChat'></li>
 	            </ul>
 	            <form ng-submit='sendMessage(chatMessage)'>
 	                <!-- <div id='messagesDiv'></div> -->
-
 	                <div class="input-group">
             			<input type='text' class="form-control" placeholder='Your Message' ng-model='chatMessage.text'>
             			<span class="input-group-addon">

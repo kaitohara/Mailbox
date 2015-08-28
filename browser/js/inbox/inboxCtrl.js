@@ -5,11 +5,11 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.active;
 	$scope.teammates;
 	$scope.selectedTeammate;
+	// $scope.assignedColor = 'red';
 
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
-				console.log('inboxCtrl teammates', teammates)
 				$scope.teammates = teammates;
 			})
 	}
@@ -22,7 +22,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 
 	function returnOneTeamId() {
 		return userFactory.getUser($rootScope.user._id).then(function(user) {
-			console.log('first team', user.data.teams[0]._id);
 			$scope.getTeamMembers(user.data.teams[0]._id);
 		})
 	}
@@ -36,17 +35,42 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		}
 	}
 
+	var colors = ['orange', 'blue', 'green', 'purple']
+
+	function sumAsciiValues(str) {
+		var sum = 0;
+		for (var c in str) {
+			sum += str[c].charCodeAt()
+		}
+		return sum;
+	}
+
+	function randomColorPicker(userId) {
+		if (userId) {
+			var color = colors[sumAsciiValues(userId.slice(userId)) % colors.length]
+			return color;
+		}
+	}
+
 	function displayPersonalAssignment(threadsArray) {
 		threadsArray.forEach(function(thread) {
 			shortenSubject(thread, 25);
-			if (thread.assignedTo && thread.assignedTo._id === $rootScope.user._id) {
-				thread.assignedTo.firstName = "You"
-					// for choosing a teammate from the sidebar
-			} else if (thread.assignedTo && !thread.assignedTo._id) {
+			if (thread.assignedTo && thread.assignedTo._id) {
+				if (thread.assignedTo._id === $rootScope.user._id) {
+					thread.assignedTo.firstName = "You"
+					thread.color = 'red'
+				} else {
+					thread.color = randomColorPicker(thread.assignedTo._id)
+				}
+				// for choosing a teammate from the sidebar
+			} else {
 				userFactory.getUser(thread.assignedTo).then(function(user) {
 					$scope.selectedTeammate = user.data.firstName;
 				})
+				thread.color = randomColorPicker(thread.assignedTo);
+				console.log('the color is', thread.color)
 			}
+			// else if (thread.assignedTo && !thread.assignedTo._id)
 		})
 	}
 
@@ -88,7 +112,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	};
 
 	$rootScope.$on('synced', function() {
-		console.log('syncing, heard it')
 		$scope.refreshThreads();
 	})
 

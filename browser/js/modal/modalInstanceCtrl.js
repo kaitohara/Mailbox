@@ -9,7 +9,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
     teamFactory.getUserTeams(user._id)
         .then(function(user) {
             $scope.teams = user.data.teams
-            console.log($scope.teams)
         }, function(err) {
             console.log(err)
         })
@@ -58,7 +57,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
                 $scope.availableUsers.push(user)
             }
         })
-        console.log('scope.availableUsers for team selection:', $scope.availableUsers)
     }
 
     $scope.chooseUser = function(user) {
@@ -75,7 +73,6 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
                 })
                 $scope.chooseTeam($scope.selectedTeam)
                 $scope.selectedUser = null
-                console.log('adding a team member from the modal')
                 $rootScope.$emit('addedTeamMember')
             }, function(err) {
                 console.log(err)
@@ -90,5 +87,5 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
         })
     }
     
-    $scope.chooseTeam($scope.selectedTeam)
+    // $scope.chooseTeam($scope.selectedTeam) //this breaks modal
 });
