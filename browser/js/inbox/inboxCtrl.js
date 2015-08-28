@@ -3,7 +3,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.threads = threads;
 	// $scope.hideGhostNavbar
 	$scope.active;
-
 	$scope.teammates;
 
 	$scope.getTeamMembers = function(teamId) {
@@ -65,6 +64,15 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.goToUserThread = function(threadId) {
 		$rootScope.$emit('userInbox');
 		$state.go('home.userId.threadId', {
+			threadId: threadId
+		})
+
+		// $scope.hideGhostNavbar = true;
+	};
+
+	$scope.goToTeammateThread = function(threadId) {
+		$rootScope.$emit('userInbox');
+		$state.go('home.teammateId.threadId', {
 			threadId: threadId
 		})
 

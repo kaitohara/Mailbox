@@ -28,12 +28,12 @@
             </li>
             <li ng-repeat='team in teams' ng-click="goToTeam(team); getTeamMembers(team._id)">
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
-                <a class="collapsed" ng-class="{activeInbox:activeTeam === $index, activeBlue:activeTeam === $index}" ng-click="setTeamActive($index)">
+                <a class="collapsed" ng-class="{activeInbox:activeTeam[0] === $index, activeBlue:activeTeam[0] === $index}" ng-click="setTeamActive($index)">
                     <span class="icon">
                         <i class="fa fa-inbox"></i>
                     </span>
                     <span>{{team.name}}</span>
-                    <i ng-class="{'toggle fa fa-angle-up':activeTeam == $index}"></i>
+                    <i ng-class="{'toggle fa fa-angle-up':activeTeam[0] == $index}"></i>
                 </a>
                 <ul id="sidebar-forms" class="collapse">
                     <li ng-repeat='email in team.emailAddresses'><a>{{email}}</a></li>
@@ -44,7 +44,7 @@
 
         <ul class="sidebar-nav">
             <li ng-repeat='teammate in teammates' >
-                <a class="collapsed teammate" ng-click="seeUserAssignments(teammate); setTeammateActive($index)" ng-class="{activeInbox: activeTeammate === $index, activeGreen:activeTeammate === $index}">
+                <a class="collapsed teammate" ng-click="seeUserAssignments(teammate); setTeammateActive($index)" ng-class="{activeInbox: activeTeammate[1] === $index, activeGreen:activeTeammate[1] === $index}">
                     <span class="icon">
                         <i class="fa fa-user-secret"></i>
                     </span>
