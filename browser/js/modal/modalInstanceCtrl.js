@@ -90,5 +90,5 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, team, users
         })
     }
     
-    $scope.chooseTeam($scope.selectedTeam)
+    // $scope.chooseTeam($scope.selectedTeam)
 });
