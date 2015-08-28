@@ -9,6 +9,22 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.myInboxActive = false;
 	$scope.activeTeammate;
 
+	function returnOneTeamId() {
+		return userFactory.getUser($rootScope.user._id).then(function(user) {
+			console.log('first team', user.data.teams[0]._id);
+			$scope.getTeamMembers(user.data.teams[0]._id);
+		})
+	}
+
+	$rootScope.$on('addedTeamMember', function() {
+		if ($scope.activeTeam) {
+			console.log('the active team is:', $scope.activeTeam)
+			$scope.getTeamMembers($scope.activeTeam._id);
+		} else {
+			returnOneTeamId();
+		}
+	})
+
 	$scope.clearTeamMembers = function() {
 		$scope.teammates = []
 	}
@@ -57,10 +73,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	// 		}
 	// 	})
 	// })
-	$rootScope.$on('addedTeamMember', function() {
-		console.log('i added a team member from the sidebar!', $scope.team._id)
-		$scope.getTeamMembers($scope.team._id);
-	})
 
 	$scope.setTeamActive = function(index) {
 		console.log('index', index)
