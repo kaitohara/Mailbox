@@ -57,66 +57,71 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 					})
 				}
 			})
-
 		})
 	}
 
-	$scope.showOnlineStatus();
+})
 
-	// Socket.on('offlineUser', function(userId) {
-	// 	console.log('someone logged off!')
-	// 	$scope.$apply(function() {
-	// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
-	// 			$scope.teammates.forEach(function(teammate) {
-	// 				if (teammate._id === userId) teammate.isOnline = false;
-	// 			})
-	// 		}
-	// 	})
-	// })
+$scope.clearTeamMembers = function() {
+	$scope.teammates = []
+}
 
-	$scope.setTeamActive = function(index) {
-		console.log('index', index)
-		$scope.activeTeam = index;
-		$scope.myInboxActive = false;
-		$scope.activeTeammate = -1;
-	}
-	$scope.setMyInboxActive = function() {
-		$scope.myInboxActive = true;
-		$scope.activeTeam = -1;
-		$scope.activeTeammate = -1;
-	}
-	$scope.setTeammateActive = function(index) {
-		console.log(index)
-		$scope.activeTeammate = index;
-		$scope.activeTeam = -1;
-		$scope.myInboxActive = false;
-	}
-	$scope.goToTeam = function(team) {
-		$scope.team = team;
-		$state.go('home.teamId', {
-			teamId: team._id
-		})
-	}
+$scope.showOnlineStatus();
 
-	$scope.goToUser = function() {
-		$scope.teammates = []
-		$state.go('home.userId', {
-			userId: $scope.user._id
-		})
-	}
+// Socket.on('offlineUser', function(userId) {
+// 	console.log('someone logged off!')
+// 	$scope.$apply(function() {
+// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
+// 			$scope.teammates.forEach(function(teammate) {
+// 				if (teammate._id === userId) teammate.isOnline = false;
+// 			})
+// 		}
+// 	})
+// })
 
-	$scope.seeUserAssignments = function(teammate) {
-		$state.go('home.userId', {
-			userId: teammate._id
-		})
-	}
+$scope.setTeamActive = function(index) {
+	console.log('index', index)
+	$scope.activeTeam = index;
+	$scope.myInboxActive = false;
+	$scope.activeTeammate = -1;
+}
+$scope.setMyInboxActive = function() {
+	$scope.myInboxActive = true;
+	$scope.activeTeam = -1;
+	$scope.activeTeammate = -1;
+}
+$scope.setTeammateActive = function(index) {
+	console.log(index)
+	$scope.activeTeammate = index;
+	$scope.activeTeam = -1;
+	$scope.myInboxActive = false;
+}
+$scope.goToTeam = function(team) {
+	$scope.team = team;
+	$state.go('home.teamId', {
+		teamId: team._id
+	})
+}
 
-	$scope.getThisEmailFromTheThread = function(threadId) {
-		teamFactory.getThisEmailFromTheThread(threadId)
-			.then(function(fullEmail) {
-				$scope.thread = fullEmail;
-			})
-	};
+$scope.goToUser = function() {
+	$scope.teammates = []
+	$state.go('home.userId', {
+		userId: $scope.user._id
+	})
+}
+
+$scope.seeUserAssignments = function(teammate) {
+	$state.go('home.userId', {
+		userId: teammate._id
+	})
+}
+
+$scope.getThisEmailFromTheThread = function(threadId) {
+teamFactory.getThisEmailFromTheThread(threadId)
+	.then(function(fullEmail) {
+		$scope.thread = fullEmail;
+	})
+};
 
 
 })
