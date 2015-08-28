@@ -5,6 +5,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.active;
 	$scope.teammates;
 	$scope.selectedTeammate;
+	// $scope.assignedColor = 'red';
 
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
@@ -34,17 +35,42 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		}
 	}
 
+	var colors = ['orange', 'blue', 'green', 'purple']
+
+	function sumAsciiValues(str) {
+		var sum = 0;
+		for (var c in str) {
+			sum += str[c].charCodeAt()
+		}
+		return sum;
+	}
+
+	function randomColorPicker(userId) {
+		if (userId) {
+			var color = colors[sumAsciiValues(userId.slice(userId)) % colors.length]
+			return color;
+		}
+	}
+
 	function displayPersonalAssignment(threadsArray) {
 		threadsArray.forEach(function(thread) {
 			shortenSubject(thread, 25);
-			if (thread.assignedTo && thread.assignedTo._id === $rootScope.user._id) {
-				thread.assignedTo.firstName = "You"
-					// for choosing a teammate from the sidebar
-			} else if (thread.assignedTo && !thread.assignedTo._id) {
+			if (thread.assignedTo && thread.assignedTo._id) {
+				if (thread.assignedTo._id === $rootScope.user._id) {
+					thread.assignedTo.firstName = "You"
+					thread.color = 'red'
+				} else {
+					thread.color = randomColorPicker(thread.assignedTo._id)
+				}
+				// for choosing a teammate from the sidebar
+			} else {
 				userFactory.getUser(thread.assignedTo).then(function(user) {
 					$scope.selectedTeammate = user.data.firstName;
 				})
+				thread.color = randomColorPicker(thread.assignedTo);
+				console.log('the color is', thread.color)
 			}
+			// else if (thread.assignedTo && !thread.assignedTo._id)
 		})
 	}
 
