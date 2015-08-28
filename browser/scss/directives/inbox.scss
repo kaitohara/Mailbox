@@ -104,6 +104,22 @@
 	
 	background-color: #F9F9F9;
 
+	.red {
+		color: red;
+	}
+	.blue {
+		color: blue;
+	}
+	.green {
+		color: #31B404;
+	}
+	.purple {
+		color: purple;
+	}
+	.orange {
+		color: #FE9A2E;
+	}
+
 	.thread {
 		overflow:hidden;
 		padding-left:10px;
@@ -128,12 +144,6 @@
 		}
 		.assignment {
 			font-size:.8em;
-		}
-		.red {
-			color: red;
-		}
-		.blue {
-			color: blue;
 		}
 		.date {
 			padding:0 5px 0 0;
