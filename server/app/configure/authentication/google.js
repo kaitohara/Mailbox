@@ -65,8 +65,8 @@ module.exports = function(app) {
                             })
                             .then(function(result) {
                                 console.log('callback result', result)
-                                team.save(function(err, team) {
-                                    console.log('error in team save: ', err, 'team in team save: ', team)
+                                team.save(function(err, teamSaved) {
+                                    console.log('error in team save: ', err, 'team in team save: ', teamSaved)
                                     done(err, req.user)
                                 })
                             })

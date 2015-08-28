@@ -1,7 +1,6 @@
 var router = require('express').Router();
 module.exports = router;
 
-var requestPromise = require('request-promise');
 var mongoose = require('mongoose');
 var TeamModel = mongoose.model('Team');
 

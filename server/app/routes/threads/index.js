@@ -4,7 +4,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var ThreadModel = mongoose.model('Thread');
 var UserModel = mongoose.model('User');
-var ObjectId = require('mongoose').Types.ObjectId;
+// var ObjectId = require('mongoose').Types.ObjectId;
 
 router.post('/assign', function(req, res) {
 	var foundThread;

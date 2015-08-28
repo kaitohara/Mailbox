@@ -13,7 +13,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.teammates = []
 	}
 
-	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
@@ -58,7 +57,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	// 		}
 	// 	})
 	// })
-
 	$rootScope.$on('addedTeamMember', function() {
 		console.log('i added a team member from the sidebar!', $scope.team._id)
 		$scope.getTeamMembers($scope.team._id);
@@ -81,7 +79,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.activeTeam = -1;
 		$scope.myInboxActive = false;
 	}
-
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
 		$state.go('home.teamId', {
