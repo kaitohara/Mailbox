@@ -11,16 +11,17 @@ module.exports = function(server) {
 
 	io.on('connection', function(socket) {
 		socket.on('justCameOnline', function(userId) {
-			console.log('someone came online!', userId)
+			// console.log('someone came online!', userId)
 			if (onlineUserIds.indexOf(userId) === -1) onlineUserIds.push(userId);
-			socket.broadcast.emit('onlineUsers', onlineUserIds);
+			console.log('currently online users', onlineUserIds)
+			io.sockets.emit('onlineUsers', onlineUserIds);
 		})
 
 		socket.on('logout', function(userId) {
 			console.log('this user is logging out', userId)
 			var userIndex = onlineUserIds.indexOf(userId);
 			if (userIndex > -1) onlineUserIds.splice(userIndex, 1);
-			socket.broadcast.emit('offlineUser', userId);
+			io.sockets.emit('offlineUser', userId);
 		})
 	})
 

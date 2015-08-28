@@ -100,10 +100,10 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
         $scope.chatMessage.text = '';
     };
 
-    $scope.assign = function(userChoice, thread, user) {
-        threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
-            .then(function(thread) {
-                $scope.assignedTo = thread.data.assignedTo.firstName;
+    $scope.assign = function(userChoice, threadToAssign, user) {
+        threadFactory.assignUserToThread(userChoice._id, threadToAssign._id, user._id)
+            .then(function(threadFound) {
+                $scope.assignedTo = threadFound.data.assignedTo.firstName;
                 if (window.location.pathname.indexOf("users") > -1) {
                     console.log('worddddd')
                     $state.go('home.userId', {

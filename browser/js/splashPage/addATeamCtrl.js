@@ -1,4 +1,4 @@
-app.controller('addATeamCtrl', function($window, $scope, teamFactory) {
+app.controller('addATeamCtrl', function($window, $scope, teamFactory, $state) {
 
 	// $scope.name = 'Mailbox Team';
 	// $scope.email = 'teammailfsa@gmail.com';
@@ -9,5 +9,10 @@ app.controller('addATeamCtrl', function($window, $scope, teamFactory) {
 		teamFactory.createTeam($scope.name, $scope.email).then(function() {
 			$window.location.href = "/auth/google/team/" + $scope.email;
 		})
+	}
+
+	$scope.skip = function(){
+		console.log('user', $scope.user)
+		$state.go('home.userId', {userId: $scope.user._id})
 	}
 })

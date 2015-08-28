@@ -1,0 +1,31 @@
+<section id='inboxWithButtons'>
+
+<div class=" fetch">
+    <!-- <button class='btn fetchButton' ng-click="syncInbox()">Fetch</button> -->
+   <form class="search-form">
+            <i class="fa fa-search pull-left search-icon"></i>
+            <div class="form-group">
+                <input type="text" class="form-control search-box" ng-model='search' placeholder="Search" >
+            </div>
+        </form>
+</div>
+        <div id="inbox">
+
+            <ul id='inboxThread'>
+
+                <li ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true" ng-click="goToTeammateThread(thread._id)" class='thread'>
+                	<div class="hoverThread">
+                    <div>
+                        <p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p>
+                        <p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
+                    </div>
+                    <div>
+                        <p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
+                        <p class="assignment">You</p>
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </div>
+</section>
+<ui-view></ui-view>
