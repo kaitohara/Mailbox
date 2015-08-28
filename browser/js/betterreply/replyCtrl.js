@@ -45,6 +45,13 @@ app.controller('replyCtrl', function($scope, replyFactory) {
 		// $scope.$parent
 		$scope.$parent.$parent.$parent.$parent.$parent.thread.showDummyReply = true
 		$scope.$parent.$parent.$parent.$parent.$parent.thread.dummyReply = emailReply
+		var currentDate = new Date()
+	    var day = currentDate.getDate()
+	    var month = currentDate.getMonth() + 1
+	    var year = currentDate.getFullYear()
+	    var hours = currentDate.getHours()
+	    var minutes = currentDate.getMinutes()
+		$scope.$parent.$parent.$parent.$parent.$parent.thread.dummyReply.date = ""+month+"/"+day+"/"+year, hours+":"+minutes
 	}
 
 	$scope.cancel = function() {

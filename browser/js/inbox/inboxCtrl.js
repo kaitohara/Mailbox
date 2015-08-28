@@ -181,7 +181,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	}
 	function onPageLoad() {
 		
-			$scope.$apply();	
+			// $scope.$apply();	
 		
 		var path = window.location.pathname;
 		console.log('load this', $location.path())
