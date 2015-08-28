@@ -4,6 +4,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	// $scope.hideGhostNavbar
 	$scope.active;
 	$scope.teammates;
+	$scope.selectedTeammate;
 
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
@@ -12,6 +13,12 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 				$scope.teammates = teammates;
 			})
 	}
+
+	// ensures that the assignment dropdown updates
+	// with new team member
+	$rootScope.$on('addedTeamMember', function() {
+		$scope.getTeamMembers($scope.inboxTeam._id);
+	})
 
 	function returnOneTeamId() {
 		return userFactory.getUser($rootScope.user._id).then(function(user) {
@@ -34,6 +41,11 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 			shortenSubject(thread, 25);
 			if (thread.assignedTo && thread.assignedTo._id === $rootScope.user._id) {
 				thread.assignedTo.firstName = "You"
+					// for choosing a teammate from the sidebar
+			} else if (thread.assignedTo && !thread.assignedTo._id) {
+				userFactory.getUser(thread.assignedTo).then(function(user) {
+					$scope.selectedTeammate = user.data.firstName;
+				})
 			}
 		})
 	}
@@ -79,6 +91,8 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		console.log('syncing, heard it')
 		$scope.refreshThreads();
 	})
+
+	console.log('threads', $scope)
 
 	$scope.refreshThreads = function() {
 		if ($scope.inboxTeam) {
