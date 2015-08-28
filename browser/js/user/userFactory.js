@@ -11,7 +11,6 @@ app.factory('userFactory', function($http, AuthService) {
                 )
             return $http.put('/api/users/' + user._id, team)
                 .then(function(user) {
-                    console.log('backend returning:', user.data)
                     return user.data
                 })
         },
@@ -21,7 +20,17 @@ app.factory('userFactory', function($http, AuthService) {
             })
         },
         getUser: function(userId) {
-            return $http.get('/api/users/' + userId)
+            return $http.get('/api/users/' + userId).then(function(user){
+                function sortThreadsByDate(a,b) {
+                    if (a.latestMessage.date*1 < b.latestMessage.date*1)
+                        return 1;
+                    if (a.latestMessage.date*1 > b.latestMessage.date*1)
+                        return -1;
+                    return 0;
+                }
+                user.data.myInbox.sort(sortThreadsByDate)
+                return user;
+            })
         },
         getTeamMembers: function(teamId) {
             return $http.get('/api/users/teamMembers/' + teamId)

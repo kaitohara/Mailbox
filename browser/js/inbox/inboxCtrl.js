@@ -1,14 +1,16 @@
-app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket, teamFactory, team, inboxFactory, userFactory) {
+app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket, teamFactory, team, inboxFactory, userFactory, $location) {
 	$scope.inboxTeam = $scope.team || team || returnOneTeamId();
 	$scope.threads = threads;
 	// $scope.hideGhostNavbar
-	$scope.active;
+	$scope.activeThread;
 	$scope.teammates;
+
+	console.log('window.location.pathname',window.location.pathname)
+	// $state.go('home.userId.threadId', {threadId: threads[0]._id})
 
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
-				console.log('inboxCtrl teammates', teammates)
 				$scope.teammates = teammates;
 				// $scope.teammates.forEach(function(teammate) {
 				// 	if ($scope.onlineUsers && $scope.onlineUsers.indexOf(teammate._id) > -1) {
@@ -20,7 +22,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 
 	function returnOneTeamId() {
 		userFactory.getUser($rootScope.user._id).then(function(user) {
-			console.log('first team', user.data.teams[0]._id);
 			$scope.getTeamMembers(user.data.teams[0]._id);
 		})
 	}
@@ -51,8 +52,10 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		$scope.refreshThreads();
 	})
 
+	
+
 	$scope.setActive = function(index) {
-		$scope.active = index;
+		$scope.activeThread = index;
 	};
 
 	$scope.goToTeamThread = function(threadId) {
@@ -63,25 +66,41 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	};
 
 	$scope.goToUserThread = function(threadId) {
+		console.log('trying to open one thread')
 		$rootScope.$emit('userInbox');
 		$state.go('home.userId.threadId', {
 			threadId: threadId
 		})
-
-		// $scope.hideGhostNavbar = true;
 	};
 
 	$scope.goToTeammateThread = function(threadId) {
 		$rootScope.$emit('userInbox');
-		$state.go('home.teammateId.threadId', {
-			threadId: threadId
+		setTimeout(function(){
+			$state.go('home.teammateId.threadId', {
+				threadId: threadId
+			}, 2000)
 		})
-
-		// $scope.hideGhostNavbar = true;
 	};
 
+	var threadfunctions = {
+		// 'myInbox': $scope.goToUserThread,
+		'myInbox' : function(){console.log('dummy')},
+		// 'team': $scope.goToTeamThread,
+		'team': function(){console.log('dummy')},
+		// 'teammate': $scope.goToTeammateThread
+		'teammate' : function(){console.log('dummy')}
+	}
+
+	// var i = 0;
+
+	// $rootScope.$on('changedInbox', function(event, info){
+	// 	// console.log('this function has run', i++, 'times')
+	// 	console.log('heard new inbox', info)
+	// 	console.log('threads[0]._id', threads[0]._id)
+	// 	threadfunctions[info](threads[0]._id);
+	// })
+
 	$rootScope.$on('synced', function() {
-		console.log('syncing, heard it')
 		$scope.refreshThreads();
 	})
 
@@ -110,9 +129,56 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		$scope.showLoader = true;
 		inboxFactory.syncInbox($scope.inboxTeam._id)
 			.then(function() {
-				console.log('emitting')
 				$rootScope.$emit('synced', 'sync complete')
 				$scope.showLoader = false;
 			})
 	}
+	
+
+	function setActiveThreadOnPageLoad(reloadedThread) {
+		$scope.threads.forEach(function(thread, index){
+				if (thread._id === reloadedThread) {
+					$scope.activeThread = index;
+				}
+			})
+	}
+	function onPageLoad() {
+		
+			$scope.$apply();	
+		
+		var path = window.location.pathname;
+		console.log('load this', $location.path())
+		var reloadedThread;
+		if (path.indexOf('thread') === -1){
+			if (path.indexOf('user') > -1 && path.indexOf('teams') > -1) {
+				$state.go('home.teammateId.threadId', {threadId: threads[0]._id})
+			} else if (path.indexOf('user') > -1){
+				$state.go('home.userId.threadId', {threadId: threads[0]._id})
+			} else {
+				$state.go('home.teamId.threadId', {threadId: threads[0]._id})
+			}
+			$scope.setActive(0)
+		} else if (path.indexOf('user') > -1 && path.indexOf('teams') > -1){
+			console.log('1')
+			reloadedThread = path.replace(/\/mailbox\/teams\/\w+\/user\/\w+/, '').replace(/\/thread\//,'')
+			setActiveThreadOnPageLoad(reloadedThread)
+		} else if (path.indexOf('user') > -1){
+			console.log('2')
+			reloadedThread = path.replace(/\/mailbox\/users\/\w+\/thread\//,'')
+			setActiveThreadOnPageLoad(reloadedThread)
+		} else if (path.indexOf('teams') > -1){
+			console.log('3')
+			reloadedThread = path.replace(/\/mailbox\/teams\//, '').replace(/\w+\/thread\//, '')
+			setActiveThreadOnPageLoad(reloadedThread)
+		} else {
+			console.log('4')
+			$scope.activeThread = 0;
+		}
+	}
+	onPageLoad();
+
+	// (function(){
+	// 	console.log('woo')
+	// })();
+
 })
