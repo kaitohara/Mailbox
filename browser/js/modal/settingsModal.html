@@ -1,3 +1,4 @@
+<section id='modal'>    
     <div class="modal-header">
         <h3 class="modal-title">Settings
             <button type="button" style="float: right; background: transparent; border-color: transparent" ng-click="cancel()">x</button>
@@ -31,7 +32,7 @@
                     </h4>
                 </div>
                 <div ng-show="showTeamMembers">
-                    <h4 class="modal-item"> Choose A Team:</h4>
+                    <h4 class="modal-item">Choose A Team:</h4>
                     <ul style="padding-left: 0">
                         <li
                             ng-repeat="team in teams"
@@ -45,7 +46,13 @@
                         ng-show="selectedTeam"
                         >Available Users:
                     </h4>
-                        <li ng-repeat="user in availableUsers">
+                        <form class="search-form" ng-show="selectedTeam">
+                            <i class="fa fa-search pull-left search-icon"></i>
+                            <div class="form-group">
+                                <input type="text" class="form-control search-box" ng-model='search' placeholder="Search">
+                            </div>
+                        </form>
+                        <li ng-repeat="user in availableUsers | filter: search">
                             <a ng-click="$event.preventDefault(); chooseUser(user)">
                                 {{ user.firstName}} {{user.lastName}}: {{user.email}}
                             </a>
@@ -58,9 +65,6 @@
                             >Add {{selectedUser.firstName}} to {{selectedTeam.name}}
                         </button>
                     </ul>
-                    <!-- <b>{{ selectedUser.firstName}} {{ selectedUser.lastName}}</b>
-                    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-                    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button> -->
                 </div>
                 <form
                     name="create-team"
@@ -81,7 +85,7 @@
         </div>
     </div>
 
-
+</section>
 
 <!--     <div class="modal-header">
         <h3 class="modal-title">Add Users to {{team.name}}</h3>
