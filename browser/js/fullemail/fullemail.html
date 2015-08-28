@@ -46,6 +46,19 @@
 	                <button ng-click="showReply($index)" class="btn btn-default"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button>
 	                <replydir ng-show="message.showReply"></replydir>
 	            </accordion-group>
+	            <accordion-group ng-show="thread.showDummyReply">
+		            <accordion-heading>
+		            		<div>{{thread.dummyReply.subject}}</div>
+		            	</accordion-heading>
+		                <p class="conversation">{{thread.dummyReply.from}} → {{thread.dummyReply.to}}</p>
+		                <p>{{thread.dummyReply.date}}</p>
+		                <div>
+		                    {{thread.dummyReply.body}}
+		                </div>
+		                <br>
+		                <!-- <button ng-click="showReply($index)" class="btn btn-default"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button> -->
+		                <!-- <replydir ng-show="message.showReply"></replydir> -->
+	            </accordion-group>
 	        </accordion>
 	    </div>
 	    <div class="panel panel-default">
