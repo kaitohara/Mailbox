@@ -13,8 +13,10 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 				console.log('inboxCtrl teammates', teammates)
 				$scope.teammates = teammates;
 				$scope.teammates.forEach(function(teammate) {
-					if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
-						teammate.isOnline = true;
+					if($scope.onlineUsers){
+						if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
+							teammate.isOnline = true;
+						}
 					}
 				})
 			})
