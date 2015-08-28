@@ -13,7 +13,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	var reloadedTeam;
 	var reloadedUser;
 
-	// 7) user clicks a specific team from the sidebar
 	$scope.getTeamMembers = function(teamId) {
 		$scope.activeTeamId = teamId;
 		console.log('here', $scope.activeTeamId)
@@ -41,16 +40,16 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			$scope.getTeamMembers($stateParams.teamId)
 		})
 
-		// Socket.on('offlineUser', function(userId) {
-		// 	$scope.$apply(function() {
-		// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
-		// 			$scope.teammates.forEach(function(teammate) {
-		// 				if (teammate._id === userId) teammate.isOnline = false;
-		// 			})
-		// 		}
-		// 	})
+		Socket.on('offlineUser', function(userId) {
+			console.log('this person logged off', userId)
+			$scope.$apply(function() {
+				if ($scope.onlineUsers.indexOf(userId) > -1) {
+					$scope.teammates.forEach(function(teammate) {
+						if (teammate._id === userId) teammate.isOnline = false;
+					})
+				}
+			})
 
-		// })
 	};
 
 	console.log('User', $scope.team)
@@ -60,15 +59,21 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.teammates = []
 	}
 
-	Socket.on('offlineUser', function(userId) {
-		console.log('someone logged off!')
-		$scope.$apply(function() {
-			if ($scope.onlineUsers.indexOf(userId) > -1) {
-				$scope.teammates.forEach(function(teammate) {
-					if (teammate._id === userId) teammate.isOnline = false;
-				})
-			}
-		})
+	$scope.showOnlineStatus();
+
+	// Socket.on('offlineUser', function(userId) {
+	// 	console.log('someone logged off!')
+	// 	$scope.$apply(function() {
+	// 		if ($scope.onlineUsers.indexOf(userId) > -1) {
+	// 			$scope.teammates.forEach(function(teammate) {
+	// 				if (teammate._id === userId) teammate.isOnline = false;
+	// 			})
+	// 		}
+	// 	})
+	// })
+	$rootScope.$on('addedTeamMember', function() {
+		console.log('i added a team member from the sidebar!', $scope.team._id)
+		$scope.getTeamMembers($scope.team._id);
 	})
 
 	$scope.setTeamActive = function(index) {
@@ -88,10 +93,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.myInboxActive = false;
 		console.log($scope.activeTeammate)
 	}
-
-
-	$scope.showOnlineStatus();
-
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
 		$state.go('home.teamId', {

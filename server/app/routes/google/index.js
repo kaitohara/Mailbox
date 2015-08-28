@@ -17,9 +17,8 @@ router.get('/getAllEmails/:id', function(req, res) {
 			};
 
 			if (err) return res.json(500);
-			console.log('pre-edit teams', teams)
-			TeamModel.populate(teams, options, function(err, teams) {
-				res.json(teams.threads);
+			TeamModel.populate(teams, options, function(error, teamsPopulated) {
+				res.json(teamsPopulated.threads);
 			});
 		})
 })
@@ -46,8 +45,6 @@ router.get('/syncInbox/:teamId', function(req, res) {
 			return globalTeam.save()
 		})
 		.then(function() {
-			// console.log('THE THING: ', thing)
-			console.log('complete')
 			res.status(200).send('complete')
 		})
 })

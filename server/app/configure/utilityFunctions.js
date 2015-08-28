@@ -12,7 +12,7 @@ function Utils() {};
 function messageFilter(message, prop) {
     return message.filter(function(obj) {
         console.log('messageFilter object:', obj)
-        return obj['name'].toLowerCase() === prop.toLowerCase();
+        return obj.name.toLowerCase() === prop.toLowerCase();
     })
 }
 
@@ -101,7 +101,6 @@ Utils.prototype.saveSync = function(googleObj, team){
             })
             Promise.all(promisesforUpdatingMessages)
             .then(function(result){
-                console.log('done syncing!')
                 resolve();
             })
         } else {
@@ -157,7 +156,7 @@ Utils.prototype.getUpdatedMessagesAndSave = function(team, messageArray){
                                 .then(function(createdThread){
                                     return TeamModel.findOneAndUpdate({_id:team.id}, {$push:{threads:createdThread}})
                                 })
-                                .then(function(Team){
+                                .then(function(){
                                     console.log('didnt find thread with id ', gmailObject.threadId)
                                     resolve();
                                 })

@@ -8,12 +8,13 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
+				console.log('inboxCtrl teammates', teammates)
 				$scope.teammates = teammates;
-				$scope.teammates.forEach(function(teammate) {
-					if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
-						teammate.isOnline = true;
-					}
-				})
+				// $scope.teammates.forEach(function(teammate) {
+				// 	if ($scope.onlineUsers && $scope.onlineUsers.indexOf(teammate._id) > -1) {
+				// 		teammate.isOnline = true;
+				// 	}
+				// })
 			})
 	}
 
@@ -87,8 +88,8 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.refreshThreads = function() {
 		if ($scope.inboxTeam) {
 			teamFactory.getThisTeamsGmailThreadsId($scope.inboxTeam._id)
-				.then(function(threads) {
-					$scope.threads = threads;
+				.then(function(threadsFound) {
+					$scope.threads = threadsFound;
 					displayPersonalAssignment($scope.threads);
 				})
 		} else {

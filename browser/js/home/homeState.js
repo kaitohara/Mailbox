@@ -7,10 +7,10 @@ app.config(function($stateProvider) {
             resolve: {
                 teams: function(teamFactory, userFactory) {
                     return userFactory.getCurrentUser()
-                        .then(function(user) {
-                            if (user) {
+                        .then(function(userFound) {
+                            if (userFound) {
                                 return teamFactory
-                                    .getUserTeams(user._id)
+                                    .getUserTeams(userFound._id)
                                     .then(function(user) {
                                         console.log(user.data)
                                         return user.data.teams;

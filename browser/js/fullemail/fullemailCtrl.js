@@ -1,6 +1,7 @@
 app.controller('fullemailCtrl', function($scope, thread, threadFactory, $location, $anchorScroll, $rootScope, $state, $firebaseArray, userFactory) {
 
     $scope.thread;
+    // $scope.team;
     $scope.assignedTo = thread.assignedTo ? thread.assignedTo.firstName : 'Assign';
     $scope.assignedBy = thread.assignedBy ? thread.assignedBy.firstName : null;
     $scope.deflectButton;
@@ -9,19 +10,19 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
     // $scope.teammates;
 
     // $scope.getTeamMembers = function(teamId) {
+    //     console.log('fullemailCtrl getting team members', teamId)
     //     userFactory.getTeamMembers(teamId)
-    //         .then(function(teammates) {
-    //             $scope.teammates = teammates;
-
-    //             $scope.teammates.forEach(function(teammate) {
-    //                 if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
-    //                     teammate.isOnline = true;
-    //                 }
-    //             })
+    //     .then(function(teammates) {
+    //         $scope.teammates = teammates;
+    //         $scope.teammates.forEach(function(teammate) {
+    //             if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
+    //                 teammate.isOnline = true;
+    //             }
     //         })
+    //     })
     // }
 
-    $scope.getTeamMembers();
+    // $scope.getTeamMembers($scope.team);
 
     $scope.gotoBottom = function() {
         $scope.thread = thread;
@@ -99,10 +100,10 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
         $scope.chatMessage.text = '';
     };
 
-    $scope.assign = function(userChoice, thread, user) {
-        threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
-            .then(function(thread) {
-                $scope.assignedTo = thread.data.assignedTo.firstName;
+    $scope.assign = function(userChoice, threadToAssign, user) {
+        threadFactory.assignUserToThread(userChoice._id, threadToAssign._id, user._id)
+            .then(function(threadFound) {
+                $scope.assignedTo = threadFound.data.assignedTo.firstName;
                 if (window.location.pathname.indexOf("users") > -1) {
                     console.log('worddddd')
                     $state.go('home.userId', {
