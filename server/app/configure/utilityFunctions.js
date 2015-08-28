@@ -211,6 +211,9 @@ Utils.prototype.useNewToken = function(team, threadId) {
 
 Utils.prototype.decode = function(message) {
     console.log('decoding this: ', message)
+    console.log('decoding googleObj: ', message.googleObj)
+    console.log('decoding payload: ', message.googleObj.payload)
+    console.log('decoding headers: ', message.googleObj.payload.headers)
     if (message.googleObj.payload.parts) {
        message.googleObj.payload.parts.forEach(function(part) {
             console.log("part", part)

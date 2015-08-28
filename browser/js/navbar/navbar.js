@@ -34,8 +34,8 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, S
                         // redirect user to splash page
                         // comment this out if you want to
                         // see the user's icon turn red
-                        // $location.url('/')
-                        // location.reload();
+                    $location.url('/')
+                    location.reload();
                 });
             };
 

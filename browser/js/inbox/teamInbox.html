@@ -16,7 +16,7 @@
     <ul id='inboxThread'>
 			<li
 			ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
-			ng-click="goToTeamThread(thread._id); setActive($index); getTeamMembers(team._id)"
+			ng-click="goToTeamThread(thread._id); setActive($index)"
 			class='thread'
 			ng-class="{active:activeThread === $index}">
 				<div class="hoverThread">
@@ -26,7 +26,7 @@
 				<div>
 					<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
 
-					<p class="assignment">{{ thread.assignedTo.firstName }}</p>
+					<p class="assignment" ng-class="{red: thread.color === 'red', blue: thread.color === 'blue', green: thread.color === 'green', purple: thread.color === 'purple', orange: thread.color === 'orange'}">{{ thread.assignedTo.firstName }}</p>
 				</div>
 			</div>
 			</li>

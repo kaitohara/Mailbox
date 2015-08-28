@@ -12,7 +12,6 @@ app.config(function($stateProvider) {
                                 return teamFactory
                                     .getUserTeams(userFound._id)
                                     .then(function(user) {
-                                        console.log(user.data)
                                         return user.data.teams;
                                     })
                             }
@@ -41,7 +40,7 @@ app.config(function($stateProvider) {
                 team: function(teamFactory, $stateParams) {
                     var teamId = $stateParams.teamId;
                     return teamFactory.getOneTeam(teamId).then(function(team) {
-                        // console.log('team factory', team.data);
+
                         return team.data;
                     })
                 }
@@ -56,7 +55,7 @@ app.config(function($stateProvider) {
                     var userId = $stateParams.userId;
                     console.log('here we are')
                     return userFactory.getUser(userId).then(function(user) {
-                        // console.log('child state resolve - users myInbox:', user.data.myInbox)
+
                         return user.data.myInbox;
                     })
                 },
@@ -73,7 +72,7 @@ app.config(function($stateProvider) {
                 threads: function(userFactory, $stateParams) {
                     var userId = $stateParams.userId;
                     return userFactory.getUser(userId).then(function(user) {
-                        // console.log('child state resolve - users myInbox:', user.data.myInbox)
+
                         return user.data.myInbox;
                     })
                 },
@@ -104,12 +103,6 @@ app.config(function($stateProvider) {
             templateUrl: 'js/fullemail/fullemail.html',
             controller: 'fullemailCtrl',
             resolve: {
-                // thread: function(teamFactory, $stateParams) {
-                //     var threadId = $stateParams.threadId
-                //     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
-                //         return thread
-                //     })
-                // }
                 thread: function(teamFactory, $stateParams) {
                     var threadId = $stateParams.threadId
                     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
@@ -128,12 +121,6 @@ app.config(function($stateProvider) {
             templateUrl: 'js/fullemail/fullemail.html',
             controller: 'fullemailCtrl',
             resolve: {
-                // thread: function(teamFactory, $stateParams) {
-                //     var threadId = $stateParams.threadId
-                //     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
-                //         return thread
-                //     })
-                // }
                 thread: function(teamFactory, $stateParams) {
                     var threadId = $stateParams.threadId
                     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
