@@ -7,16 +7,15 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.teammates;
 
 	$scope.getTeamMembers = function(teamId) {
-		console.log('inboxCtrl getting team members for', teamId)
 		userFactory.getTeamMembers(teamId)
 			.then(function(teammates) {
 				console.log('inboxCtrl teammates', teammates)
 				$scope.teammates = teammates;
-				$scope.teammates.forEach(function(teammate) {
-					if ($scope.onlineUsers.indexOf(teammate._id) > -1) {
-						teammate.isOnline = true;
-					}
-				})
+				// $scope.teammates.forEach(function(teammate) {
+				// 	if ($scope.onlineUsers && $scope.onlineUsers.indexOf(teammate._id) > -1) {
+				// 		teammate.isOnline = true;
+				// 	}
+				// })
 			})
 	}
 
