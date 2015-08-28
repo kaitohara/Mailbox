@@ -1,4 +1,4 @@
-app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, Socket, $location) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, Socket) {
 
     return {
         restrict: 'E',
