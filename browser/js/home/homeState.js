@@ -64,6 +64,23 @@ app.config(function($stateProvider) {
                 }
             }
         })
+        .state('home.teammateId', {
+            url: '/teams/:teamId/user/:userId',
+            templateUrl: 'js/inbox/teammateInbox.html',
+            controller: 'inboxCtrl',
+            resolve: {
+                threads: function(userFactory, $stateParams) {
+                    var userId = $stateParams.userId;
+                    return userFactory.getUser(userId).then(function(user) {
+                        console.log('child state resolve - users myInbox:', user.data.myInbox)
+                        return user.data.myInbox;
+                    })
+                },
+                team: function() {
+                    return
+                }
+            }
+        })
         .state('home.teamId.threadId', {
             url: '/thread/:threadId',
             templateUrl: 'js/fullemail/fullemail.html',
@@ -80,7 +97,32 @@ app.config(function($stateProvider) {
                 }
             }
         })
+        
         .state('home.userId.threadId', {
+            url: '/thread/:threadId',
+            templateUrl: 'js/fullemail/fullemail.html',
+            controller: 'fullemailCtrl',
+            resolve: {
+                // thread: function(teamFactory, $stateParams) {
+                //     var threadId = $stateParams.threadId
+                //     return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
+                //         return thread
+                //     })
+                // }
+                thread: function(teamFactory, $stateParams) {
+                    var threadId = $stateParams.threadId
+                    return teamFactory.getThisEmailFromTheThread(threadId).then(function(thread) {
+                        thread.messages = thread.messages.sort(function compare(a, b) {
+                            return a.googleObj.internalDate - b.googleObj.internalDate;
+                        })
+                        return thread;
+                    })
+                }
+            }
+        })
+
+
+        .state('home.teammateId.threadId', {
             url: '/thread/:threadId',
             templateUrl: 'js/fullemail/fullemail.html',
             controller: 'fullemailCtrl',
