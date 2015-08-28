@@ -9,16 +9,14 @@ var replyManager = require('../replyManager.js');
 router.post('/sendemail/:threadId', function(req, res, next) {
 	console.log('req.body', req.body, 'req.body.email', req.body.email)
 	var email = req.body
-	// console.log('before teammodel, email to search for:', email)
-	// console.log('before teammodel, email address to search for:', email.from)
-	// console.log('before teammodel, email address to search for (w brackets):', email[from])
-	// console.log('before teammodel, email address to search for (w brackets and quotes):', email['from'])
-	// console.log('before teammodel, email address to search for (regular again):', email.from)
+	var threadId = req.params.threadId
+	console.log('before teammodel, in route, email to search for:', email)
+	console.log('before teammodel, in route, email address to search for:', email.from)
 	TeamModel.findOne({'email.address': email.from})
 	.then(function(team) {
-		console.log('team inside teammodel', team)
+		console.log('team inside teammodel mongoose query', team)
 		return replyManager.sendEmail(
-			team, replyManager.encodeEmail(email)
+			team, replyManager.encodeEmail(email), threadId
 			)
 	}, function(err){
 		console.log('mongoose err:', err)
