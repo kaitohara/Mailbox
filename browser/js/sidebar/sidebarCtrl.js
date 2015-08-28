@@ -16,15 +16,15 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.getTeamMembers = function(teamId) {
 		$scope.activeTeamId = teamId;
 		console.log('here', $scope.activeTeamId)
-		return new Promise(function(resolve, reject){
+		return new Promise(function(resolve, reject) {
 			userFactory.getTeamMembers(teamId)
 				.then(function(teammates) {
-					if (teammates){
+					if (teammates) {
 						$scope.teammates = teammates;
 						$scope.teammates.forEach(function(teammate) {
-								if ($scope.onlineUsers && $scope.onlineUsers.indexOf(teammate._id) > -1) {
-									teammate.isOnline = true;
-								}
+							if ($scope.onlineUsers && $scope.onlineUsers.indexOf(teammate._id) > -1) {
+								teammate.isOnline = true;
+							}
 						})
 						resolve();
 					}
@@ -89,7 +89,7 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 		$scope.activeTeammate = -1;
 	}
 	$scope.setTeammateActive = function(index) {
-		$scope.activeTeammate = [$scope.activeTeam[0],index];
+		$scope.activeTeammate = [$scope.activeTeam[0], index];
 		$scope.activeTeam[1] = ['inactive'];
 		$scope.myInboxActive = false;
 		console.log($scope.activeTeammate)
@@ -124,33 +124,35 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			})
 	};
 
-	(function(){
+	(function() {
 		var path = window.location.pathname;
-		if (path.indexOf('user') > -1 && path.indexOf('teams') > -1){
-			reloadedTeam = path.replace('/mailbox/teams/','')
+		if (path.indexOf('user') > -1 && path.indexOf('teams') > -1) {
+			reloadedTeam = path.replace('/mailbox/teams/', '')
 			reloadedTeam = reloadedTeam.replace(/\/user\/\w+/, '').replace(/\/thread\/\w+/, '')
-			reloadedUser = path.replace(/\/mailbox\/teams\/\w+\/user\//,'').replace(/\/thread\/\w+/, '')
+			reloadedUser = path.replace(/\/mailbox\/teams\/\w+\/user\//, '').replace(/\/thread\/\w+/, '')
 
 			var teamindex;
 			$scope.activeTeamId = reloadedTeam;
-			$scope.teams.forEach(function(team, index){
+			$scope.teams.forEach(function(team, index) {
 				if (team._id === reloadedTeam) {
 					teamindex = index;
 					$scope.activeTeam = [index, 'active'];
 				}
 			});
-			$scope.getTeamMembers(reloadedTeam).then(function(){
-				$scope.teammates.forEach(function(teammate, index){
+			$scope.getTeamMembers(reloadedTeam).then(function() {
+				$scope.teammates.forEach(function(teammate, index) {
 					if (teammate._id === reloadedUser) $scope.activeTeammate = [teamindex, index]
 				});
-			}, function(){console.log('promise rejected :(')})
-		} else if (path.indexOf('user') > -1){
+			}, function() {
+				console.log('promise rejected :(')
+			})
+		} else if (path.indexOf('user') > -1) {
 			$scope.setMyInboxActive()
-		} else if (path.indexOf('teams') > -1){
-			reloadedTeam = path.replace('/mailbox/teams/','');
+		} else if (path.indexOf('teams') > -1) {
+			reloadedTeam = path.replace('/mailbox/teams/', '');
 			$scope.activeTeamId = reloadedTeam;
 			$scope.getTeamMembers(reloadedTeam)
-			$scope.teams.forEach(function(team, index){
+			$scope.teams.forEach(function(team, index) {
 				if (team._id === reloadedTeam) {
 					$scope.activeTeam = [index, 'active'];
 				}

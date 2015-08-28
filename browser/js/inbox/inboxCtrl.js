@@ -10,16 +10,11 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 			.then(function(teammates) {
 				console.log('inboxCtrl teammates', teammates)
 				$scope.teammates = teammates;
-				// $scope.teammates.forEach(function(teammate) {
-				// 	if ($scope.onlineUsers && $scope.onlineUsers.indexOf(teammate._id) > -1) {
-				// 		teammate.isOnline = true;
-				// 	}
-				// })
 			})
 	}
 
 	function returnOneTeamId() {
-		userFactory.getUser($rootScope.user._id).then(function(user) {
+		return userFactory.getUser($rootScope.user._id).then(function(user) {
 			console.log('first team', user.data.teams[0]._id);
 			$scope.getTeamMembers(user.data.teams[0]._id);
 		})
