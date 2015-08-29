@@ -1,6 +1,6 @@
 <section id='modal'>    
     <div class="modal-header">
-        <h3 class="modal-title">Settings
+        <h3 class="modal-title">Team Manager
             <button type="button" style="float: right; background: transparent; border-color: transparent" ng-click="cancel()">x</button>
         </h3>
         
@@ -13,10 +13,10 @@
             <div class="col-sm-4">
                 <!-- <div class="sidebar-nav"> -->
                     <div class="navbar navbar-default" style="margin-bottom: 0px">
-                        <!-- <div class="nav navbar-nav"> -->
-                            <h5 class="sidebar-nav-title modal-nav-title" ng-click="openMyProfile()" ng-class='{"modal-nav-selected": showMyProfile}'>My Profile</h5>
-                            <h5 class="sidebar-nav-title modal-nav-title" ng-click="openTeamMembers()" ng-class='{"modal-nav-selected": showTeamMembers}'>Edit Members</h5>
-                            <h5 class="sidebar-nav-title modal-nav-title" ng-click="openTeamForm()" ng-class='{"modal-nav-selected": showTeamForm}'>Add Team</h5>
+                        <!-- <div class="nav navbar-nav"> --><!-- 
+                            <h5 class="sidebar-nav-title modal-nav-title" ng-click="openMyProfile()" ng-class='{"modal-nav-selected": showMyProfile}'>My Profile</h5> -->
+                            <h5 class="sidebar-nav-title modal-nav-title" ng-click="openTeamMembers()" ng-class='{"modal-nav-selected": showTeamMembers}'>Add Members</h5>
+                            <h5 class="sidebar-nav-title modal-nav-title" ng-click="openTeamForm()" ng-class='{"modal-nav-selected": showTeamForm}'>Add Inbox</h5>
                         <!-- </div> -->
                     </div>
                 <!-- </div> -->
@@ -37,9 +37,9 @@
                         <li
                             ng-repeat="team in teams"
                             ng-click="chooseTeam(team)"
-                            style="display: inline">
+                            class="modal-team">
                             {{team.name}}
-                            <span ng-show=" ! $last ">•</span>
+                            <!-- <span ng-show=" ! $last ">•</span> -->
                         </li>
                     <h4
                         class="modal-item"
@@ -69,16 +69,17 @@
                 <form
                     name="create-team"
                     ng-show="showTeamForm"
+                    class="create-team"
                     >
                     <div class="form-group">
-                        <label for="name">Team Name:</label>
-                        <input type="text" ng-model="newTeam.name" class="form-control" id="name" placeholder="Enter team name" value="faux team">
+                        <!-- <label for="name">Team Name:</label> -->
+                        <input type="text" ng-model="newTeam.name" class="form-control modal-input" id="name" placeholder="Team name" value="faux team">
                     </div>
                     <div class="form-group">
-                        <label for="email">Team E-Mail:</label>
-                        <input type="text" ng-model="newTeam.email" class="form-control" id="email" placeholder="Enter an email">
+                        <!-- <label for="email">Team E-Mail:</label> -->
+                        <input type="text" ng-model="newTeam.email" class="form-control modal-input" id="email" placeholder="Team email">
                     </div>
-                    <button class="btn btn-success" ng-click="createTeam()">Add Team</button>
+                    <button class="btn modal-button hb-facebook" ng-click="createTeam()">Add Team</button>
                     <!-- <button class="btn btn-warning" ng-click="cancel()">Cancel</button> -->
                 </form>
             </div>

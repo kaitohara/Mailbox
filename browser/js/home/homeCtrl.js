@@ -16,7 +16,7 @@ app.controller('homeCtrl', function($scope, $state, teams, users, $rootScope) {
         $scope.status.isopen = !$scope.status.isopen;
     };
 
+
     $scope.assignedUser = 'Assign';
     ///////////////////////////////////////////
-
 });
