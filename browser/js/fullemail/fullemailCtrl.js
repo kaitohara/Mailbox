@@ -115,6 +115,13 @@ app.controller('fullemailCtrl', function($scope, thread, threadFactory, $locatio
                 }
             })
     }
+
+    $scope.createSnippet = function(body, from){
+        console.log(from.length)
+        var num = 60-from.length
+        if (body.length > num) body = body.slice(0,num)+'...'
+        return body;
+    }
 })
 
 // threadFactory.assignUserToThread(userChoice._id, thread._id, user._id)
