@@ -16,9 +16,9 @@
 	            </span>
 	        </li>
 	        <li class='emailButtons'>
-	            <span>
+	            <!-- <span>
 					<button class="btn fetchButton">Delete</button>
-				</span>
+				</span> -->
 				<span>
 					<button class="btn fetchButton"><i class='glyphicon glyphicon-pencil'></i></button>
 				</span>
@@ -61,9 +61,9 @@
 	            </accordion-group>
 	        </accordion>
 	    </div>
-	    <div class="panel panel-default">
-	        <div class="panel-heading commentsPanel">
-	            <h3 class="panel-title">Thread Comments</h3>
+	    <div class="panel panel-default commentsPanel">
+	        <div class="panel-heading commentsHeading">
+	            <h3 class="panel-title">Comments</h3>
 	        </div>
 	        <div class="panel-body">
 	            <ul class='commentsDiv' scroll-glue>
@@ -73,7 +73,7 @@
 	            <form ng-submit='sendMessage(chatMessage)'>
 	                <!-- <div id='messagesDiv'></div> -->
 	                <div class="input-group">
-            			<input type='text' class="form-control" placeholder='Your Message' ng-model='chatMessage.text'>
+            			<input type='text' class="form-control chatInput" placeholder='Your Message' ng-model='chatMessage.text'>
             			<span class="input-group-addon">
                 			<button class='chatButton' type='submit' ng-click='sendMessage(chatMessge)'>Send</button>
             			</span>

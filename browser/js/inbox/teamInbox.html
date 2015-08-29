@@ -17,7 +17,7 @@
 			<li
 			ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
 			ng-click="goToTeamThread(thread._id); setActive($index)"
-			class='thread'
+			class='thread my-animation'
 			ng-class="{active:activeThread === $index}">
 				<div class="hoverThread">
 				<div>

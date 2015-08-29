@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('PostaApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ngSanitize', "firebase", 'luegg.directives']);
+window.app = angular.module('PostaApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ngSanitize', "firebase", 'luegg.directives', 'ngAnimate']);
 
 app.config(function($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

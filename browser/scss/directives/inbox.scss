@@ -39,10 +39,15 @@
 		}
 		.fetchButton {
 	      background: white;
-	      // color: #F65758;
 	      color: #4c586c;
 	      border: 1px solid #4c586c;
 	      border-radius: 0px;
+	      transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	      &:hover {
+	      	background-color: lighten(#F65758, 10%);
+	      	color: white;
+	      	border-color: lighten(#F65758, 10%);
+	      }
 	    }
 	}
 

@@ -1078,7 +1078,7 @@
   background: #4c586c;
   border-color: #4c586c;
   color: #ffffff;
-  transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
 .hb-facebook:hover,
 .hb-facebook:hover:before,
@@ -1089,3 +1089,19 @@
 }
 
 /* End buttons */
+
+.my-animation.ng-enter {
+  /* standard transition code */
+  transition: 0.5s cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  opacity:0;
+  padding-left: 7px;
+}
+.my-animation.ng-enter-stagger {
+  transition-delay: 0.1s;
+  transition-duration: 0s;
+}
+.my-animation.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity:1;
+  padding-left: 0;
+}
