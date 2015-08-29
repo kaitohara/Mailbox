@@ -7,8 +7,8 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	$scope.selectedTeammate;
 	// $scope.assignedColor = 'red';
 
-	console.log('window.location.pathname',window.location.pathname)
-	// $state.go('home.userId.threadId', {threadId: threads[0]._id})
+	console.log('window.location.pathname', window.location.pathname)
+		// $state.go('home.userId.threadId', {threadId: threads[0]._id})
 
 	$scope.getTeamMembers = function(teamId) {
 		userFactory.getTeamMembers(teamId)
@@ -68,7 +68,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 					thread.color = randomColorPicker(thread.assignedTo._id)
 				}
 				// for choosing a teammate from the sidebar
-			} else {
+			} else if (thread.assignedTo) {
 				userFactory.getUser(thread.assignedTo).then(function(user) {
 					$scope.selectedTeammate = user.data.firstName;
 				})
@@ -86,7 +86,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		$scope.refreshThreads();
 	})
 
-	
+
 
 	$scope.setActive = function(index) {
 		$scope.activeThread = index;
@@ -109,7 +109,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 
 	$scope.goToTeammateThread = function(threadId) {
 		$rootScope.$emit('userInbox');
-		setTimeout(function(){
+		setTimeout(function() {
 			$state.go('home.teammateId.threadId', {
 				threadId: threadId
 			}, 2000)
@@ -118,11 +118,17 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 
 	var threadfunctions = {
 		// 'myInbox': $scope.goToUserThread,
-		'myInbox' : function(){console.log('dummy')},
+		'myInbox': function() {
+			console.log('dummy')
+		},
 		// 'team': $scope.goToTeamThread,
-		'team': function(){console.log('dummy')},
+		'team': function() {
+			console.log('dummy')
+		},
 		// 'teammate': $scope.goToTeammateThread
-		'teammate' : function(){console.log('dummy')}
+		'teammate': function() {
+			console.log('dummy')
+		}
 	}
 
 	// var i = 0;
@@ -169,40 +175,47 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 				$scope.showLoader = false;
 			})
 	}
-	
+
 
 	function setActiveThreadOnPageLoad(reloadedThread) {
-		$scope.threads.forEach(function(thread, index){
-				if (thread._id === reloadedThread) {
-					$scope.activeThread = index;
-				}
-			})
+		$scope.threads.forEach(function(thread, index) {
+			if (thread._id === reloadedThread) {
+				$scope.activeThread = index;
+			}
+		})
 	}
+
 	function onPageLoad() {
-		
-			$scope.$apply();	
-		
+
+		// $scope.$apply();	
+
 		var path = window.location.pathname;
 		console.log('load this', $location.path())
 		var reloadedThread;
-		if (path.indexOf('thread') === -1){
+		if (path.indexOf('thread') === -1) {
 			if (path.indexOf('user') > -1 && path.indexOf('teams') > -1) {
-				$state.go('home.teammateId.threadId', {threadId: threads[0]._id})
-			} else if (path.indexOf('user') > -1){
-				$state.go('home.userId.threadId', {threadId: threads[0]._id})
+				$state.go('home.teammateId.threadId', {
+					threadId: threads[0]._id
+				})
+			} else if (path.indexOf('user') > -1) {
+				$state.go('home.userId.threadId', {
+					threadId: threads[0]._id
+				})
 			} else {
-				$state.go('home.teamId.threadId', {threadId: threads[0]._id})
+				$state.go('home.teamId.threadId', {
+					threadId: threads[0]._id
+				})
 			}
 			$scope.setActive(0)
-		} else if (path.indexOf('user') > -1 && path.indexOf('teams') > -1){
+		} else if (path.indexOf('user') > -1 && path.indexOf('teams') > -1) {
 			console.log('1')
-			reloadedThread = path.replace(/\/mailbox\/teams\/\w+\/user\/\w+/, '').replace(/\/thread\//,'')
+			reloadedThread = path.replace(/\/mailbox\/teams\/\w+\/user\/\w+/, '').replace(/\/thread\//, '')
 			setActiveThreadOnPageLoad(reloadedThread)
-		} else if (path.indexOf('user') > -1){
+		} else if (path.indexOf('user') > -1) {
 			console.log('2')
-			reloadedThread = path.replace(/\/mailbox\/users\/\w+\/thread\//,'')
+			reloadedThread = path.replace(/\/mailbox\/users\/\w+\/thread\//, '')
 			setActiveThreadOnPageLoad(reloadedThread)
-		} else if (path.indexOf('teams') > -1){
+		} else if (path.indexOf('teams') > -1) {
 			console.log('3')
 			reloadedThread = path.replace(/\/mailbox\/teams\//, '').replace(/\w+\/thread\//, '')
 			setActiveThreadOnPageLoad(reloadedThread)
