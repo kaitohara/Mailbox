@@ -7,6 +7,40 @@
   color: red;
 }
 
+.navbar-default {
+  border-radius: 0px;
+  color: #4c586c;
+  border-color: #4c586c;
+}
+
+.modal-input {
+  border-radius: 100px;
+  color: #4c586c;
+  border-color: #4c586c;
+  width: 70%;
+  margin: 0px auto;
+  transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  outline: none;
+  &:focus {
+    width: 80%;
+    outline: none;
+    outline-width: 0;
+    // border-color: red;
+  }
+}
+
+.modal-button {
+  border-radius: 100px;
+  margin: 0px auto;
+  color: #4c586c;
+  border-color: #4c586c;
+  background-color: white;
+}
+
+.create-team {
+  text-align: center;
+}
+
 .rightSideBar {
   background-color:#222730;
   position: fixed;
@@ -67,6 +101,10 @@
     color: white;
   }
 
+  ul {
+    list-style-type: none;
+  }
+
   .modal-item{
     padding-left: 0;
   }
@@ -79,6 +117,14 @@
     width: 204px;
     background-color: $darkGrey;
     color: $lightBlue;
+  }
+
+  .modal-team {
+    width: 25%;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    &:hover {
+      background-color: #F65758;
+    }
   }
 
   .settings-modal{
@@ -277,6 +323,7 @@
   margin-right: 15px;
 }
 .sidebar-nav > li > a {
+  transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
   position: relative;
   // border-top: 1px solid $darkBlue;
   padding-left: 50px;
@@ -945,3 +992,100 @@
     // margin-left: 204px;
   }
 }
+
+/* Button Animations */
+.spin,
+.spin-icon i {
+  -webkit-transition: -webkid-transform .25s  ease;
+     -moz-transition: -moz-transform .25s  ease;
+      -ms-transition: -ms-transform .25s  ease;
+       -o-transition: -o-transform .25s  ease;
+          transition: transform .25s  ease;
+}
+
+.spin-icon:hover i,
+.spin:hover {
+  -webkit-transform:rotate(360deg);
+     -moz-transform:rotate(360deg);
+      -ms-transform:rotate(360deg);
+       -o-transform:rotate(360deg);
+      transform:rotate(360deg); 
+}
+
+/* 5.1 - Default Colors
+-------------------------------------------------*/
+.hb,
+.hb:before,
+.hb:after {
+  background-color: #2c3e50;  /*  Default background color  */ 
+  border-left:1px solid #2c3e50;
+  border-right:1px solid #2c3e50;
+  color: #2ecc71; /* Default font color */
+}
+/* 5.1 - Default Colors End
+-------------------------------------------------*/
+
+
+/* 5.2 - Default hover colors
+-------------------------------------------------*/
+.hb:hover,
+.hb:hover:before,
+.hb:hover:after {
+  background: transparent;  
+  border-left:1px solid #2ecc71;
+  border-right:1px solid #2ecc71;  
+  color: #2ecc71; /* Default hover font color */
+}
+/* 5.2 - Default hover colors end
+-------------------------------------------------*/
+
+
+
+/* 5.3 - Custom Button colors
+-------------------------------------------------*/
+.hb-custom,
+.hb-custom:before,
+.hb-custom:after {
+  background: #f39c12 !important;  /*  Custom background color  */
+  color: white!important; /* Custom font color */
+  /*font-size:20px;*/ /* Custom font size */
+  border-left:1px solid #f39c12 !important;;
+  border-right:1px solid #f39c12 !important;; 
+}
+/* 5.3 - Custom Button colors End
+-------------------------------------------------*/
+
+
+
+/* 5.4 - Custom Button hover colors
+-------------------------------------------------*/
+.hb-custom:hover,
+.hb-custom:hover:before,
+.hb-custom:hover:after {
+  background: #f1c40f !important;  
+  border-left:1px solid #f1c40f !important;;
+  border-right:1px solid #f1c40f !important;; 
+  color: black!important; /* Custom hover font color */
+}
+/* 5.4 - Custom Button hover colors End
+-------------------------------------------------*/
+/* 5.0 - Buttons Color End
+------------------------------------------------------------------------*/
+
+.hb-facebook,
+.hb-facebook:before,
+.hb-facebook:after {
+  background: #4c586c;
+  border-color: #4c586c;
+  color: #ffffff;
+  transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+}
+.hb-facebook:hover,
+.hb-facebook:hover:before,
+.hb-facebook:hover:after {
+  background: transparent;
+  border-color: #4c586c;
+  color: #4c586c;
+}
+
+/* End buttons */

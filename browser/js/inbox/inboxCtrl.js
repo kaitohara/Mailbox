@@ -70,7 +70,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 				thread.color = randomColorPicker(thread.assignedTo);
 				console.log('the color is', thread.color)
 			}
-			// else if (thread.assignedTo && !thread.assignedTo._id)
 		})
 	}
 
