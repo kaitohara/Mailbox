@@ -18,5 +18,4 @@ app.controller('homeCtrl', function($scope, $state, teams, users, $rootScope) {
 
     $scope.assignedUser = 'Assign';
     ///////////////////////////////////////////
-
 });

@@ -15,7 +15,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 
 	$scope.getTeamMembers = function(teamId) {
 		$scope.activeTeamId = teamId;
-		console.log('here', $scope.activeTeamId)
 		return new Promise(function(resolve, reject) {
 			userFactory.getTeamMembers(teamId)
 				.then(function(teammates) {
@@ -57,9 +56,6 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	}
 
 
-	console.log('User', $scope.team)
-	console.log('teams', $scope.teams)
-
 	$scope.clearTeamMembers = function() {
 		$scope.teammates = []
 	}
@@ -67,21 +63,33 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 	$scope.showOnlineStatus();
 
 	$scope.setTeamActive = function(index) {
-		console.log('index', index)
+		if (index !== $scope.activeTeam[0]){
+			console.log('setTeamActive')	
+			$rootScope.$emit('changedInbox', 'team')
+		}
 		$scope.activeTeam = [index, 'active'];
 		$scope.myInboxActive = false;
 		$scope.activeTeammate = -1;
 	}
 	$scope.setMyInboxActive = function() {
+		if (!$scope.myInboxActive){
+			console.log('Setmyinbox')	
+			$rootScope.$emit('changedInbox', 'myInbox')
+		}
 		$scope.myInboxActive = true;
 		$scope.activeTeam = [-1, 'inactive'];
 		$scope.activeTeammate = -1;
 	}
 	$scope.setTeammateActive = function(index) {
-		$scope.activeTeammate = [$scope.activeTeam[0], index];
+
+		if (index !== $scope.activeTeammate[1]){
+			console.log('set teammate')	
+			$rootScope.$emit('changedInbox', 'teammate')
+		}
+		$scope.activeTeammate = [$scope.activeTeam[0],index];
+
 		$scope.activeTeam[1] = ['inactive'];
 		$scope.myInboxActive = false;
-		console.log($scope.activeTeammate)
 	}
 	$scope.goToTeam = function(team) {
 		$scope.team = team;
@@ -111,7 +119,9 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			})
 	};
 
+
 	(function() {
+
 		var path = window.location.pathname;
 		if (path.indexOf('user') > -1 && path.indexOf('teams') > -1) {
 			reloadedTeam = path.replace('/mailbox/teams/', '')
@@ -135,8 +145,10 @@ app.controller('sidebarCtrl', function($scope, teamFactory, $stateParams, userFa
 			})
 		} else if (path.indexOf('user') > -1) {
 			$scope.setMyInboxActive()
-		} else if (path.indexOf('teams') > -1) {
-			reloadedTeam = path.replace('/mailbox/teams/', '');
+
+		} else if (path.indexOf('teams') > -1){
+			reloadedTeam = path.replace('/mailbox/teams/','').replace(/\/thread\/\w+/,'');
+
 			$scope.activeTeamId = reloadedTeam;
 			$scope.getTeamMembers(reloadedTeam)
 			$scope.teams.forEach(function(team, index) {

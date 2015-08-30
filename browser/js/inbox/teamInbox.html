@@ -7,7 +7,8 @@
 	    	</div>
 	    </form>
 		<img src="/loader.gif" style="width:28px" ng-show="showLoader">
-		<button class='btn fetchButton' ng-click="syncInbox()">Fetch</button>
+		<i class="fa fa-cloud-download fetch-icon" ng-click="syncInbox()"></i>
+		<!-- <button class='btn fetchButton' ng-click="syncInbox()">Fetch</button> -->
 		
 	</div>
 
@@ -17,12 +18,13 @@
 			<li
 			ng-repeat="thread in threads | filter: search | orderBy: 'latestMessage.date':true"
 			ng-click="goToTeamThread(thread._id); setActive($index)"
-			class='thread'
-			ng-class="{active:active === $index}">
+			class='thread my-animation'
+			ng-class="{active:activeThread === $index}">
 				<div class="hoverThread">
 				<div>
 					<p class="pull-left from">{{cleanName(thread.latestMessage.from)}}</p><p class='pull-right date'>{{simplifyDate(thread.latestMessage.date)}}</p>
 				</div>
+				<i ng-class="{'toggle fa fa-angle-up pull-right':activeThread === $index}"></i>
 				<div>
 					<p class="subject"><b>{{thread.latestMessage.subject}}</b></p>
 

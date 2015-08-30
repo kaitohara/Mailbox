@@ -1,9 +1,22 @@
+.posta-button{
+  background-color: white;
+  border: 1px solid #222730;
+  border-radius: 0px;
+}
+.posta-button:hover{
+  background-color: #F95554;
+  color:white;
+  border: 1px solid #F95554;
+  border-radius: 0px;
+}
+
 #fullEmailPosition {
   position: fixed;
   left:504px;
   width: calc(100% - 524px);
   height: calc(100vh - 1px);
-  background-color: #EEF3F6;
+  background-color: white;
+  color: #323232;
 
   #listFix {
     overflow: visible;
@@ -13,9 +26,12 @@
     text-align: center;
     display: inline;
   }
-
+  p {
+    display:inline;
+  }
   .emailTopButtons {
-    background-color: #F8F9FB;
+    background-color: white;
+    height:55px;
     // text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -23,7 +39,7 @@
     color: $darkBlue;
     border-bottom: 1px solid $lightGrey;
     overflow:visible;
-    padding-left: 68%;
+    // padding-left: 68%;
   }
   .one {
     display: inline;
@@ -39,23 +55,56 @@
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-left:80%;
     color: $darkBlue;
   }
 
   .fetchButton {
-      background: white;
+    background: white;
       // color: #F65758;
       color: #4c586c;
-      border: 1px solid #4c586c;
+      border: 1px solid #DDDDDD;
       border-radius: 0px;
+      transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        &:hover {
+          background-color: lighten(#F65758, 10%);
+          color: white;
+          border-color: lighten(#F65758, 10%);
+        }
     }
-}
+  }
+  .raleway {
+    font-family: 'Raleway', sans-serif;
+    display: inline;
+  }
 
-#fullemail {
-    padding-left:5px;
-    padding-right:5px;
-    padding-bottom: 50px;
-    padding-top: 15px;
+  .messages-header {
+    height: 50px;
+    width:100%;
+    margin: 15px 25px 15px 30px;
+    padding: 10px 10px 0 10px;
+    font-weight: bold;
+    font-size: 1.4em;
+    .wrapper {
+      height:100%;
+      display: inline-block;
+      padding: 0 50px 10px 2px;
+      overflow:visible;
+      // border-bottom: 2px solid #D5DAE2;
+    }
+    #subject-text{
+      display:inline;
+      font-size:1em;
+      font-weight: normal;
+    }
+  }
+
+  #fullemail {
+    // box-shadow: 0 0 8px 8px #F0F5F7 inset;
+    // border: 1px solid black;
+    z-index: 2;
+    margin-top: 5px;
+    padding: 0 35px 50px 20px;
     position: fixed;
     left:504px;
     width: calc(100% - 524px);
@@ -66,9 +115,33 @@
     .panel {
       margin-top: 0px;
       border-radius: 0px;
+      // padding-bottom: 15px;
+
     }
+
+    .input-group-addon{
+      font-family: 'Raleway', sans-serif;
+      color: #323232;
+      background-color: white;
+      border-radius: 0px;
+      border: none;
+      font-weight: bold;
+    }
+    .form-control{
+      color: #323232;
+      background-color: white;
+      border-radius: 0px;
+      border: none;
+      box-shadow:none;
+      margin: 0px;
+      padding: 0px;
+    }
+    // .message-body{
+    //   display:inline;
+    // }
     .panel-group .panel {
       border-radius: 0px;
+      border: none;
     }
 
     .panel-heading {
@@ -77,10 +150,13 @@
       -ms-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
       -o-transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
       transition: 120ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-      
+      border: none;
+      padding-bottom:8px;
+      padding-top: 8px;
+      border-left: 3px solid #D5DAE2;
       border-radius: 0px;
-      background-color: $lightGrey;
-      color: $lightBlue;
+      background-color: transparent;
+      // color: $lightBlue;
       a {
         text-decoration: none;
       }
@@ -90,7 +166,10 @@
     }
     .panel-body{
       padding: 20px;
-      padding-top: 10px;
+      border-left: 3px solid #84888A;
+      border-top: none;
+      border-bottom: 1px solid #ddd;
+
     } 
     .panel .panel-default {
       border-radius: 0px;
@@ -106,24 +185,78 @@
     .pull-right{
       text-decoration: none;
     }
+    .from {
+      // font-size: .85em;
+      display:inline;
+    }
+    .snippet{
+      padding-left: 25px;
+      font-size:.75em;
+      color: #A8B0A9;
+      display: inline;
+      // font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+    }
     .emailDate {
       font-size: .85em;
+      display:inline;
+      padding-right:5px;
     }
     .commentsDiv {
       max-height: 120px;
     }
-    .commentsPanel {
-      background-color: lighten($darkGrey, 70%);
+    .commentsHeading {
+      // background-color: lighten($darkGrey, 70%);
+      background-color: lighten(#F65758, 25%);
+      // lighten(#F65758, 10%)
       color: $lightGrey;
+    }
+    .commentsPanel {
+      width: 50%;
+    }
+
+    .chatInput {
+      border-radius: 0px;
     }
 
     .chatIcon {
       text-align: center;
     }
 
+    // .chatButtonBorderRadius {
+    //   border-radius: 0px;
+    //   padding: none;
+    //   background-color: white;
+    //   &:hover {
+    //       background-color: lighten(#F65758, 10%);
+    //       color: white;
+    //       border-color: lighten(#F65758, 10%);
+    //     }
+    // }
+
+    // .fetchButton {
+    //   background: white;
+    //   // color: #F65758;
+    //   color: #4c586c;
+    //   border: 1px solid #4c586c;
+    //   border-radius: 0px;
+    //   transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    //     &:hover {
+    //       background-color: lighten(#F65758, 10%);
+    //       color: white;
+    //       border-color: lighten(#F65758, 10%);
+    //     }
+    // }
+
     .chatButton {
         border: none;
-        background-color: transparent;
+        background-color: white;
+        white-space: nowrap;
+        &:hover {
+          background-color: lighten(#F65758, 10%);
+          color: white;
+          border-color: lighten(#F65758, 10%);
+        }
       }
 
     .replyButton {
@@ -139,14 +272,17 @@
     }
 
     #bottom {
-        display: block;
-        margin-top: 5px;
-        text-align: center;
+      display: block;
+      margin-top: 5px;
+      text-align: center;
     }
     #end{
-        display: block;
-        margin-top: 5px;
-        text-align: center;
+      display: block;
+      margin-top: 5px;
+      text-align: center;
+    }
+    .comment-box{
+      position:
     }
     replydir {
       width: 100%;
@@ -160,7 +296,16 @@
       }
       /*.input-group-addon {
         width: 80px;
-      }*/
+        }*/
+      }
+
+    }
+#email-reply{
+      color:white;
     }
 
-}
+// #fullemail:after{
+//   content: "";
+//   position: absolute; top: 0; bottom: 0; left: -15px; right: -15px;
+//   box-shadow: 0 30px 10px 0px #F0F5F7 inset;
+// }

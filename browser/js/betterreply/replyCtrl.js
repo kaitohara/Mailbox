@@ -6,7 +6,7 @@ app.controller('replyCtrl', function($scope, replyFactory) {
 			return header.name.toLowerCase() === fieldName.toLowerCase();
 		})[0];
 	};
-	console.log('4 parents', $scope.$parent.$parent.$parent.$parent)
+
 	var message = $scope.$parent.$parent.$parent.message;
 
 	$scope.emailReply = {};
@@ -42,6 +42,16 @@ app.controller('replyCtrl', function($scope, replyFactory) {
 			])
 			// close reply box
 		$scope.$parent.message.showReply = false
+		// $scope.$parent
+		$scope.$parent.$parent.$parent.$parent.$parent.thread.showDummyReply = true
+		$scope.$parent.$parent.$parent.$parent.$parent.thread.dummyReply = emailReply
+		var currentDate = new Date()
+	    var day = currentDate.getDate()
+	    var month = currentDate.getMonth() + 1
+	    var year = currentDate.getFullYear()
+	    var hours = currentDate.getHours()
+	    var minutes = currentDate.getMinutes()
+		$scope.$parent.$parent.$parent.$parent.$parent.thread.dummyReply.date = ""+month+"/"+day+"/"+year, hours+":"+minutes
 	}
 
 	$scope.cancel = function() {
