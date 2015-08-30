@@ -103,8 +103,8 @@
     // box-shadow: 0 0 8px 8px #F0F5F7 inset;
     // border: 1px solid black;
     z-index: 2;
-    margin-top: 5px;
-    padding: 0 35px 50px 20px;
+    /*margin-top: 5px;*/
+    padding: 0 25px 50px 20px;
     position: fixed;
     left:504px;
     width: calc(100% - 524px);
@@ -136,9 +136,14 @@
       margin: 0px;
       padding: 0px;
     }
-    // .message-body{
-    //   display:inline;
-    // }
+    .message-subject {
+      padding-top: 5px;
+      border-bottom: 1px solid lighten($lightGrey, 50%);
+      padding-bottom: 5px;
+    }
+    .message-body{
+       padding-top: 10px;
+    }
     .panel-group .panel {
       border-radius: 0px;
       border: none;
@@ -155,7 +160,9 @@
       padding-top: 8px;
       border-left: 3px solid #D5DAE2;
       border-radius: 0px;
-      background-color: transparent;
+      /*background-color: transparent;*/
+      background-color: lighten($lightGrey, 50%);
+      border-bottom: 1px solid lighten($lightGrey, 80%);
       // color: $lightBlue;
       a {
         text-decoration: none;
@@ -166,10 +173,11 @@
     }
     .panel-body{
       padding: 20px;
+      padding-top: 5px;
       border-left: 3px solid #84888A;
       border-top: none;
       border-bottom: 1px solid #ddd;
-
+      border-right: 1px solid #ddd;
     } 
     .panel .panel-default {
       border-radius: 0px;
@@ -203,20 +211,21 @@
       padding-right:5px;
     }
     .commentsDiv {
-      max-height: 120px;
+      max-height: 100px;
     }
     .commentsHeading {
-      // background-color: lighten($darkGrey, 70%);
-      background-color: lighten(#F65758, 25%);
+      background-color: lighten($darkGrey, 70%);
+      /*background-color: lighten(#F65758, 25%);*/
       // lighten(#F65758, 10%)
       color: $lightGrey;
     }
     .commentsPanel {
-      width: 50%;
+      width: 100%;
     }
 
     .chatInput {
       border-radius: 0px;
+      border: 1px solid lighten($lightGrey, 50%);
     }
 
     .chatIcon {
@@ -252,6 +261,8 @@
         border: none;
         background-color: white;
         white-space: nowrap;
+        margin-top: -5px;
+        border-radius: 0px;
         &:hover {
           background-color: lighten(#F65758, 10%);
           color: white;

@@ -17,20 +17,19 @@
 				</span>
 		</ul>
 	</div>
-	<div class='messages-header'>
+<!-- 	<div class='messages-header'>
 		<div class="wrapper">
 			<p>
 				<div class="raleway">SUBJECT:</div> <div id="subject-text">{{extractField(thread.messages[0], 'Subject').value}}</div></div>
 			</p>
 		</div>
-		<!-- <p>CONVERSATION WITH: {{extractField(thread.messages[0], "From").value}}</p> -->
-	</div>
+	</div> -->
 	<div id='fullemail'>
 		<div> 
 			<accordion close-others="oneAtATime">
 				<accordion-group ng-repeat="message in thread.messages" is-open='$last'>
 				<accordion-heading>
-				<p class="from">
+				<div><p class="from">
 					{{cleanName(extractField(message, "From").value)}} 
 				</p>
 				<p class="snippet">{{createSnippet(parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data), cleanName(extractField(message, "From").value))}}</p>
@@ -38,14 +37,11 @@
 					{{extractDate(message)}} </p>
 					<!-- <p class='emailDate'>{{extractDate(message)}}</p> -->
 					<!-- <div>{{extractField(message, 'Subject').value}}</div> -->
+				</div>
 				</accordion-heading>
-				<!-- <p class="conversation">{{extractField(message, "From").value}}  <i class='glyphicon glyphicon-arrow-right'></i>  {{extractField(message, "To").value}}</p> -->
-
-	                <!-- <p class="conversation">
-	                	<a class='pull-left'>From: {{extractField(message, "From").value}}</a>
-	                	<a class='pull-right'>To: {{extractField(message, "To").value}}</a>
-	                </p> -->
-	                
+					<div class="message-subject">
+	                	SUBJECT: {{extractField(thread.messages[0], 'Subject').value}}
+	                </div>             
 	                <div class="message-body">
 	                	{{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 	                </div>
@@ -83,7 +79,7 @@
 	                <div class="input-group">
             			<input type='text' class="form-control chatInput" placeholder='Your Message' ng-model='chatMessage.text'>
             			<span class="input-group-addon">
-                			<button class='chatButton' type='submit' ng-click='sendMessage(chatMessge)'>Send</button>
+                			<button class='btn chatButton' type='submit' ng-click='sendMessage(chatMessge)'>Send</button>
             			</span>
             		</div>
 
