@@ -7,6 +7,7 @@
 					<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
 						<button class="btn fetchButton">{{ assignedTo }}</button>
 						<button class="btn fetchButton"><span class="caret"></span></button>
+
 					</a>
 					<ul class="dropdown-menu" dropdown-menu>
 						<li ng-repeat='userChoice in teammates'>
@@ -14,15 +15,6 @@
 						</li>
 					</ul>
 				</span>
-			</li>
-			<!-- <li class='emailButtons'>
-				<span>
-					<button class="btn fetchButton">Delete</button>
-				</span>
-				<span>
-					<button class="btn fetchButton"><i class='glyphicon glyphicon-pencil'></i></button>
-				</span>
-			</li> -->
 		</ul>
 	</div>
 	<div class='messages-header'>
@@ -61,25 +53,39 @@
 	                <button ng-click="showReply($index)" class="btn btn-default pull-right posta-button"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button>
 	                <replydir ng-show="message.showReply"></replydir>
 	            </accordion-group>
+	            <accordion-group ng-show="thread.showDummyReply">
+		            <accordion-heading>
+		            		<div>{{thread.dummyReply.subject}}</div>
+		            	</accordion-heading>
+		                <p class="conversation">{{thread.dummyReply.from}} → {{thread.dummyReply.to}}</p>
+		                <p>{{thread.dummyReply.date}}</p>
+		                <div>
+		                    {{thread.dummyReply.body}}
+		                </div>
+		                <br>
+		                <!-- <button ng-click="showReply($index)" class="btn btn-default"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button> -->
+		                <!-- <replydir ng-show="message.showReply"></replydir> -->
+	            </accordion-group>
 	        </accordion>
 	    </div>
-	    <div class="panel panel-default comment-box">
-	    	<div class="panel-heading commentsPanel">
-	    		<h3 class="panel-title">Thread Comments</h3>
-	    	</div>
-	    	<div class="panel-body">
-	    		<ul class='commentsDiv' scroll-glue>
-	    			<li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
-	    			<li id='bottomChat'></li>
-	    		</ul>
-	    		<form ng-submit='sendMessage(chatMessage)'>
-	    			<!-- <div id='messagesDiv'></div> -->
-	    			<div class="input-group">
-	    				<input type='text' class="form-control" placeholder='Your Message' ng-model='chatMessage.text'>
-	    				<span class="input-group-addon">
-	    					<button class='chatButton' type='submit' ng-click='sendMessage(chatMessge)'>Send</button>
-	    				</span>
-	    			</div>
+
+	    <div class="panel panel-default commentsPanel">
+	        <div class="panel-heading commentsHeading">
+	            <h3 class="panel-title">Comments</h3>
+	        </div>
+	        <div class="panel-body">
+	            <ul class='commentsDiv' scroll-glue>
+	                <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
+	                <li id='bottomChat'></li>
+	            </ul>
+	            <form ng-submit='sendMessage(chatMessage)'>
+	                <!-- <div id='messagesDiv'></div> -->
+	                <div class="input-group">
+            			<input type='text' class="form-control chatInput" placeholder='Your Message' ng-model='chatMessage.text'>
+            			<span class="input-group-addon">
+                			<button class='chatButton' type='submit' ng-click='sendMessage(chatMessge)'>Send</button>
+            			</span>
+            		</div>
 
 	                <!-- <input type='text' class="form-control" placeholder='Your Message' ng-model='chatMessage.text'>
 	                <button class='btn btn-sm btn-default' type='submit'>Send</button> -->

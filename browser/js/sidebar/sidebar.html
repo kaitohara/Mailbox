@@ -40,11 +40,12 @@
                 </ul>
             </li>
         </ul>
-        <h5 class="sidebar-nav-title">Teammates<a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5> 
+        <h5 class="sidebar-nav-title">Teammates<a class="action-link" href="#" ng-click="open()"><i class="glyphicon glyphicon-plus"></i></a></h5> 
 
         <ul class="sidebar-nav">
-            <li ng-repeat='teammate in teammates' >
+            <li ng-repeat='teammate in teammates' class="my-animation">
                 <a class="collapsed montserrat teammate" ng-click="seeUserAssignments(teammate); setTeammateActive($index); broadcastInboxClick($index)" ng-class="{activeInbox: activeTeammate[1] === $index, activeGreen:activeTeammate[1] === $index}">
+
                     <span class="icon">
                         <i class="fa fa-user-secret"></i>
                     </span>
