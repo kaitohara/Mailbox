@@ -1,49 +1,56 @@
 <section id="fullEmailPosition">
 
 	<div class="emailTopButtons">
-	    <ul id="listFix">
-	        <li class='emailButtons'>
-	            <span class="dropdown" dropdown>
+		<ul id="listFix">
+			<li class='emailButtons'>
+				<span class="dropdown" dropdown>
 					<a href="" class="dropdown-toggle btn-group" dropdown-toggle>
 						<button class="btn fetchButton">{{ assignedTo }}</button>
 						<button class="btn fetchButton"><span class="caret"></span></button>
-	            </a>
-	            <ul class="dropdown-menu" dropdown-menu>
-	                <li ng-repeat='userChoice in teammates'>
-	                    <a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}}</a>
-	                </li>
-	            </ul>
-	            </span>
-	        </li>
-	        <li class='emailButtons'>
-	            <!-- <span>
-					<button class="btn fetchButton">Delete</button>
-				</span> -->
-				<span>
-					<button class="btn fetchButton"><i class='glyphicon glyphicon-pencil'></i></button>
+
+					</a>
+					<ul class="dropdown-menu" dropdown-menu>
+						<li ng-repeat='userChoice in teammates'>
+							<a ng-click="assign(userChoice, thread, user)">{{userChoice.firstName}}</a>
+						</li>
+					</ul>
 				</span>
-	        </li>
-	    </ul>
+		</ul>
 	</div>
-	
+	<div class='messages-header'>
+		<div class="wrapper">
+			<p>
+				<div class="raleway">SUBJECT:</div> <div id="subject-text">{{extractField(thread.messages[0], 'Subject').value}}</div></div>
+			</p>
+		</div>
+		<!-- <p>CONVERSATION WITH: {{extractField(thread.messages[0], "From").value}}</p> -->
+	</div>
 	<div id='fullemail'>
-	    <div>
-	        <accordion close-others="oneAtATime">
-	            <accordion-group ng-repeat="message in thread.messages" is-open='$last'>
-	            	<accordion-heading>
-	            		<div>{{extractField(message, 'Subject').value}}</div>
-	            	</accordion-heading>
-	                <!-- <p class="conversation">{{extractField(message, "From").value}}  <i class='glyphicon glyphicon-arrow-right'></i>  {{extractField(message, "To").value}}</p> -->
-	                <p class="conversation">
+		<div> 
+			<accordion close-others="oneAtATime">
+				<accordion-group ng-repeat="message in thread.messages" is-open='$last'>
+				<accordion-heading>
+				<p class="from">
+					{{cleanName(extractField(message, "From").value)}} 
+				</p>
+				<p class="snippet">{{createSnippet(parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data), cleanName(extractField(message, "From").value))}}</p>
+				<p class='emailDate pull-right'>
+					{{extractDate(message)}} </p>
+					<!-- <p class='emailDate'>{{extractDate(message)}}</p> -->
+					<!-- <div>{{extractField(message, 'Subject').value}}</div> -->
+				</accordion-heading>
+				<!-- <p class="conversation">{{extractField(message, "From").value}}  <i class='glyphicon glyphicon-arrow-right'></i>  {{extractField(message, "To").value}}</p> -->
+
+	                <!-- <p class="conversation">
 	                	<a class='pull-left'>From: {{extractField(message, "From").value}}</a>
 	                	<a class='pull-right'>To: {{extractField(message, "To").value}}</a>
-	                </p>
-	                <p class='emailDate'>{{extractDate(message)}}</p>
-	                <div>
-	                    {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+	                </p> -->
+	                
+	                <div class="message-body">
+	                	{{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
 	                </div>
 	                <br>
-	                <button ng-click="showReply($index)" class="btn btn-default"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button>
+	                <button ng-click="showReply($index)" class="btn btn-default pull-right posta-button"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button>
 	                <replydir ng-show="message.showReply"></replydir>
 	            </accordion-group>
 	            <accordion-group ng-show="thread.showDummyReply">
@@ -61,6 +68,7 @@
 	            </accordion-group>
 	        </accordion>
 	    </div>
+
 	    <div class="panel panel-default commentsPanel">
 	        <div class="panel-heading commentsHeading">
 	            <h3 class="panel-title">Comments</h3>

@@ -15,7 +15,7 @@
         <ul class="sidebar-nav">
             <li ng-click="goToUser()">
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
-                <a class="collapsed" ng-class="{activeInbox:myInboxActive, activeRed:myInboxActive}" ng-click="setMyInboxActive(); broadcastInboxClick(0)">
+                <a class="collapsed montserrat" ng-class="{activeInbox:myInboxActive, activeRed:myInboxActive}" ng-click="setMyInboxActive(); broadcastInboxClick(0)">
                     <span class="icon">
                         <i class="fa fa-inbox"></i>
                     </span>
@@ -28,7 +28,7 @@
             </li>
             <li ng-repeat='team in teams' ng-click="goToTeam(team); getTeamMembers(team._id)">
                 <!-- an example of nested submenu. basic bootstrap collapse component -->
-                <a class="collapsed" ng-class="{activeInbox:activeTeam[0] === $index, activeBlue:activeTeam[0] === $index}" ng-click="setTeamActive($index); broadcastInboxClick($index)">
+                <a class="collapsed montserrat" ng-class="{activeInbox:activeTeam[0] === $index, activeBlue:activeTeam[0] === $index}" ng-click="setTeamActive($index); broadcastInboxClick($index)">
                     <span class="icon">
                         <i class="fa fa-inbox"></i>
                     </span>
@@ -44,7 +44,8 @@
 
         <ul class="sidebar-nav">
             <li ng-repeat='teammate in teammates' class="my-animation">
-                <a class="collapsed teammate" ng-click="seeUserAssignments(teammate); setTeammateActive($index); broadcastInboxClick($index)" ng-class="{activeInbox: activeTeammate[1] === $index, activeGreen:activeTeammate[1] === $index}">
+                <a class="collapsed montserrat teammate" ng-click="seeUserAssignments(teammate); setTeammateActive($index); broadcastInboxClick($index)" ng-class="{activeInbox: activeTeammate[1] === $index, activeGreen:activeTeammate[1] === $index}">
+
                     <span class="icon">
                         <i class="fa fa-user-secret"></i>
                     </span>

@@ -11,7 +11,8 @@
 		width: 80%;
 	}
 	.fetch {
-		background-color: #F8F9FB;
+
+		background-color: white;
 		text-align: center;
 		padding-top: 10px;
 		padding-bottom: 10px;
@@ -36,6 +37,17 @@
 			height:31px;
 			padding:5px;
 			width:150px;
+		}
+		.fetch-icon{
+			padding-top:5px;
+			font-size:1.4em;
+			// height:50px;
+		}
+		.fetch-icon:hover{
+			color:#F95554;
+			padding-top:5px;
+			font-size:1.6em;
+			// height:50px;
 		}
 		.fetchButton {
 	      background: white;
@@ -84,8 +96,9 @@
 
 	#inboxThread {
 		.active {
-			background-color: #EEF3F6;
+			background-color: white;
 			border-right: none;
+			border-left: 5px solid #78D7EC;
 			&:hover {
 			-webkit-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 			-moz-transition: 150ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -96,6 +109,15 @@
 		};
 		}
 
+	}
+	.toggle {
+	  -webkit-transform: rotate(90deg);
+	  -ms-transform: rotate(90deg);
+	  -o-transform: rotate(90deg);
+	  transform: rotate(90deg);
+	}
+	.fa-angle-up {
+		margin-top:5px;
 	}
 
 	.delete {
@@ -132,19 +154,20 @@
 		height: 80px;
 		text-align: left;
 		list-style: none;
-		background-color: white;
+		background-color: #F5F5F5;
 		border-bottom: 1px solid #EFEFEF;
-		background-color: #F9F9F9;
+		background-color: #F5F5F5;
 		border-bottom: 1px solid #DDDDDD;
 		border-right: 1px solid #DDDDDD;
 		padding: 10px 20px 10px 20px;
+		font-size:.9em;
 		p{
 			padding: 0px;
 			margin: 0px;
 			// float:left;
 		}
 		.subject{
-			font-size: 1.1em;
+			font-size: 1.2em;
 			padding: 2px 0 2px 0;
 		}
 		.assignment {
