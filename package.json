@@ -5,7 +5,7 @@
     "main": "server/start.js",
     "scripts": {
         "start": "node server/start.js",
-        "postinstall": "gulp build"
+        "postinstall": "node seed && gulp build"
     },
     "engines": {
         "node": "0.12.4"
