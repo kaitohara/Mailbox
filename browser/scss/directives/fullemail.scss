@@ -1,6 +1,7 @@
 .posta-button{
   background-color: white;
-  border: 1px solid lighten($lightGrey, 20%);
+  /*border: 1px solid lighten($lightGrey, 20%);*/
+  border: 1px solid #DDDDDD;
   border-radius: 0px;
 transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
   &:hover {
@@ -10,12 +11,6 @@ transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
           cursor: pointer;
         }
 }
-/*.posta-button:hover{
-  background-color: #F95554;
-  color:white;
-  border: 1px solid #F95554;
-  border-radius: 0px;
-}*/
 
 #fullEmailPosition {
   position: fixed;
@@ -242,7 +237,7 @@ transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 
 
     .chatButton {
-        border: 1px solid lighten($lightGrey, 20%);
+        border: 1px solid #DDDDDD;
         background-color: white;
         white-space: nowrap;
         margin-top: -5px;
@@ -257,8 +252,8 @@ transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
       }
 
     .replyButton {
-      background-color:white;
-      border: 1px solid lighten($lightGrey, 20%);
+      /*background-color:white;*/
+      border: 1px solid #DDDDDD;
     }
 
     .chatBar {
