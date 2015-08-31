@@ -83,7 +83,7 @@
 	        </div>
 	        <div class="panel-body">
 	            <ul class='commentsDiv' scroll-glue>
-	                <li ng-repeat='chatMessage in chatMessages'>{{chatMessage.name}}: {{chatMessage.text}}</li>
+	                <li ng-repeat='chatMessage in chatMessages'><b>{{chatMessage.name}}:</b> {{chatMessage.text}}</li>
 	                <li id='bottomChat'></li>
 	            </ul>
 	            <form ng-submit='sendMessage(chatMessage)'>
