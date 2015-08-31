@@ -46,6 +46,10 @@ var seedUsers = function() {
         password: 'password',
         firstName: 'Donald'
     }, {
+        email: 'Bernie@posta.com',
+        password: 'potus',
+        firstName: 'Bernie'
+    }, {
         email: 'Barack@posta.com',
         password: 'potus',
         firstName: 'Barack'
@@ -53,6 +57,10 @@ var seedUsers = function() {
         email: 'Hillary@posta.com',
         password: 'mailbox',
         firstName: 'Hillary'
+    }, {
+        email: 'Rand@posta.com',
+        password: 'potus',
+        firstName: 'Rand'
     }];
 
     return User.createAsync(users);
