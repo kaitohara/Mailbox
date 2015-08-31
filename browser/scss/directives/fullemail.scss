@@ -224,10 +224,8 @@ transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
       padding-left: 5px;
     }
     .commentsHeading {
-      background-color: lighten($darkGrey, 70%);
-      /*background-color: lighten(#F65758, 25%);*/
-      // lighten(#F65758, 10%)
-      color: $lightGrey;
+      background-color: lighten(#F65758, 5%);
+      color: white;
     }
     .commentsPanel {
       width: 100%;
@@ -242,30 +240,6 @@ transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
       text-align: center;
     }
 
-    // .chatButtonBorderRadius {
-    //   border-radius: 0px;
-    //   padding: none;
-    //   background-color: white;
-    //   &:hover {
-    //       background-color: lighten(#F65758, 10%);
-    //       color: white;
-    //       border-color: lighten(#F65758, 10%);
-    //     }
-    // }
-
-    // .fetchButton {
-    //   background: white;
-    //   // color: #F65758;
-    //   color: #4c586c;
-    //   border: 1px solid #4c586c;
-    //   border-radius: 0px;
-    //   transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    //     &:hover {
-    //       background-color: lighten(#F65758, 10%);
-    //       color: white;
-    //       border-color: lighten(#F65758, 10%);
-    //     }
-    // }
 
     .chatButton {
         border: 1px solid lighten($lightGrey, 20%);

@@ -27,41 +27,53 @@
 	<div id='fullemail'>
 		<div> 
 			<accordion close-others="oneAtATime">
+
 				<accordion-group ng-repeat="message in thread.messages" is-open='$last'>
-				<accordion-heading>
-				<div><p class="from">
-					{{cleanName(extractField(message, "From").value)}} 
-				</p>
-				<p class="snippet">{{createSnippet(parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data), cleanName(extractField(message, "From").value))}}</p>
-				<p class='emailDate pull-right'>
-					{{extractDate(message)}} </p>
-					<!-- <p class='emailDate'>{{extractDate(message)}}</p> -->
-					<!-- <div>{{extractField(message, 'Subject').value}}</div> -->
-				</div>
-				</accordion-heading>
-					<div class="message-subject">
-	                	SUBJECT: {{extractField(thread.messages[0], 'Subject').value}}
-	                </div>             
-	                <div class="message-body">
-	                	{{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
-	                </div>
-	                <br>
-	                <button ng-click="showReply($index)" class="btn btn-default pull-right posta-button"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button>
-	                <replydir ng-show="message.showReply"></replydir>
-	            </accordion-group>
+				    <accordion-heading>
+				        <div>
+				            <p class="from">
+				                {{cleanName(extractField(message, "From").value)}}
+				            </p>
+				            <p class="snippet">{{createSnippet(parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data), cleanName(extractField(message, "From").value))}}</p>
+				            <p class='emailDate pull-right'>
+				                {{extractDate(message)}} </p>
+				            <!-- <p class='emailDate'>{{extractDate(message)}}</p> -->
+				            <!-- <div>{{extractField(message, 'Subject').value}}</div> -->
+				        </div>
+				    </accordion-heading>
+				    <div class="message-subject">
+				        SUBJECT: {{extractField(thread.messages[0], 'Subject').value}}
+				    </div>
+				    <div class="message-body">
+				        {{parseBody(message.googleObj.payload.parts[0].body.data || message.googleObj.payload.body.data)}}
+				    </div>
+				    <br>
+				    <button ng-click="showReply($index)" class="btn btn-default pull-right posta-button"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button>
+				    <replydir ng-show="message.showReply"></replydir>
+				</accordion-group>
+
 	            <accordion-group ng-show="thread.showDummyReply">
 		            <accordion-heading>
-		            		<div>{{thread.dummyReply.subject}}</div>
-		            	</accordion-heading>
-		                <p class="conversation">{{thread.dummyReply.from}} → {{thread.dummyReply.to}}</p>
-		                <p>{{thread.dummyReply.date}}</p>
-		                <div>
-		                    {{thread.dummyReply.body}}
-		                </div>
-		                <br>
-		                <!-- <button ng-click="showReply($index)" class="btn btn-default"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button> -->
-		                <!-- <replydir ng-show="message.showReply"></replydir> -->
+						<div>
+						    <p class="from">{{thread.dummyReply.from}}</p>
+						    <p class="snippet">
+						    	{{thread.dummyReply.body.slice(0,20)}}...
+						    </p>
+						    <p class='emailDate pull-right'>
+						        {{thread.dummyReply.date}}
+						    </p>
+						</div>
+		            </accordion-heading>
+		            <div class="message-subject">
+				        SUBJECT: {{thread.dummyReply.subject}}
+				    </div>
+		            	<div class="message-body">
+	                		{{thread.dummyReply.body}}
+	                	</div>
+	                <br>
+	                <button    class="btn btn-default pull-right posta-button"><i class="fa fa-reply"></i> {{ replyOrCancel }}</button>
 	            </accordion-group>
+
 	        </accordion>
 	    </div>
 
