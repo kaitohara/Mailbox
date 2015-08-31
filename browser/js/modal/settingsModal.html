@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <!-- <div class="sidebar-nav"> -->
-                    <div class="navbar navbar-default" style="margin-bottom: 0px">
+                    <div class="navbar navbar-default modal-sidebar" style="margin-bottom: 0px">
                         <!-- <div class="nav navbar-nav"> --><!-- 
                             <h5 class="sidebar-nav-title modal-nav-title" ng-click="openMyProfile()" ng-class='{"modal-nav-selected": showMyProfile}'>My Profile</h5> -->
                             <h5 class="sidebar-nav-title modal-nav-title" ng-click="openTeamMembers()" ng-class='{"modal-nav-selected": showTeamMembers}'>Add Members</h5>
@@ -50,7 +50,7 @@
                                 <input type="text" class="form-control search-box" ng-model='search' placeholder="Search">
                             </div>
                         </form>
-                        <li ng-repeat="user in availableUsers | filter: search">
+                        <li ng-repeat="user in availableUsers | filter: search" class="modal-users">
                             <a ng-click="$event.preventDefault(); chooseUser(user)">
                                 {{ user.firstName}} {{user.lastName}}: {{user.email}}
                             </a>
