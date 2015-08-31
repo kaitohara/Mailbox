@@ -39,6 +39,7 @@
 
 .create-team {
   text-align: center;
+  padding-top: 50px;
 }
 
 .rightSideBar {
@@ -93,7 +94,10 @@
     border-top: 35px solid #F65758;
   }
 }
+
 #modal{
+  height: 55vh;
+
   .modal-header {
     background-color: #4c586c;
   }
@@ -111,20 +115,39 @@
   }
 
   .modal-sidebar {
-    position: absolute;
-    float:left;
+    position: fixed;
     z-index: 0;
-    height: 100%;
-    width: 204px;
+    left: 0;
+    top: 74px;
+    bottom: 0;
+    margin-left:0px;
+    width: 30%;
+    font-family: 'Raleway', sans-serif;
+
     background-color: $darkGrey;
     color: $lightBlue;
+
+    .js-sidebar-content {
+      border-top: 35px solid #F65758;
+    }
   }
 
   .modal-team {
-    width: 25%;
+    width: 40%;
     transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     &:hover {
-      background-color: #F65758;
+      background-color: lighten(#F65758, 20%);
+    }
+    cursor: pointer;
+  }
+
+  .modal-users {
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    &:hover {
+      background-color: lighten(#F65758, 20%);
+      text-decoration: none !important;
     }
   }
 
