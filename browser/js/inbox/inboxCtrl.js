@@ -24,7 +24,6 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	})
 
 	function returnOneTeamId() {
-
 		return userFactory.getUser($rootScope.user._id).then(function(user) {
 
 			$scope.getTeamMembers(user.data.teams[0]._id);
@@ -186,9 +185,7 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 	}
 
 	function onPageLoad() {
-
 		// $scope.$apply();	
-
 		var path = window.location.pathname;
 		console.log('load this', $location.path())
 		var reloadedThread;
@@ -225,9 +222,4 @@ app.controller('inboxCtrl', function($rootScope, $scope, $state, threads, Socket
 		}
 	}
 	onPageLoad();
-
-	// (function(){
-	// 	console.log('woo')
-	// })();
-
 })
