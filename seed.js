@@ -42,15 +42,15 @@ var wipeDB = function() {
 var seedUsers = function() {
 
     var users = [{
-        email: 'testing@fsa.com',
+        email: 'Donald@posta.com',
         password: 'password',
         firstName: 'Donald'
     }, {
-        email: 'obama@gmail.com',
+        email: 'Barack@posta.com',
         password: 'potus',
         firstName: 'Barack'
     }, {
-        email: 'mailbox@gmail.com',
+        email: 'Hillary@posta.com',
         password: 'mailbox',
         firstName: 'Hillary'
     }];
