@@ -1,13 +1,14 @@
 # Posta
 
-Posta is a collaborative email tool, designed to give teams that have shared inboxes a way to manage their emails more efficiently. 
+Posta is a collaborative productivity tool for teams who manage multiple shared inboxes.
 
 # Techonologies Used
 * MEAN stack
-* GMail API
+* G-Mail API
+* Socket.io
 * Firebase
 
-//screenshot
+<img src="http://i.imgur.com/gY34Ego.jpg">
 
 # Features
 * Add users as teammates to a shared inbox
