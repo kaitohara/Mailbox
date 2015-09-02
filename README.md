@@ -1,6 +1,6 @@
 # Posta
 
-Posta is a collaborative productivity tool for teams who manage multiple shared inboxes. Divide and conquer your own inbox at <a href="www.posta.work">www.posta.work</a>!
+Posta is a collaborative productivity tool for teams who manage multiple shared inboxes. Divide and conquer your own inbox at <a href="posta.work">www.posta.work</a>!
 
 <img src="http://i.imgur.com/gY34Ego.jpg">
 
