@@ -16,8 +16,11 @@ router.get('/:id', function(req, res, next) {
 	TeamModel.findById(req.params.id).then(function(team) {
 			res.send(team)
 		})
-		.then(null, next)
-})
+		.then(null, function(e){
+			if (e.name ==="CastError") e.status = 404;
+			next(e);
+		});
+});
 
 
 router.post('/createTeam', function(req, res, next) {
@@ -29,6 +32,7 @@ router.post('/createTeam', function(req, res, next) {
 			}]
 		})
 		.then(function(team) {
+			console.log('req.user', req.user)
 			return UserModel.findOneAndUpdate({
 				_id: req.user._id
 			}, {
