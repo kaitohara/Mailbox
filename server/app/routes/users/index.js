@@ -29,9 +29,13 @@ router.get('/:userId', function(req, res, next) {
 		.populate('teams')
 		.populate('myInbox')
 		.then(function(user) {
+			if (!user) throw Error('Not Found');
 			res.send(user)
 		})
-		.then(null, next)
+		.then(null, function(e){
+			if (e.name === "CastError" || e.message === "Not Found") e.status = 404;
+			next(e);
+		})
 })
 
 router.put('/:userId', function(req, res) {

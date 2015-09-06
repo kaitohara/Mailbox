@@ -25,20 +25,17 @@ describe('Team model', function () {
         expect(Team).to.be.a('function');
     });
 
-        describe('on creation', function () {
+    describe('on creation', function () {
 
-            var createTeam = function () {
-                return Team.create({ name: 'Team1'});
-            };
+        var createTeam = function () {
+            return Team.create({ name: 'Team1'});
+        };
 
-            it('should set team.name to the given name', function (done) {
-                createTeam().then(function (team) {
-                    expect(team.name).to.be.equal('Team1');
-                    done();
-                });
+        it('should set team.name to the given name', function (done) {
+            createTeam().then(function (team) {
+                expect(team.name).to.be.equal('Team1');
+                done();
             });
         });
-
     });
-
 });

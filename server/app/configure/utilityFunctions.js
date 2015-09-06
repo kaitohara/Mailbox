@@ -53,7 +53,8 @@ Utils.prototype.getOneMessage = function(team, messageId){
 Utils.prototype.syncInbox = function(team) {
     // console.log('using utils.js on this team', team)
     var settings = threadRequestManager(team),
-        urlTail = `/history?startHistoryId=${team.historyId}`,
+        // urlTail = `/history?startHistoryId=${team.historyId}`, ES6, invalid for testing
+        urlTail = '/history?startHistoryId='+team.historyId,
         // startHistoryId = team.historyId, //newest message's history id?
         fullUrl = settings.urlHead + urlTail
         console.log(fullUrl, 'options', settings.options)

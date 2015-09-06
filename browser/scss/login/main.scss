@@ -1,27 +1,36 @@
 #login-form {
 
-	width: 30%;
  	margin: 0 auto;
  	margin-top: 5%;
+	 	.center {
+	 		text-align: center;
+	 		margin: 0;
+	 	}
+	 	.whiteIcon {
+	 		color: white;
+	 		font-size: 100px;
+	 		overflow-y: hidden;
+	 	}
+	 	.title {
+	 		text-align: center;
+	 		color: white;
+	 		font-weight: bold;
+	 		margin-bottom: 10%;
+	 		overflow:visible;
+	 	}
 
- 	.center {
- 		text-align: center;
- 		margin: 0;
- 	}
- 	.whiteIcon {
- 		color: white;
- 		font-size: 100px;
- 		overflow-y: hidden;
- 	}
-
- 	.title {
- 		text-align: center;
- 		font-size: 4.8em;
- 		color: white;
- 		font-weight: bold;
- 		margin-bottom: 10%;
- 		overflow:visible;
- 	}
+ 	@media(min-width:768px){
+ 		width: 350px;
+ 		.title{
+			font-size: 4.8em;
+ 		}
+	}
+	@media(max-width:767px){
+		width: 320px;
+	 	.title{
+			font-size: 5em;
+ 		}
+	}
 
 	#background {
 	    width: 100%; 
@@ -34,7 +43,7 @@
 	    background-image: linear-gradient(
       			rgba(0, 10, 20, 0.85), 
       			rgba(0, 10, 20, 0.85)
-    			), url("../keyboardpublic.jpg");
+    			), url("../keyboard.jpg");
 	    background-size: 100% 100%;
 	}
 
